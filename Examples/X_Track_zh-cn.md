@@ -130,6 +130,12 @@
 
     ![img](images/013.png)
 
+## 步骤五 退出 Demo
+
+关闭模拟器退出 Demo，如下图所示：
+
+![img](images/026.png)
+
 ## 常见问题
 
 ### 1 adb 命令找不到

@@ -122,6 +122,12 @@ The font and image resources used in Bandx are located in `apps/packages/demos/b
 
 3. Turn on `Auto-show` in settings to automatically play the entire application; turn off `Auto-show` to end the automatic playback.
 
+## Step 5 Exit Demo
+
+Close the simulator and exit Demo, as shown below:
+
+![img](images/026.png)
+
 ## FAQ
 ### 1 adb command not found
 

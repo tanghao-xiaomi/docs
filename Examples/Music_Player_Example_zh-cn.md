@@ -99,6 +99,12 @@ music_player &
 ```
 ![img](images/025.png)
 
+## 步骤五 退出 Demo
+
+关闭模拟器退出 Demo，如下图所示：
+
+![img](images/026.png)
+
 ## 常见问题
 
 ### 如何自定义音乐播放器

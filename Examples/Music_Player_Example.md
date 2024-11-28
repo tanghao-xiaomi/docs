@@ -105,6 +105,12 @@ music_player &
 ```
 ![img](images/025.png)
 
+## Step 5 Exit Demo
+
+Close the simulator and exit Demo, as shown below:
+
+![img](images/026.png)
+
 ## FAQ
 
 ### How to customize the music player

@@ -123,6 +123,12 @@ Bandx 中使用的字体和图像资源位于 `apps/packages/demos/bandx/resourc
 
 3. 打开 settings 中的 `Auto-show`，将会自动播放整个应用；关闭 `Auto-show`，自动播放就结束。
 
+## 步骤五 退出 Demo
+
+关闭模拟器退出 Demo，如下图所示：
+
+![img](images/026.png)
+
 ## 常见问题
 ### 1 adb 命令找不到
 

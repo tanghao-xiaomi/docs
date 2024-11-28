@@ -129,17 +129,11 @@ The three function buttons below correspond to different function pages:
 
     ![img](images/018.png)
 
-## FAQ
+## Step 5 Exit Demo
 
-| Problem | Reason | Solution |
-| -------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| adb command not found | adb tool not installed | Enter command to install: `sudo apt install android-tools-adb` |
-| Fonts are displayed as boxes (garbled characters) | Font resources are not loaded correctly | According to **Step 3 Start the emulator and push resources** above, push resources again. |
-| Why is there no map display function? | There are copyright issues with commercial map resources, so the map function cannot be provided. Only the track display function is retained. | - |
-| Why is the UI different from the original version? | This Demo has been **substantially adjusted** based on the original code, so the functions and displays are slightly different. | - |
-| Why is the battery level in the upper right corner of the status bar jumping randomly? | The simulator uses a simple random number to simulate the battery level, so this is normal. | - |
-| Is this track simulated? | Yes, it reads the [GPX](https://zh.wikipedia.org/wiki/GPX) file to replay the track and simulate GNSS to generate data. | - |
-| How to replace and display your own track file? | - | Rename your own track file (GPX format) to `TRK_EXAMPLE.gpx` and push it to the `/data/Track` directory using the adb tool. |
+Close the simulator and exit Demo, as shown below:
+
+![img](images/026.png)
 
 ## FAQ
 
