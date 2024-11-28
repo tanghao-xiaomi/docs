@@ -160,3 +160,4 @@
 | X-TRACK               | MIT License                                                  | 否             | https://github.com/FASTSHIFT/X-TRACK                            |
 | wamr                  | Apache License 2.0                                           | 否             | https://github.com/bytecodealliance/wasm-micro-runtime       |
 | libopencore-amr       | Apache License 2.0                                           | 是            | https://github.com/BelledonneCommunications/opencore-amr/blob/master |
+| kconfig-frontends     | GPL-2.0                                           | 是            | https://bitbucket.org/nuttx/tools/src/master/kconfig-frontends/ |
