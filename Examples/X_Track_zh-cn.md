@@ -55,14 +55,12 @@
 
 1. 运行以下命令开始编译：
 
-    - -j16：表示使用 16 个线程来并行编译代码，加快编译速度。
-
     ```Bash
     # 清理构建产物
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # 开始构建
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
     ```
 
 2. 编译成功后，在`nuttx`目录下会生成以下文件。

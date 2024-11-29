@@ -63,14 +63,12 @@ This article describes how to run the example on the openvela Emulator.
 
 1. Switch to the root directory of the openvela repository and execute the following commands in the terminal in sequence:
 
-    - -j16: Indicates using 16 threads to compile the code in parallel to speed up the compilation speed.
-
     ```Bash
     # Clean up build products
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # Start building
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
     ```
 
 2. After successful execution, the following files will be obtained:

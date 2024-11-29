@@ -5,7 +5,7 @@
 openvela 源码位于由 [GitHub](https://github.com/open-Vela) 或 [Gitee](https://gitee.com/open-vela) 托管的 Git 仓库中。
 
 ## 初始化 Repo 客户端
-  
+
 1. 创建并导航到工作目录：
 
     ```
@@ -15,7 +15,7 @@ openvela 源码位于由 [GitHub](https://github.com/open-Vela) 或 [Gitee](http
 
 2. 初始化用于操作源码的工作目录:
 
-    - Github：
+    - Github（需注册公钥，请参考[Github文档](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)）：
 
         ``` bash
         # Install Git LFS (Large File Storage) for managing large files
@@ -26,7 +26,7 @@ openvela 源码位于由 [GitHub](https://github.com/open-Vela) 或 [Gitee](http
         repo init --partial-clone -u git@github.com:open-vela/manifests.git -b dev -m openvela.xml --git-lfs
         ```
 
-    - Gitee：
+    - Gitee（需注册公钥，请参考[码云文档](https://gitee.com/help/articles/4191)）：
 
         ```
         repo init --partial-clone -b opensource -m vela.xml -u {GITEE_URL}

@@ -15,7 +15,7 @@ The openvela source is located in a collection of Git repositories hosted by [Gi
 
 2. Initialize your working directory for source control:
 
-    - For Github:
+    - For Github(need to register a public key, please refer to [Github documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)):
 
         ```
         # Install Git LFS (Large File Storage) for managing large files
@@ -26,7 +26,7 @@ The openvela source is located in a collection of Git repositories hosted by [Gi
         repo init --partial-clone -u git@github.com:open-vela/manifests.git -b dev -m openvela.xml --git-lfs
         ```
 
-    - For gitee:
+    - For gitee(need to register a public key, please refer to [Gitee documentation](https://gitee.com/help/articles/4191)):
 
         ```
         repo init --partial-clone -b opensource -m vela.xml -u {GITEE_URL}

@@ -48,12 +48,16 @@ openvela Emulator 具备以下优势：
     ./emulator.sh vela
     ```
 
-2. openvela 启动进入 `nsh` 后，在 openvela 的终端内运行如下命令：
+2. openvela 启动进入 `nsh` 后，在 `openvela-ap>` 内运行如下命令：
     ```Bash
     lvgldemo &
     ```
     执行后效果如下：
     ![img](images/001.png)
+
+3. 退出 openvela Emulator 实例，如下图所示：
+
+    ![img](./../Examples/images/026.png)
 
 
 ## 控制 openvela Emulator

@@ -15,7 +15,7 @@
 选择 openvela Emulator arm:
 
 ```
-./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap
+./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
 ```
 
 下一步若选取 openvela Emulator 运行 openvela，参阅 [使用 openvela Emulator 运行 openvela](./Run_Vela_on_Vela_Emulator_zh-cn.md)。

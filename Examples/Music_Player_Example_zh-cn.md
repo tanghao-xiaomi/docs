@@ -53,19 +53,17 @@
 
 1. 切换到 openvela 仓库的根目录，在终端内依次执行如下命令：
    
-   - -j16：表示使用 16 个线程来并行编译代码，加快编译速度。
-
     ```Bash
     # 清理构建产物
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # 开始构建
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
     ```
 
 2. 成功执行后，将得到以下文件：
 
-    ```C++
+    ```
     ./nuttx
     ├── vela_ap.elf
     ├── vela_ap.bin
@@ -171,4 +169,4 @@ music_player &
 
 2. 退出模拟器。
 
-3. 重新执行步骤三和步骤四。
+3. 重新执行[步骤三](#步骤三-启动模拟器并推送资源)和[步骤四](#步骤四-启动音乐播放器)。

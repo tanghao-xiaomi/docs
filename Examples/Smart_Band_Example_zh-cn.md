@@ -64,14 +64,12 @@ Bandx 是一款智能手环演示，包括手表表盘、启动器、音乐、�
 
 1. 切换到 openvela 仓库的根目录，在终端内依次执行如下命令：
 
-    - -j16：表示使用 16 个线程来并行编译代码，加快编译速度。
-
     ```Bash
     # 清理构建产物
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # 开始构建
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
     ```
 
 2. 成功执行后，将得到以下文件：

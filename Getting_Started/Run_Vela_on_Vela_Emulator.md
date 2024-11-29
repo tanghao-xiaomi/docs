@@ -48,12 +48,16 @@ The following goldfish specific drivers have been implemented:
     ./emulator.sh vela
     ```
 
-2. After openvela starts and enters `nsh`, run the following command in the openvela terminal:
+2. After openvela starts and enters `nsh`, run the following command in `openvela-ap>`:
     ```Bash
     lvgldemo &
     ```
     The effect after execution is as follows:
     ![img](images/001.png)
+
+3. Exit the openvela Emulator instance, as shown below:
+
+    ![img](./../Examples/images/026.png)
 
 ## Control openvela Emulator
 

@@ -58,15 +58,13 @@ This article describes how to run the music player demo in openvela Emulator.
 ## Step 2 Compile the project
 
 1. Switch to the root directory of the openvela repository and execute the following commands in the terminal:
-
-    - -j16: Indicates using 16 threads to compile the code in parallel to speed up the compilation speed.
-
+    
     ```Bash
     # Clean up the build product
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # Start building
-    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j16
+    ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
     ```
 
 2. After successful execution, the following files will be obtained:
@@ -177,4 +175,4 @@ Close the simulator and exit Demo, as shown below:
 
 2. Exit the simulator.
 
-3. Repeat steps 3 and 4.
+3. Repeat [Step 3](#step-3-start-the-simulator-and-push-resources) and [Step 4](#step-4-start-the-music-player).
