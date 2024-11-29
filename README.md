@@ -38,7 +38,7 @@ If you want to experience openvela, we provide a fully functional simulator that
 1. [Prepare the development environment](./Getting_Started/Set_up_the_development_environment.md)
 2. [Download openvela source code](./Getting_Started/Download_Vela_sources.md)
 3. [Compile openvela source code](./Getting_Started/Build_Vela_from_sources.md)
-4. [Run openvela with openvela Emulator](./Getting_Started/Run_Vela_on_Vela_Emulator.md)
+4. [Run build artifacts on openvela Emulator](./Getting_Started/Run_Vela_on_Vela_Emulator.md)
 
 ## Examples
 

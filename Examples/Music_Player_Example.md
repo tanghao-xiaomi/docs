@@ -58,9 +58,9 @@ This article describes how to run the music player demo in openvela Emulator.
 ## Step 2 Compile the project
 
 1. Switch to the root directory of the openvela repository and execute the following commands in the terminal:
-    
+
     ```Bash
-    # Clean up the build product
+    # Clean up build artifacts
     ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # Start building

@@ -12,8 +12,6 @@
 
 通过将 `vendor/<vendor name>/boards/<board name>/configs/<board configuration>` 作为参数传递给 build.sh 选择配置。
 
-选择 openvela Emulator arm:
-
 ```
 ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
 ```

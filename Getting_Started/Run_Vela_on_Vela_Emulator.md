@@ -1,8 +1,8 @@
-# Run openvela on openvela Emulator
+# Running Build Artifacts on openvela Emulator
 
 \[ English | [简体中文](./Run_Vela_on_Vela_Emulator_zh-cn.md) \]
 
-## openvela Emulator Overview
+## Overview of openvela Emulator
 
 The openvela Emulator simulates openvela devices on desktop computer so that developers can test application or driver on a variety of devices without needing to have each physical device.
 
@@ -40,7 +40,7 @@ The following goldfish specific drivers have been implemented:
 * Graphic
 * Sensors
 
-## Lunch openvela Emulator
+## Run openvela Emulator
 
 1. Switch to the root directory of the openvela repository and start an openvela Emulator instance by passing the `vela` option to emulator.sh.
 
@@ -66,6 +66,6 @@ You can control a running openvela Emulator instance through ADB or console.
 * [Android Debug Bridge commands](./Android_Debug_Bridge_commands.md)
 * [Send emulator console commands](./Send_emulator_console_commands.md)
 
-## Debugging openvela with openvela Emulator
+## Debugging with openvela Emulator
 
-* [Debugging openvela with openvela Emulator](./Debugging_Vela_with_Vela_Emulator.md)
+* [Debugging with openvela Emulator](./Debugging_Vela_with_Vela_Emulator.md)

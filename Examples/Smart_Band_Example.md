@@ -64,7 +64,7 @@ This article describes how to run the example on the openvela Emulator.
 1. Switch to the root directory of the openvela repository and execute the following commands in the terminal in sequence:
 
     ```Bash
-    # Clean up build products
+    # Clean up build artifacts
     ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap distclean -j$(nproc)
 
     # Start building

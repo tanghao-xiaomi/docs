@@ -12,8 +12,6 @@ The first step is to initialize openvela configuration for a given board, based 
 
 Select the configuration by passing `vendor/<vendor name>/boards/<board name>/configs/<board configuration>` as an argument to build.sh.
 
-For openvela Emulator arm:
-
 ```
 ./build.sh vendor/openvela/boards/vela/configs/goldfish-armeabi-v7a-ap -j$(nproc)
 ```

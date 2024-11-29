@@ -1,4 +1,4 @@
-# 使用 openvela Emulator 运行 openvela
+# 在 openvela Emulator 上运行编译产物
 
 \[ [English](./Run_Vela_on_Vela_Emulator.md) | 简体中文 \]
 
@@ -67,6 +67,6 @@ openvela Emulator 具备以下优势：
 * [ADB 命令](./Android_Debug_Bridge_commands_zh-cn.md)
 * [发送模拟器控制台命令](./Send_emulator_console_commands_zh-cn.md)
 
-## 使用 openvela Emulator 调试 openvela
+## 使用 openvela Emulator 调试
 
-* [使用 openvela Emulator 调试 openvela](./Debugging_Vela_with_Vela_Emulator_zh-cn.md)
+* [使用 openvela Emulator调试](./Debugging_Vela_with_Vela_Emulator_zh-cn.md)

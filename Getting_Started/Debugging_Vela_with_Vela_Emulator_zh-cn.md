@@ -1,4 +1,4 @@
-# 使用 openvela Emulator 调试 openvela
+# 使用 openvela Emulator 调试
 
 \[ [English](./Debugging_Vela_with_Vela_Emulator.md) | 简体中文 \]
 

@@ -1,4 +1,4 @@
-# Debugging openvela with openvela Emulator
+# Debugging with openvela Emulator
 
 \[ English | [简体中文](./Debugging_Vela_with_Vela_Emulator_zh-cn.md) \]
 
