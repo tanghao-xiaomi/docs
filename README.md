@@ -24,12 +24,11 @@ The name "Vela" is originated from the Latin term for "sail," which is also the 
 
 - **Comprehensive Connectivity Suite**: openvela offers broad protocol support, including Bluetooth BR/EDR/LE, LE Mesh, WiFi, Matter, IEEE802.15.4, and LTE Cat1, Ethernet, CAN/LIN, etc. Additionally, it seamlessly integrates with Xiaomi HyperConnect protocols.
 
-- **Rich Developer Tools**: openvela offers a comprehensive suite of developer tools, including system monitoring, and performance analysis, debugger, trace, crash dumb, and log analysis tools. 
+- **Rich Developer Tools**: openvela offers a comprehensive suite of developer tools, including system monitoring, performance analysis, debugger, trace, crash dumb, and log analysis tools. 
 
 ## Supported Platforms
 
 openvela supports a wide variety of architectures and platforms. See the full list on the [Supported Architectures and Platforms](https://nuttx.apache.org/docs/latest/platforms/index.html) page.
-
 
 ## Quick Start
 
@@ -56,13 +55,10 @@ The code in this repository is licensed under the Apache 2.0 license. You can fi
 
 Third-party license: [Third-Party Open-Source Software and License Notice](Third_Party_and_Open_Source_Components.md)
 
-
 ## Contact
 
 In order to better manage and respond to feedback and support requests, we recommend contacting us through the following methods:
 
-- **GitHub Issues**: If you have any questions, suggestions, or find any bugs, please submit a new issue on the Issues page. Please try to provide detailed information so that we can understand and solve the problem faster.
+- **Issues**: If you have any questions, suggestions, or find any bugs, please submit a new issue on the Issues page. Please try to provide detailed information so that we can understand and solve the problem faster.
 - **Pull Requests**: If you find an issue and have fixed it, you are welcome to submit a Pull Request. Please make sure to follow our [Contribution Guide](./CONTRIBUTING.md).
 - **Discussions**: If you have a broader topic or discussion, you can start a new discussion on the Discussions page.
-
-We are very grateful for the feedback and support of every user. Communicating through the GitHub platform can help us better maintain and improve the project.

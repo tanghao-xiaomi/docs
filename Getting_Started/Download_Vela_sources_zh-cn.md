@@ -29,7 +29,12 @@ openvela 源码位于由 [GitHub](https://github.com/open-Vela) 或 [Gitee](http
     - Gitee（需注册公钥，请参考[码云文档](https://gitee.com/help/articles/4191)）：
 
         ```
-        repo init --partial-clone -b opensource -m vela.xml -u {GITEE_URL}
+        # Install Git LFS (Large File Storage) for managing large files
+        sudo apt install git-lfs
+        git lfs install
+        git lfs --version
+
+        repo init --partial-clone -u git@gitee.com:open-vela/manifests.git -b dev -m openvela.xml --git-lfs
         ```
 
 ## 下载 openvela 源码
@@ -37,7 +42,7 @@ openvela 源码位于由 [GitHub](https://github.com/open-Vela) 或 [Gitee](http
 运行如下命令下载 openvela 源码树至工作目录：
 
 ```
-repo sync -c -j8
+repo sync -c -j$(nproc)
 ```
 
 ## 后续步骤

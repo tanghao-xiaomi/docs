@@ -29,7 +29,12 @@ The openvela source is located in a collection of Git repositories hosted by [Gi
     - gitee(need to register a public key, please refer to [Gitee documentation](https://gitee.com/help/articles/4191)):
 
         ```
-        repo init --partial-clone -b opensource -m vela.xml -u {GITEE_URL}
+        # Install Git LFS (Large File Storage) for managing large files
+        sudo apt install git-lfs
+        git lfs install
+        git lfs --version
+        
+        repo init --partial-clone -u git@gitee.com:open-vela/manifests.git -b dev -m openvela.xml --git-lfs
         ```
 
 ## Download the openvela source
@@ -37,7 +42,7 @@ The openvela source is located in a collection of Git repositories hosted by [Gi
 Run the following command to download the openvela source tree to working directory:
 
 ```
-repo sync -c -j8
+repo sync -c -j$(nproc)
 ```
 
 ## What to do next

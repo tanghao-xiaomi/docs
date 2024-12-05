@@ -12,7 +12,6 @@ openvela 操作系统专为 AIoT 领域量身定制，以轻量化、标准兼�
 
 Vela 的命名源自拉丁语中船帆的含义，也是南方星空中船帆星座的名字。我们选择这个名字的意义是希望与开发者一道携手，共同踏上星辰大海的征途。
 
-
 ## openvela 技术优势
 
 - **高度可扩展**：openvela 的设计注重模块化与可扩展性，使其能够灵活适应多样的物联网应用场景。小到仅配备 32K RAM 的微型 BLE 模组，大到拥有 256M RAM 的智能有屏音箱，openvela 都能提供高度可扩展的支持。
@@ -27,13 +26,9 @@ Vela 的命名源自拉丁语中船帆的含义，也是南方星空中船帆星
 
 - **丰富的开发者工具**：openvela 提供了一系列完备的开发者工具，包括系统监控、性能分析、调试器、追踪、崩溃分析和日志分析工具，为开发者提供了强大的支持。
 
-
-
 ## 硬件支持
 
 openvela 支持各种不同的架构（ARM32、ARM64、Risc-V、Xtensa、MIPS、CEVA 等）和硬件平台。请在[硬件支持](https://nuttx.apache.org/docs/latest/platforms/index.html)页面上查看完整列表。
-
-
 
 ## 快速入门
 
@@ -43,7 +38,6 @@ openvela 支持各种不同的架构（ARM32、ARM64、Risc-V、Xtensa、MIPS、
 2. [下载 openvela 源码](./Getting_Started/Download_Vela_sources_zh-cn.md)
 3. [编译 openvela 源码](./Getting_Started/Build_Vela_from_sources_zh-cn.md)
 4. [在 openvela Emulator 上运行编译产物](./Getting_Started/Run_Vela_on_Vela_Emulator_zh-cn.md)
-
 
 ## 示例
 
@@ -55,23 +49,16 @@ openvela 支持各种不同的架构（ARM32、ARM64、Risc-V、Xtensa、MIPS、
 
 参与贡献：[代码贡献指南](CONTRIBUTING_zh-cn.md)。
 
-
-
 ## 许可协议
 
 这个代码库中的代码使用 Apache 2.0 许可证。你可以在[这里](https://www.apache.org/licenses/LICENSE-2.0.txt)找到更多关于 Apache 2.0 许可证的信息。
 
 openvela引用三方开源软件及许可证说明，参考[第三方开源软件说明](Third_Party_and_Open_Source_Components_zh-cn.md)。
 
-
-
 ## 联系方式
 
 为了更好地管理和响应反馈和支持请求，建议通过以下方式联系我们：
 
-- **GitHub Issues**: 如果你有任何问题、建议或发现任何 Bug，请在 Issues 页面提交一个新的 Issue。请尽量提供详细的信息，以便我们更快地理解和解决问题。
+- **Issues**: 如果你有任何问题、建议或发现任何 Bug，请在 Issues 页面提交一个新的 Issue。请尽量提供详细的信息，以便我们更快地理解和解决问题。
 - **Pull Requests**: 如果你发现了问题并已经修复，欢迎提交 Pull Request。请确保遵循我们的 [贡献指南](./CONTRIBUTING_zh-cn.md)。
 - **Discussions**: 如果你有更广泛的话题或讨论，可以在 Discussions 页面发起一个新的讨论。
-
-我们非常感谢每一位用户的反馈和支持，通过 GitHub 平台进行交流可以帮助我们更好地维护和改进项目。
-
