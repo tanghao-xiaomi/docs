@@ -57,7 +57,7 @@ The following goldfish specific drivers have been implemented:
 
 3. Exit the openvela Emulator instance, as shown below:
 
-    ![img](./../Examples/images/026.png)
+    ![img](images/002.png)
 
 ## Control openvela Emulator
 

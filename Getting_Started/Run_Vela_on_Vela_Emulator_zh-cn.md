@@ -57,7 +57,7 @@ openvela Emulator 具备以下优势：
 
 3. 退出 openvela Emulator 实例，如下图所示：
 
-    ![img](./../Examples/images/026.png)
+    ![img](images/002.png)
 
 
 ## 控制 openvela Emulator
