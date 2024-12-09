@@ -79,6 +79,7 @@ body:
         - "Graphics: thorvg"
         - "Runtimes: system server"
         - "Runtimes: wms"
+        - "Other"
       required: true
 
   - type: markdown

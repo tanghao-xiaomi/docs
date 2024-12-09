@@ -96,6 +96,7 @@ body:
         - "Graphics: thorvg"
         - "Runtimes: system server"
         - "Runtimes: wms"
+        - "Other"
     validations:
       required: true
 
