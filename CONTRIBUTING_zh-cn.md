@@ -12,28 +12,40 @@ openvela 主要遵循 Apache License 2.0 许可证，具体请参看 LICENSE 文
 
 您需要先签署"贡献者许可协议"才能参与社区贡献。
 
-\[ [个人版](https://open-vela.cnbj1.mi-fds.com/open-vela/cla/Xiaomi_Documentation_Open_Source_Individual_CLA.pdf) | [企业版](https://open-vela.cnbj1.mi-fds.com/open-vela/cla/Xiaomi_Documentation_Open_Source_Corporate_CLA.pdf) \]
+- **Gitee**：请访问 [此链接](https://gitee.com/organizations/open-vela/cla/zs6b7c48u6juka2tsnrnkzx6k88np85e) 签署 Gitee 平台上的贡献者许可协议 (CLA)，您可以通过 [此链接](https://gitee.com/profile/clas) 查看您的签署状态。
+
+- **GitHub**：请在新建pull request后签署 CLA。
+
+签署贡献者许可协议 (CLA)
+--------
+
+为了参与社区贡献，您需要签署相应的“贡献者许可协议”（Contributor License Agreement, CLA）。以下是针对不同平台的具体步骤：
+
+- **Gitee 平台**:
+  - 请访问 [Gitee CLA 签署页面](https://gitee.com/organizations/open-vela/cla/zs6b7c48u6juka2tsnrnkzx6k88np85e) 完成签署。
+  - 您可以通过 [我的 CLA 状态](https://gitee.com/profile/clas) 查看签署状态。
+
+- **GitHub 平台**:
+  - 在提交新的 Pull Request (PR) 后，系统会提示您完成 CLA 的签署。请根据提示操作以完成签署流程。
+
+如果您有任何疑问或遇到问题，请随时联系我们，感谢您对社区的支持和贡献！
 
 错误报告
 -------
 
 如果您认为在 openvela 中发现了错误，请首先确保您已使用了最新版本的 openvela 进行了测试（您的问题可能已得到修复）。
 
-如果未解决，请在 GitHub 上搜索问题列表，查看是否已有类似的问题。
+如果未解决，请搜索问题列表，查看是否已有类似的问题。
 
 功能请求
 -------
 
-请在 GitHub 上的问题列表中提交一个 Issue，描述您希望添加的功能、您需要它的原因以及预期的工作方式。
+请提交一个 Issue，描述您希望添加的功能、您需要它的原因以及预期的工作方式。
 
 贡献代码和文档更改
 ----------------
 
-如果您想给 openvela 增加新功能或者修复一些错误，先去 GitHub 上看看有没有人已经提过类似的问题。如果没有，您就新建一个问题，和大家讨论您的想法。
-
-### fork 并 clone 存储库
-
-如果您需要fork openvela 代码或文档存储库并将其clone到本地，请参阅 [GitHub 帮助页面](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) 获取帮助。
+如果您想给 openvela 增加新功能或者修复一些错误，先确认是否已有类似的问题。如果没有，您就新建一个问题，和大家讨论您的想法。
 
 ### 分支策略
 

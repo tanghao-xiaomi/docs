@@ -60,5 +60,5 @@ openvela引用三方开源软件及许可证说明，参考[第三方开源软�
 为了更好地管理和响应反馈和支持请求，建议通过以下方式联系我们：
 
 - **Issues**: 如果你有任何问题、建议或发现任何 Bug，请在 Issues 页面提交一个新的 Issue。请尽量提供详细的信息，以便我们更快地理解和解决问题。
-- **Pull Requests**: 如果你发现了问题并已经修复，欢迎提交 Pull Request。请确保遵循我们的 [贡献指南](./CONTRIBUTING_zh-cn.md)。
+- **Pull Requests**: 如果你发现了问题并已经修复，欢迎提交 Pull Request。请确保遵循我们的[贡献指南](./CONTRIBUTING_zh-cn.md)。
 - **Discussions**: 如果你有更广泛的话题或讨论，可以在 Discussions 页面发起一个新的讨论。

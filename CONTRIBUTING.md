@@ -10,10 +10,16 @@ openvela mainly follows the Apache License 2.0 license, please refer to the LICE
 Sign the CLA
 -----------------------
 
-You need to sign the Contributor License Agreement before you can contribute to the community.
+In order to participate in community contributions, you need to sign the corresponding Contributor License Agreement (CLA). Here are the specific steps for different platforms:
 
-\[ [Personal](https://open-vela.cnbj1.mi-fds.com/open-vela/cla/Xiaomi_Documentation_Open_Source_Individual_CLA.pdf) | [Enterprise](https://open-vela.cnbj1.mi-fds.com/open-vela/cla/Xiaomi_Documentation_Open_Source_Corporate_CLA.pdf) \]
+- **Gitee platform**:
+  - Please visit the [Gitee CLA signing page](https://gitee.com/organizations/open-vela/cla/zs6b7c48u6juka2tsnrnkzx6k88np85e) to complete the signing.
+  - You can check the signing status through [My CLA Status](https://gitee.com/profile/clas).
 
+- **GitHub platform**:
+  - After submitting a new Pull Request (PR), the system will prompt you to complete the CLA signing. Please follow the prompts to complete the signing process.
+
+If you have any questions or encounter problems, please feel free to contact us, thank you for your support and contribution to the community!
 
 Bug reports
 -----------
@@ -22,12 +28,10 @@ If you think you have found a bug in openvela, first make sure you have tested w
 
 If not, search the issues list on GitHub to see if there are already similar issues.
 
-
 Feature requests
 ----------------
 
 Please file an issue in the issues list on GitHub describing the functionality you want added, why you need it, and how you expect it to work.
-
 
 Contributing code and documentation changes
 -------------------------------------------
