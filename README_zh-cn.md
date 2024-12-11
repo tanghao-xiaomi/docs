@@ -28,7 +28,7 @@ Vela 的命名源自拉丁语中船帆的含义，也是南方星空中船帆星
 
 ## 硬件支持
 
-openvela 支持各种不同的架构（ARM32、ARM64、Risc-V、Xtensa、MIPS、CEVA 等）和硬件平台。请在[硬件支持](https://nuttx.apache.org/docs/latest/platforms/index.html)页面上查看完整列表。
+openvela 支持各种不同的架构（ARM32、ARM64、RISC-V、Xtensa、MIPS、CEVA 等）和硬件平台。请在[硬件支持](https://nuttx.apache.org/docs/latest/platforms/index.html)页面上查看完整列表。
 
 ## 快速入门
 
