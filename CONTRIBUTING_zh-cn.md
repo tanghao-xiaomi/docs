@@ -7,15 +7,6 @@ openvela 由一支活跃的软件工程师和研究人员团队开发。欢迎�
 
 openvela 主要遵循 Apache License 2.0 许可证，具体请参看 LICENSE 文件。
 
-签署 CLA
---------
-
-您需要先签署"贡献者许可协议"才能参与社区贡献。
-
-- **Gitee**：请访问 [此链接](https://gitee.com/organizations/open-vela/cla/zs6b7c48u6juka2tsnrnkzx6k88np85e) 签署 Gitee 平台上的贡献者许可协议 (CLA)，您可以通过 [此链接](https://gitee.com/profile/clas) 查看您的签署状态。
-
-- **GitHub**：请在新建pull request后签署 CLA。
-
 签署贡献者许可协议 (CLA)
 --------
 

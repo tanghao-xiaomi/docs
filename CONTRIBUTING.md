@@ -24,23 +24,19 @@ If you have any questions or encounter problems, please feel free to contact us,
 Bug reports
 -----------
 
-If you think you have found a bug in openvela, first make sure you have tested with the latest version of openvela (your issue may already be fixed).
+If you think you have found a bug in openvela, first make sure you have tested with the latest version of openvela (your problem may already be fixed).
 
-If not, search the issues list on GitHub to see if there are already similar issues.
+If not, search the issue list to see if there is already a similar problem.
 
 Feature requests
 ----------------
 
-Please file an issue in the issues list on GitHub describing the functionality you want added, why you need it, and how you expect it to work.
+Please submit an issue describing the feature you would like to see added, why you need it, and how you expect it to work.
 
 Contributing code and documentation changes
 -------------------------------------------
 
-If you want to add new features or fix some bugs for openvela, first check on GitHub to see if anyone has already raised similar issues. If not, you can create a new issue to discuss your ideas with everyone.
-
-### Fork and clone the repository
-
-You will need to fork the openvela code or documentation repository and clone it to your local machine. See [GitHub help page](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) for help.
+If you want to add new features or fix some bugs to openvela, please check if there are similar issues. If not, please create a new issue to discuss your ideas with others.
 
 ### Branch strategy
 
