@@ -10,6 +10,7 @@
     - [实现驱动](#实现驱动)
     - [注册驱动](#注册驱动)
     - [备注](#备注)
+  - [相关仓](#相关仓)
 
 ## 简介
 
@@ -128,3 +129,9 @@ openvela 蓝牙支持多种驱动架构，下文将以目前常用的 BTH4 驱�
 - CODE int (*receive)(FAR struct bt_driver_s *btdev, enum bt_buf_type_e type, FAR void *data, size_t len);
 
 当收到来自芯片的 HCI 数据时，只要调用 **bt_netdev_receive**()即可，它会调用这个 receive()函数来保存收到 HCI 数据。
+
+## 相关仓
+
+- [frameworks_bluetooth](../../../../open-vela/frameworks/bluetooth)：该仓库旨在为应用程序开发者提供丰富的蓝牙应用编程接口，包括 API 接口层、各种 Service 服务组件层、SAL 协议栈适配层和 HAL 硬件适配层。此外，仓库还配备了 [bttool](../bluetooth/functionality_test/bttool_cmd.md) 等工具，一方面可直接用于用于测试蓝牙功能；另一方面可用于蓝牙应用编程时相关 API 的 Sample 参考代码。
+- [external_zblue](../../../../open-vela/external/zblue)：该仓库源自于 Zephyr 社区，但 openvela 对很多功能进行了补充和增强。
+- [docs](../../../../open-vela/docs)：该仓库提供更多关于蓝牙模块的技术文档。
