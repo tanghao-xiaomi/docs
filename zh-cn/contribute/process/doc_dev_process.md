@@ -1,8 +1,9 @@
 # openvela 文档开发流程
 
-![documentation_development_process](./images/doc_dev_process.svg)
+## 流程图
+![documentation_development_process](./images/doc_dev_process.png)
 
-## 一 分解需求
+## 分解需求
 
 ### 需求Owner
 
@@ -14,9 +15,9 @@
 1. 根据相关需求，提供文档设计意见。
 2. 配合各业务团队完成文档的评审、测试、翻译和发布。
 
-## 二 开发文档
+## 开发文档
 
-### 业务团队成员要做的
+### 业务团队要做的
 
 #### 1 开发文档
 
@@ -44,7 +45,7 @@
   1. 新增术语请补充至[术语表](../../overview/glossary.md)。
   2. 英文截图。
 
-### 文档团队成员要做的
+### 文档团队要做的
 
 #### 1 评审文档
 
