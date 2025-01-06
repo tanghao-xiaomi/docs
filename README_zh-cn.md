@@ -57,9 +57,10 @@ openvela 支持各种不同的架构（ARM32、ARM64、RISC-V、Xtensa、MIPS、
 - [智能手环](./zh-cn/demo/Smart_Band_Example_zh-cn.md)
 - [自行车码表](./zh-cn/demo/X_Track_zh-cn.md)
 
-## 代码贡献
+## 参与贡献
 
-参与贡献：[代码贡献指南](CONTRIBUTING_zh-cn.md)。
+- [代码贡献指南](CONTRIBUTING_zh-cn.md)
+- [文档贡献指南](./zh-cn/contribute/process/doc_dev_process.md)
 
 ## 许可协议
 
