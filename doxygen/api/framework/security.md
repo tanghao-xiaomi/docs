@@ -106,8 +106,6 @@ boardctl(BOARDIOC_UNIQUEKEY, tmp_key);
 
 Rootkey 仅在工厂版本中、TEE OS 首次启动时执行 `rootkey_provision` 写入。
 
-<!-- ⚠️ 安全合规：已移除内部 vendor 路径（vendor/xiaomi/miwear/factest/rootkey_provision），如需引用请使用脱敏路径。 -->
-
 ```c
 norflash_api_security_register_erase(HAL_FLASH_ID_0, 2048, 32)
 norflash_api_security_register_write(HAL_FLASH_ID_0, 2048, rn, 32)

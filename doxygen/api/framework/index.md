@@ -8,7 +8,6 @@ openvela 应用框架为上层应用提供了统一的系统能力接口，涵�
 - **蓝牙 (Bluetooth)** — 蓝牙协议栈接口，支持 BLE、经典蓝牙及多种 Profile（A2DP、HFP、HID 等）
 - **电话服务 (Telephony)** — 蜂窝网络通信接口，涵盖通话、短信、数据连接、SIM 卡管理等
 - **多媒体 (Media)** — 音视频播放与录制框架
-- **连接服务 (Connectivity)** — 设备互联能力，包括投屏（MiPlay）、数字车钥匙、跨进程通信（XPC）等
 - **系统服务 (Services)** — 应用管理（AMS）与权限管理（PMS）等核心系统服务
 - **Feature** — 系统能力（SystemCapability）查询接口
 - **快应用 (QuickApp)** — 轻量级应用运行时框架
@@ -26,7 +25,6 @@ openvela 应用框架为上层应用提供了统一的系统能力接口，涵�
     bluetooth/index
     telephony/index
     media/index
-    connectivity/index
     services/index
     feature/index
     quickapp/index
