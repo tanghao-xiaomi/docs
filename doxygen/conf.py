@@ -81,7 +81,7 @@ source_suffix = {
 }
 
 build_type = os.getenv('type')
-print("生成文档类型为:", build_type)
+
 if build_type is None:
     build_type = 'full'
 if build_type == 'trunk':
