@@ -94,13 +94,7 @@ This depends on your run target.
 
 If debugging on real hardware, hardware debuggers like JLink or Trace32 are usually required. If you are using a Simulator (running locally on Linux) or an Emulator (QEMU/Goldfish) for development, the system comes with built-in debugging mechanisms, and you can use GDB directly without extra hardware.
 
-### 16. What if the simulator fails to start (missing libraries) when configuring the environment on macOS (M1/M2)?
-
-Currently, QEMU/Goldfish has relatively less compatibility testing on macOS, and you may encounter missing libraries or instruction set translation efficiency issues.
-
-At this stage, it is strongly recommended to install an **Ubuntu 22.04 Virtual Machine** on macOS for development, as this is the most fully verified and stable environment.
-
-### 17. What if `repo sync` has no response or fails to download in the Ubuntu VM?
+### 16. What if `repo sync` has no response or fails to download in the Ubuntu VM?
 
 Please troubleshoot in the following order:
 
@@ -110,64 +104,64 @@ Please troubleshoot in the following order:
 
 If the problem persists after troubleshooting, please screenshot the error message and submit an Issue in the community.
 
-### 18. Does openvela have a companion VS Code plugin or IDE?
+### 17. Does openvela have a companion VS Code plugin or IDE?
 
 Yes, there is an official IDE customized based on VS Code that supports openvela development.
 
 The current version has not yet been fully released as open source. It will be synchronized with developers as soon as it is officially released.
 
-### 19. Why can the AI assistant (like the Doubao plugin) in the Quick App IDE only read code but not edit/automatically modify it?
+### 18. Why can the AI assistant (like the Doubao plugin) in the Quick App IDE only read code but not edit/automatically modify it?
 
 This situation is usually caused by compatibility issues resulting from the synchronization delay between the rapidly updating VS Code core version and the VS Code source version built into the IDE.
 
 It is recommended to report the specific plugin version and IDE version, and the development team will investigate and fix it.
 
-### 20. Why can't I see network interfaces when enabling network configuration under the QEMU goldfish arm64 configuration?
+### 19. Why can't I see network interfaces when enabling network configuration under the QEMU goldfish arm64 configuration?
 
 This is because basic configurations like `goldfish arm64` are primarily used to verify CPU architecture and basic kernel functions, and do not enable complete network bridging or peripheral support by default.
 
 If you need to verify network or multimedia functions, it is recommended to use product-form configuration files, such as the complete configuration for `smart speaker` or `ARMv7a Goldfish`.
 
-### 21. Files created by programs running in the simulator are lost after restart. How can I achieve data persistence?
+### 20. Files created by programs running in the simulator are lost after restart. How can I achieve data persistence?
 
 It is recommended to use the **9PFS (9P File System)** feature.
 
 By directly mounting and mapping a folder from the host machine (Host PC) into the simulator, data can be written directly to the PC hard drive, achieving both persistence and convenient viewing on the PC side.
 
-### 22. Why do low-power devices like smart bands/watches also use QEMU Goldfish (ARM A-series) for simulation?
+### 21. Why do low-power devices like smart bands/watches also use QEMU Goldfish (ARM A-series) for simulation?
 
 This is mainly to unify the teaching platform and facilitate management; currently, the QEMU platform based on Google Goldfish is used uniformly.
 The openvela operating system abstracts underlying architectural differences, so whether the bottom layer is A-series or M-series has little impact on the learning of upper-layer applications and frameworks. Support for ARM M/R series simulators will be released in the future.
 
-### 23. Is it possible to start driver development learning and course design before physical development boards arrive?
+### 22. Is it possible to start driver development learning and course design before physical development boards arrive?
 
 **Absolutely.**
 
 It is recommended to prioritize using the simulator (QEMU). The driver framework is consistent across the simulator and physical boards. You can first complete theoretical learning, framework development, and core concepts like memory management based on the simulator, and then perform hardware adaptation verification once the development board arrives.
 
-### 24. Does Telephony (phone/communication) related business need to be verified on real devices?
+### 23. Does Telephony (phone/communication) related business need to be verified on real devices?
 
 It is recommended to use the **Simulator**.
 
 Debugging communication business on real machines has a high threshold (requires Modem, SIM card, network access). The openvela simulator features a built-in Modem Simulator capable of fully simulating processes like making calls and sending/receiving SMS, which is sufficient to meet teaching needs.
 
-### 25. Can the RPK file generated by Quick App packaging run directly on openvela devices?
+### 24. Can the RPK file generated by Quick App packaging run directly on openvela devices?
 
 Currently, it cannot. The Quick App framework engine (Runtime) is planned to be open-sourced in library form and integrated into the system around **February 2026**. At this stage, it is recommended to use the simulator for learning and development.
 
 ## V. Hardware Adaptation and Porting
 
-### 26. Can openvela be ported to hardware platforms not currently officially supported (e.g., STM32)?
+### 25. Can openvela be ported to hardware platforms not currently officially supported (e.g., STM32)?
 
 **Yes.**
 
 openvela is fully compatible with the NuttX kernel. Theoretically, openvela can be smoothly adapted and ported to all hardware platforms supported by NuttX.
 
-### 27. What is the current support status for ESP32 series development boards?
+### 26. What is the current support status for ESP32 series development boards?
 
 Although the bottom layer is compatible with NuttX, adaptation and testing for ESP32 are not yet fully covered, and some Demos may not run directly. If a stable development experience is required, it is currently recommended to prioritize using officially verified ARM platform development boards.
 
-### 28. When developing drivers or low-level code, which directory should the code be submitted to?
+### 27. When developing drivers or low-level code, which directory should the code be submitted to?
 
 Please decide based on the universality of the code:
 
@@ -178,39 +172,39 @@ openvela follows the Apache license, so you can freely choose whether to open so
 
 ## VI. Application Framework and Multimedia
 
-### 29. Is the underlying engine for openvela Quick Apps Node.js or V8?
+### 28. Is the underlying engine for openvela Quick Apps Node.js or V8?
 
 Neither. The openvela device-side Quick App engine is based on **QuickJS**.
 
-### 30. What is the difference in running mechanisms between Quick Apps and Native Apps?
+### 29. What is the difference in running mechanisms between Quick Apps and Native Apps?
 
 - Quick Apps run in an independent container within the system, isolated from the system. A crash does not easily cause a system freeze, and they invoke underlying capabilities via JS interfaces.
 - Native Apps call system APIs directly, offering higher performance but also a higher degree of coupling with the system.
 
-### 31. Does openvela currently support running MPlayer?
+### 30. Does openvela currently support running MPlayer?
 
 Running MPlayer directly is currently not supported; the official team has not yet ported it.
 
-### 32. What multimedia development tools or frameworks are available under the current system?
+### 31. What multimedia development tools or frameworks are available under the current system?
 
 Currently available solutions include: ported FFmpeg, the system's built-in native multimedia toolkit (please refer to the [Sim Environment Audio Function Development Guide](../quickstart/emulator/sim_audio_guide.md)), and ported open-source codec libraries such as `libx264`, `openh264`, and `libopus`.
 
-### 33. Which common Linux multimedia tools are suitable for porting to openvela?
+### 32. Which common Linux multimedia tools are suitable for porting to openvela?
 
 Tools with a Pure Software implementation are usually easier to port. Tools that rely heavily on specific hardware drivers or hardware acceleration cannot be ported directly and must be adapted based on openvela's existing multimedia framework.
 
-### 34. Is there any reference case or path if third-party code needs to be ported?
+### 33. Is there any reference case or path if third-party code needs to be ported?
 
 Developers are advised to directly reference the `apps/external` folder in the source directory. This directory contains a large number of ported third-party libraries and serves as the best practice for understanding the build system and porting methods.
 
-### 35. For developing graphical interfaces on openvela, are Qt or GTK/JDK supported?
+### 34. For developing graphical interfaces on openvela, are Qt or GTK/JDK supported?
 
 **Not supported and not recommended.**
 
 - Qt and GTK frameworks are too heavy for embedded RTOS.
 - The official recommendation is to use **LVGL**, which the team has deeply optimized and integrated well with the NuttX system.
 
-### 36. Does openvela support IoT protocols like MQTT, CoAP, Matter?
+### 35. Does openvela support IoT protocols like MQTT, CoAP, Matter?
 
 **Yes.**
 
@@ -218,7 +212,7 @@ The system has integrated MQTT, CoAP, and Matter (partial versions).
 
 Relevant libraries are usually located in the `apps/netutils` or `external` directories and can be referenced directly in the source code.
 
-### 37. Is it necessary to deeply master kernel principles just to learn multimedia development?
+### 36. Is it necessary to deeply master kernel principles just to learn multimedia development?
 
 **No.**
 
