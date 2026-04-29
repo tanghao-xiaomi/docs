@@ -1,68 +1,898 @@
-# 蓝牙 HFP API 开发指南
+# 蓝牙 HFP API
 
-**免提规范 (Hands-Free Profile, HFP)** 是蓝牙协议栈中用于处理语音通话的核心规范。它允许车机、耳机等设备（HF）通过蓝牙控制移动电话（AG）进行接听、挂断、拒接、语音拨号及音量调节等操作。
+openvela 蓝牙 HFP（免提规范）接口，支持蓝牙通话功能。
 
-在 HFP 架构中，设备被定义为以下两种角色：
+头文件：#include "bt_hfp.h"、#include "bt_hfp_hf.h"、#include "bt_hfp_ag.h"
 
-- **Audio Gateway (AG)**：音频网关。通常指连接蜂窝网络的设备（如：手机），负责音频的输入/输出及通话逻辑处理。
-- **Hands-Free Unit (HF)**：免提单元。通常指远程音频输入/输出机制的设备（如：蓝牙耳机、车载套件），作为 AG 的音频扩展和控制器。
 
-## 1. API 接口概览
+## openvela 实现说明
 
-本模块接口依据 HFP 协议的公共定义及角色职责进行划分。
+- **双角色支持**：HF（Hands-Free，免提端）和 AG（Audio Gateway，音频网关端）
+- **功能**：接听/挂断电话、音量控制、语音识别、电话簿访问
 
-### 1.1 HFP 通用 API (Common)
 
-`bt_hfp.h` 包含了 HFP 协议中 AG 和 HF 角色通用的数据结构、枚举定义及事件类型。
+## 同步接口
 
-- **主要内容**：
 
-    - **编解码器定义**：CVSD (窄带) 和 mSBC (宽带/HD Voice) 的相关定义。
-    - **状态定义**：通话状态、连接状态等通用枚举。
-    - **公共宏**：各个角色共用的配置参数。
+### bt_hfp_hf_unregister_callbacks
 
-**API 详情：**
-
-```eval_rst
-
-.. doxygenfile:: bt_hfp.h
-    :project: doxygen
+```c
+bool bt_hfp_hf_unregister_callbacks(bt_instance_t* ins, void* cookie);
 ```
 
-### 1.2 HFP HF 角色 API (Hands-Free)
+取消注册回调函数，停止接收状态变更通知。
 
-`bt_hfp_hf.h` 模块面向 **免提单元 (HF)** 开发（即开发蓝牙耳机或车机端功能）。
+**参数**：
 
-- **核心功能**：
+- `cookie` 用户上下文。
+- `ins` 蓝牙客户端实例。
 
-    - **通话控制**：发起接听 (Answer)、挂断 (Hangup)、拒接 (Reject) 及号码重拨。
-    - **音频管理**：在耳机与手机之间切换音频通道、调节通话音量。
-    - **功能交互**：查询运营商名称、信号强度、电池电量以及发送 DTMF 音。
-    - **SIRI/语音助手**：激活 AG 端的语音识别功能。
+**返回值**：
 
-**API 详情：**
+取消注册回调函数。
 
-```eval_rst
 
-.. doxygenfile:: bt_hfp_hf.h
-    :project: doxygen
+### bt_hfp_hf_is_connected
+
+```c
+bool bt_hfp_hf_is_connected(bt_instance_t* ins, bt_address_t* addr);
 ```
 
-### 1.3 HFP AG 角色 API (Audio Gateway)
+发起与远程设备的连接。
 
-`bt_hfp_ag.h` 模块面向 **音频网关 (AG)** 开发（即开发手机侧或拥有通话能力的网关设备功能）。
+**参数**：
 
-- **核心功能**：
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
 
-    - **状态同步**：向 HF 端发送当前通话状态（振铃、通话中、保持中）。
-    - **音频路由**：建立或断开与 HF 端的同步定向连接 (SCO/eSCO) 链路。
-    - **能力协商**：响应 HF 端发起的编解码器协商请求及功能查询。
-    - **带内铃声**：配置是否将铃声传输至 HF 端。
 
-**API 详情：**
+**返回值**：
 
-```eval_rst
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
 
-.. doxygenfile:: bt_hfp_ag.h
-    :project: doxygen
+
+### bt_hfp_hf_is_audio_connected
+
+```c
+bool bt_hfp_hf_is_audio_connected(bt_instance_t* ins, bt_address_t* addr);
 ```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_get_connection_state
+
+```c
+profile_connection_state_t bt_hfp_hf_get_connection_state(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+
+
+### bt_hfp_hf_connect
+
+```c
+bt_status_t bt_hfp_hf_connect(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 蓝牙地址 of the peer device.
+
+**返回值**：
+
+建立连接。
+
+
+### bt_hfp_hf_disconnect
+
+```c
+bt_status_t bt_hfp_hf_disconnect(bt_instance_t* ins, bt_address_t* addr);
+```
+
+断开与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_set_connection_policy
+
+```c
+bt_status_t bt_hfp_hf_set_connection_policy(bt_instance_t* ins, bt_address_t* addr, connection_policy_t policy);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `policy` 策略值。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_connect_audio
+
+```c
+bt_status_t bt_hfp_hf_connect_audio(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_disconnect_audio
+
+```c
+bt_status_t bt_hfp_hf_disconnect_audio(bt_instance_t* ins, bt_address_t* addr);
+```
+
+断开与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_start_voice_recognition
+
+```c
+bt_status_t bt_hfp_hf_start_voice_recognition(bt_instance_t* ins, bt_address_t* addr);
+```
+
+启动远程设备的语音识别功能。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_stop_voice_recognition
+
+```c
+bt_status_t bt_hfp_hf_stop_voice_recognition(bt_instance_t* ins, bt_address_t* addr);
+```
+
+停止远程设备的语音识别功能。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_dial
+
+```c
+bt_status_t bt_hfp_hf_dial(bt_instance_t* ins, bt_address_t* addr, const char* number);
+```
+
+发起通话。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `number` 号码。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_dial_memory
+
+```c
+bt_status_t bt_hfp_hf_dial_memory(bt_instance_t* ins, bt_address_t* addr, uint32_t memory);
+```
+
+通过 HFP 拨打内存中存储的号码。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `memory` 内存位置编号。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_redial
+
+```c
+bt_status_t bt_hfp_hf_redial(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起通话。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_accept_call
+
+```c
+bt_status_t bt_hfp_hf_accept_call(bt_instance_t* ins, bt_address_t* addr, hfp_call_accept_t flag);
+```
+
+通过 HFP 接听来电。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `flag` 标志位。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_reject_call
+
+```c
+bt_status_t bt_hfp_hf_reject_call(bt_instance_t* ins, bt_address_t* addr);
+```
+
+通过 HFP 拒绝来电。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_hold_call
+
+```c
+bt_status_t bt_hfp_hf_hold_call(bt_instance_t* ins, bt_address_t* addr);
+```
+
+通过 HFP 保持当前通话。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_terminate_call
+
+```c
+bt_status_t bt_hfp_hf_terminate_call(bt_instance_t* ins, bt_address_t* addr);
+```
+
+通过 HFP 挂断当前通话。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_control_call
+
+```c
+bt_status_t bt_hfp_hf_control_call(bt_instance_t* ins, bt_address_t* addr, hfp_call_control_t chld, uint8_t index);
+```
+
+control通话状态。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `chld` CHLD 命令类型。
+- `index` 索引。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_query_current_calls
+
+```c
+bt_status_t bt_hfp_hf_query_current_calls(bt_instance_t* ins, bt_address_t* addr, hfp_current_call_t** calls, int* num, bt_allocator_t allocator);
+```
+
+查询当前所有通话的状态信息（CLCC）。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 蓝牙地址 of the peer device.
+- `allocator` 内存分配函数。- `calls` 输出参数，存储通话信息数组。
+- `num` 输出参数，存储通话数量。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_send_at_cmd
+
+```c
+bt_status_t bt_hfp_hf_send_at_cmd(bt_instance_t* ins, bt_address_t* addr, const char* cmd);
+```
+
+发送自定义 AT 命令到远程设备。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `cmd` 命令。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_update_battery_level
+
+```c
+bt_status_t bt_hfp_hf_update_battery_level(bt_instance_t* ins, bt_address_t* addr, uint8_t level);
+```
+
+向远程设备更新本地电池电量信息。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `level` 安全级别。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_volume_control
+
+```c
+bt_status_t bt_hfp_hf_volume_control(bt_instance_t* ins, bt_address_t* addr, hfp_volume_type_t type, uint8_t volume);
+```
+
+通过 HFP 控制远程设备的音量。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `type` 类型。
+- `volume` 音量值。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_send_dtmf
+
+```c
+bt_status_t bt_hfp_hf_send_dtmf(bt_instance_t* ins, bt_address_t* addr, char dtmf);
+```
+
+通过 HFP 发送 DTMF 按键音。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `dtmf` DTMF 按键字符。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_hf_get_subscriber_number
+
+```c
+bt_status_t bt_hfp_hf_get_subscriber_number(bt_instance_t* ins, bt_address_t* addr);
+```
+
+获取用户号码。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+### bt_hfp_hf_query_current_calls_with_callback
+
+```c
+bt_status_t bt_hfp_hf_query_current_calls_with_callback(bt_instance_t* ins, bt_address_t* addr);
+```
+
+查询当前所有通话的状态信息（CLCC）。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+
+- `ins` 蓝牙客户端实例。
+
+
+### bt_hfp_ag_unregister_callbacks
+
+```c
+bool bt_hfp_ag_unregister_callbacks(bt_instance_t* ins, void* cookie);
+```
+
+取消注册回调函数，停止接收状态变更通知。
+
+**参数**：
+
+- `cookie` 用户上下文。
+- `ins` 蓝牙客户端实例。
+
+**返回值**：
+
+取消注册回调函数。
+
+
+### bt_hfp_ag_is_connected
+
+```c
+bool bt_hfp_ag_is_connected(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_is_audio_connected
+
+```c
+bool bt_hfp_ag_is_audio_connected(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_get_connection_state
+
+```c
+profile_connection_state_t bt_hfp_ag_get_connection_state(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+
+
+### bt_hfp_ag_connect
+
+```c
+bt_status_t bt_hfp_ag_connect(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 蓝牙地址 of the peer device.
+
+**返回值**：
+
+建立连接。
+
+
+### bt_hfp_ag_disconnect
+
+```c
+bt_status_t bt_hfp_ag_disconnect(bt_instance_t* ins, bt_address_t* addr);
+```
+
+断开与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_connect_audio
+
+```c
+bt_status_t bt_hfp_ag_connect_audio(bt_instance_t* ins, bt_address_t* addr);
+```
+
+发起与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_disconnect_audio
+
+```c
+bt_status_t bt_hfp_ag_disconnect_audio(bt_instance_t* ins, bt_address_t* addr);
+```
+
+断开与远程设备的连接。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_start_virtual_call
+
+```c
+bt_status_t bt_hfp_ag_start_virtual_call(bt_instance_t* ins, bt_address_t* addr);
+```
+
+开始操作。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_stop_virtual_call
+
+```c
+bt_status_t bt_hfp_ag_stop_virtual_call(bt_instance_t* ins, bt_address_t* addr);
+```
+
+停止操作。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_start_voice_recognition
+
+```c
+bt_status_t bt_hfp_ag_start_voice_recognition(bt_instance_t* ins, bt_address_t* addr);
+```
+
+启动远程设备的语音识别功能。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_stop_voice_recognition
+
+```c
+bt_status_t bt_hfp_ag_stop_voice_recognition(bt_instance_t* ins, bt_address_t* addr);
+```
+
+停止远程设备的语音识别功能。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_phone_state_change
+
+```c
+bt_status_t bt_hfp_ag_phone_state_change(bt_instance_t* ins, bt_address_t* addr, uint8_t num_active, uint8_t num_held, hfp_ag_call_state_t call_state, hfp_call_addrtype_t type, const char* number, const char* name);
+```
+
+通知远程设备电话状态变更（来电/通话/挂断等）。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `num_active` 活跃通话数量。
+- `num_held` 保持中通话数量。
+- `call_state` 通话状态。
+- `type` 类型。
+- `number` 号码。
+- `name` 名称。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_notify_device_status
+
+```c
+bt_status_t bt_hfp_ag_notify_device_status(bt_instance_t* ins, bt_address_t* addr, hfp_network_state_t network, hfp_roaming_state_t roam, uint8_t signal, uint8_t battery);
+```
+
+notify设备类型status。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `network` 网络信息。
+- `roam` 漫游状态。
+- `signal` 信号强度。
+- `battery` 电池电量。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_volume_control
+
+```c
+bt_status_t bt_hfp_ag_volume_control(bt_instance_t* ins, bt_address_t* addr, hfp_volume_type_t type, uint8_t volume);
+```
+
+通过 HFP 控制远程设备的音量。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `type` 类型。
+- `volume` 音量值。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_send_at_command
+
+```c
+bt_status_t bt_hfp_ag_send_at_command(bt_instance_t* ins, bt_address_t* addr, const char* at_command);
+```
+
+发送操作。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `at_command` AT 命令字符串。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_send_vendor_specific_at_command
+
+```c
+bt_status_t bt_hfp_ag_send_vendor_specific_at_command(bt_instance_t* ins, bt_address_t* addr, const char* command, const char* value);
+```
+
+发送操作。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `command` 命令。
+- `value` 值。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_send_clcc_response
+
+```c
+bt_status_t bt_hfp_ag_send_clcc_response(bt_instance_t* ins, bt_address_t* addr, uint32_t index, hfp_call_direction_t dir, hfp_ag_call_state_t state, hfp_call_mode_t mode, hfp_call_mpty_type_t mpty, hfp_call_addrtype_t type, const char* number);
+```
+
+发送操作。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 蓝牙地址。
+- `index` 索引。
+- `dir` 方向（呼入/呼出）。
+- `state` 状态。
+- `mode` 模式。
+- `mpty` 是否 the call is multi party.
+- `type` 类型。
+- `number` phone 数量 the call.
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
+
+
+### bt_hfp_ag_send_cind_response
+
+```c
+bt_status_t bt_hfp_ag_send_cind_response(bt_instance_t* ins, bt_address_t* addr, hfp_network_state_t network, hfp_call_t call, hfp_callheld_t call_held, hfp_callsetup_t call_setup, uint8_t signal, hfp_roaming_state_t roam, uint8_t battery);
+```
+
+发送操作。
+
+**参数**：
+
+- `ins` 蓝牙客户端实例。
+- `addr` 远程设备蓝牙地址。
+- `network` 网络信息。
+- `call` 通话信息。
+- `call_held` 保持中通话数量。
+- `call_setup` 通话建立状态。
+- `signal` 信号强度。
+- `roam` 漫游状态。
+- `battery` 电池电量。
+
+
+**返回值**：
+
+成功时返回 BT_STATUS_SUCCESS，失败时返回错误码。
