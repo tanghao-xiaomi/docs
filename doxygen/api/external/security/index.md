@@ -1,10 +1,5 @@
 # Security
 
-```eval_rst
+openvela 集成的第三方安全库。
 
-.. toctree::
-  :maxdepth: 2
-
-  keystore_client.md
-
-```
+- **[Keystore Client](keystore_client.md)** — 密钥存储客户端接口
