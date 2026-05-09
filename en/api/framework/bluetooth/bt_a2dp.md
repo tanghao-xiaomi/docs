@@ -14,6 +14,21 @@ Header files: #include "bt_a2dp.h", #include "bt_a2dp_sink.h", #include "bt_a2dp
 - **Transport modes**: Supports hardware offloading and non-offloading modes
 
 
+## Connection State Machine
+
+The state transitions during A2DP connection establishment, audio streaming, and disconnection are shown below:
+
+![A2DP State Machine](figures/a2dp.png)
+
+State definitions:
+
+- **Idle**: No A2DP connection is established.
+- **Opening**: An A2DP connection is being established (after the local side initiates `A2DP connect`).
+- **Opened**: The A2DP signaling connection has been established and the audio stream is ready.
+- **Started**: The audio stream has started and audio data is being transmitted.
+- **Closing**: The A2DP connection is being torn down until the peer confirms `A2DP disconnected`.
+
+
 ## Synchronous Interfaces
 
 

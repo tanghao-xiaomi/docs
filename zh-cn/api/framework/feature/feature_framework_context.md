@@ -18,6 +18,16 @@ Feature 框架提供的统一数据类型与上下文操作接口。通过 `ft_v
     - **必须释放**：`ft_from_xxx` 创建的对象、`ft_new_object` 新建对象、`ft_array_at` 取出的元素、`ft_obj_get_property` 返回的属性、`ft_parse_json` 解析结果
     - 字符串：`ft_to_string` 返回的 `const char*` 必须用 `ft_free_string` 释放
 
+## Feature Context 与前端运行时的关系
+
+下图展示了 Feature 框架如何通过 `ft_value_t` 与 `ft_context_ref` 统一封装前端运行时（以 QuickJS 为例）的原生对象：
+
+![Feature Context 与前端运行时的关系](figures/ft_context.svg)
+
+- **Feature Framework Interface**：Feature 框架对外提供的统一 C 接口，由 `ft_value_t`（数据）与 `ft_context_ref`（上下文）两部分组成。
+- **JS Implementation**：具体前端运行时的实现。`ft_value_t` 背后对应 `JSValue`，`ft_context_ref` 背后对应 `JSContext`，两者之间是 N:1 的关系（多个值归属于同一上下文）。
+- 切换其他前端（如 WAMR）时，Feature 实现侧的代码不需要修改，只需替换底层映射关系。
+
 ## 类型与上下文访问
 
 ### ft_context_get_data

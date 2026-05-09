@@ -14,6 +14,21 @@ openvela 蓝牙 A2DP（高级音频分发）接口，支持音频流的发送（
 - **传输模式**：支持硬件卸载（Offloading）和非卸载模式
 
 
+## 连接状态机
+
+A2DP 连接建立、流传输以及断开过程中的状态转换如下图所示：
+
+![A2DP 状态机](figures/a2dp.png)
+
+各状态含义：
+
+- **Idle**：空闲，未建立 A2DP 连接。
+- **Opening**：正在建立 A2DP 连接（本端发起 `A2DP connect` 之后）。
+- **Opened**：A2DP 信令连接已建立，可准备音频流。
+- **Started**：音频流已启动，正在传输音频数据。
+- **Closing**：正在断开 A2DP 连接，直至对端确认 `A2DP disconnected`。
+
+
 ## 同步接口
 
 

@@ -18,6 +18,16 @@ Header: `#include <feature_context.h>`
     - **Must release**: Objects created by `ft_from_xxx`, objects created by `ft_new_object`, elements retrieved by `ft_array_at`, properties returned by `ft_obj_get_property`, results from `ft_parse_json`
     - Strings: `const char*` returned by `ft_to_string` must be released with `ft_free_string`
 
+## Feature Context and Frontend Runtime
+
+The diagram below shows how the Feature framework uses `ft_value_t` and `ft_context_ref` to uniformly wrap native objects of frontend runtimes (using QuickJS as an example):
+
+![Feature Context and Frontend Runtime](figures/ft_context.svg)
+
+- **Feature Framework Interface**: The unified C interface exposed by the Feature framework, consisting of `ft_value_t` (data) and `ft_context_ref` (context).
+- **JS Implementation**: The concrete frontend runtime implementation. `ft_value_t` maps to `JSValue`, and `ft_context_ref` maps to `JSContext`, with an N:1 relationship between them (multiple values belong to the same context).
+- When switching to another frontend (for example, WAMR), the Feature implementation code does not need to change; only the underlying mapping needs to be replaced.
+
 ## Type and Context Access
 
 ### ft_context_get_data
