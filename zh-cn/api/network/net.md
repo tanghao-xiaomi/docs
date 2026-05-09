@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/network/net.md) | 简体中文 \]
+
 # 网络 API
 
 openvela 提供与 BSD 兼容的套接字接口，支持 IPv4（`AF_INET`）、IPv6（`AF_INET6`）等协议族，以及流套接字（`SOCK_STREAM`）、数据报套接字（`SOCK_DGRAM`）和原始套接字（`SOCK_RAW`）。

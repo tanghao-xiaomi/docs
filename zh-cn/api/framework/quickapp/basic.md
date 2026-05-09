@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/quickapp/basic.md) | 简体中文 \]
+
 # 快应用框架简介
 
 openvela 快应用（QuickApp）框架（以下简称"应用框架"），是 openvela 上的[快应用](https://doc.quickapp.cn/)运行时实现。相较于手机运行时，openvela 快应用框架具有如下特点：

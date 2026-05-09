@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/index.md) | 简体中文 \]
+
 # Telephony API
 
 Telephony 提供蜂窝通信能力，`framework/telephony` 是 openvela 蜂窝通信对应用层提供的接口层，又称为 TAPI（Telephony API）。封装的接口涵盖了蜂窝通信业务：网络服务、通话、短信、数据、SIM 双卡和 modem 配置管理等。

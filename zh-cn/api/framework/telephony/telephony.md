@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony.md) | 简体中文 \]
+
 # Telephony 公共工具 API
 
 TAPI 提供的通用工具函数，涵盖状态字符串转换、modem 路径解析、运营商状态解析等辅助能力。

@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_session.md) | 简体中文 \]
+
 # 媒体会话 API
 
 媒体播放控制和状态同步，支持控制器-被控端模式。

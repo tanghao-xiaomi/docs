@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/kernel/mem.md) | 简体中文 \]
+
 # 内存管理 API
 
 openvela 提供灵活的内存管理系统，支持标准 POSIX 内存分配接口以及扩展的内存管理功能。

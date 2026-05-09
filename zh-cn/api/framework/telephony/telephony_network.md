@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_network.md) | 简体中文 \]
+
 # 网络服务 API
 
 蜂窝网络注册、信号强度、运营商信息等。

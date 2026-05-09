@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_le_scan.md) | 简体中文 \]
+
 # 蓝牙 BLE 扫描 API
 
 openvela 蓝牙 BLE 扫描接口，用于发现周围的 BLE 设备和广播数据。

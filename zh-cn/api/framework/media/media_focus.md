@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_focus.md) | 简体中文 \]
+
 # 音频焦点管理 API
 
 音频焦点（Audio Focus）用于协调多个音频应用之间的播放优先级。当多个应用同时请求音频焦点时，系统根据场景（scenario）判断谁应当播放、谁应当停止或降低音量，并通过回调通知各应用。

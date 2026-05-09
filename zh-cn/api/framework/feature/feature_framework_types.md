@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework_types.md) | 简体中文 \]
+
 # Feature Types API
 
 Feature 框架的基础数据类型定义，供 Feature 开发者使用。

@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/network/net_dhcp.md) | 简体中文 \]
+
 # DHCP API
 
 DHCP（Dynamic Host Configuration Protocol）客户端与服务器接口，覆盖 IPv4（`dhcpc_*` / `dhcpd_*`）和 IPv6（`dhcp6c_*`）两套地址分配协议。

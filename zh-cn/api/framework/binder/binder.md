@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/binder/binder.md) | 简体中文 \]
+
 # Binder 进程间通信 (IPC) 开发指南
 
 Binder 是一种高效的进程间通信 (IPC) 传输机制，允许不同进程之间进行数据交换和远程方法调用。

@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_utils.md) | 简体中文 \]
+
 # 媒体工具 API
 
 媒体框架通用工具接口，包括 DTMF 双音多频信号生成、事件名查询、图/策略 dump 与通用命令发送。

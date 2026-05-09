@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_ss.md) | 简体中文 \]
+
 # Telephony 补充业务（SS）API
 
 Supplementary Services（补充业务）是 3GPP 蜂窝标准定义的增值通话能力，包括呼叫限制（Call Barring）、呼叫转移（Call Forwarding）、主叫识别（CLIR/CLIP）、呼叫等待、USSD 等。

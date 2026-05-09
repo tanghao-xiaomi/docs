@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_le_advertiser.md) | 简体中文 \]
+
 # 蓝牙 BLE 广播 API
 
 openvela 蓝牙 BLE 广播接口，用于发送 BLE 广播数据和管理广播实例。

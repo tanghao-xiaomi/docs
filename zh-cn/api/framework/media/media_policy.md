@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_policy.md) | 简体中文 \]
+
 # 音频策略 API
 
 音频路由、设备管理和模式切换策略。

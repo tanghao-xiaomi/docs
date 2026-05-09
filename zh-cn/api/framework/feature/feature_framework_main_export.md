@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework_main_export.md) | 简体中文 \]
+
 # Feature Main Export API
 
 Feature 管理器（Feature Manager）的生命周期管理与全局配置接口。主要用于快应用框架初始化、绑定运行时事件循环、注册 Feature 以及管理权限。

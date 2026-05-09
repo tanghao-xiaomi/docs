@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/utils/log.md) | 简体中文 \]
+
 # ALOG 简介
 
 ALOG（Android Log）是一个常用的日志宏集，提供了一个简化的方式来记录日志信息。它是对 __android_log_print 函数的一个宏封装，使得在 C 或 C++ 代码中记录日志更加方便和直观。

@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_ims.md) | 简体中文 \]
+
 # IMS 服务 API
 
 IP 多媒体子系统（VoLTE/VoWiFi）管理。

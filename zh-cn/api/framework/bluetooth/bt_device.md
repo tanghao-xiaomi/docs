@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_device.md) | 简体中文 \]
+
 # 蓝牙设备管理 API
 
 openvela 蓝牙远程设备管理接口，提供设备配对、连接、属性查询和管理功能。

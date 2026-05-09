@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/framework/kvdb.md) | 简体中文 \]
+
 # KVDB API
 
 KVDB 提供轻量级键值对持久化存储，底层基于 UnQLite 数据库，API 设计参考 Android properties 规范。

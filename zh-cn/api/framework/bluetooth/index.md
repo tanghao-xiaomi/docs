@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/index.md) | 简体中文 \]
+
 # 蓝牙 API
 
 openvela 蓝牙框架提供完整的蓝牙协议栈接口，支持经典蓝牙（BR/EDR）和低功耗蓝牙（BLE），涵盖从底层连接管理到上层应用规范。

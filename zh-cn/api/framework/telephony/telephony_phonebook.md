@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_phonebook.md) | 简体中文 \]
+
 # Telephony 电话簿 API
 
 SIM 卡电话簿管理接口，支持 ADN（普通电话簿）和 FDN（固定拨号号码）两类条目。

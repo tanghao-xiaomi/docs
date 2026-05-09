@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_sms.md) | 简体中文 \]
+
 # 短信管理 API
 
 短信发送和接收。

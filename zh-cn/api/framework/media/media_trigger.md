@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_trigger.md) | 简体中文 \]
+
 # 媒体触发器 API
 
 媒体触发器（Media Trigger）用于语音唤醒（Voice Trigger）场景，通过加载声学模型实现关键词检测、启动识别等功能。

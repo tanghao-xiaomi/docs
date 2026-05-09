@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_gap.md) | 简体中文 \]
+
 # 蓝牙 GAP API
 
 openvela 蓝牙 GAP（通用访问规范）接口提供蓝牙适配器的管理功能，包括启用/禁用、设备发现、属性配置、配对管理等。

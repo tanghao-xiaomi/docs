@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_trigger_model.md) | 简体中文 \]
+
 # 声学模型 API
 
 声学模型（Sound Model）接口用于处理媒体触发器所需的低层声学模型数据，提供模型加载、卸载、属性/选项查询和热词检测能力。

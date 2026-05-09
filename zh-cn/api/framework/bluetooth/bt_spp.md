@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_spp.md) | 简体中文 \]
+
 # 蓝牙 SPP API
 
 openvela 蓝牙 SPP（串口仿真）接口，用于替代物理串口进行数据透传。

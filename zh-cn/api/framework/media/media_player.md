@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_player.md) | 简体中文 \]
+
 # 多媒体播放器 API
 
 音视频播放功能，支持本地文件和网络流媒体。

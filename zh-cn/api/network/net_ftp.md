@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/network/net_ftp.md) | 简体中文 \]
+
 # FTP 服务器 API
 
 简单的 FTP 服务器接口，提供用户管理和会话处理能力。

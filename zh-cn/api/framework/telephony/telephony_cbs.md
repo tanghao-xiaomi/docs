@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_cbs.md) | 简体中文 \]
+
 # Telephony 小区广播 API
 
 Cell Broadcast Service（CBS）是蜂窝网络的小区广播能力，常用于接收政府紧急警报（地震、海啸）和运营商公告。

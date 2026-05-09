@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_manager.md) | 简体中文 \]
+
 # Telephony 管理 API
 
 蜂窝通信管理接口，包括初始化、状态查询和事件注册。

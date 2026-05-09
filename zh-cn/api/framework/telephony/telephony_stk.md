@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_stk.md) | 简体中文 \]
+
 # Telephony SIM Toolkit (STK) API
 
 SIM Application Toolkit（STK / CAT）是运营商在 SIM 卡上预置的交互菜单与事件处理能力，常见用途包括运营商增值菜单、服务密码管理、URL 浏览器启动等。
