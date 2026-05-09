@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/utils/trace.md) | 简体中文 \]
+
 # ATrace 简介
 
 ATrace（Android Trace）提供了一套应用层 Trace API，可以通过这些 API 在应用中插桩，进行性能分析，优化应用的执行效率。

@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_sim.md) | 简体中文 \]
+
 # SIM 卡管理 API
 
 SIM 卡状态查询和管理。

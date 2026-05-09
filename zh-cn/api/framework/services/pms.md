@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/services/pms.md) | 简体中文 \]
+
 # PMS API
 
 Package Manager Service（PMS）是 openvela XMS 系统中的包管理模块。

@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework_trace.md) | 简体中文 \]
+
 # Feature Trace API
 
 Feature 框架中用于性能追踪（trace）打点的宏定义。这些宏在启用时调用 NuttX 的 `sched_note` 接口记录事件，未启用时展开为空操作。

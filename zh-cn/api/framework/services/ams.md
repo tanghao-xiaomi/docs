@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/services/ams.md) | 简体中文 \]
+
 # AMS API
 
 Activity Manager Service（AMS）是 openvela XMS 系统中的活动管理服务模块，负责管理应用的生命周期，以及任务和活动的调度。

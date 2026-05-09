@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/network/netlib.md) | 简体中文 \]
+
 # 网络工具库（netlib）API
 
 openvela 网络工具库（`netlib_*`）提供了一系列简化 BSD 套接字操作的辅助函数，涵盖 IPv4/IPv6 地址管理、路由、ARP、MAC 地址、MTU、防火墙（iptables/ip6tables）、网络连通性检查等。

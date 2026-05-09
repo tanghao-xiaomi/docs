@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/index.md) | 简体中文 \]
+
 # 多媒体 API
 
 openvela 多媒体框架提供统一的音视频播放、录制、音频焦点管理、策略控制和媒体会话能力，同时包含语音唤醒与工具类接口。

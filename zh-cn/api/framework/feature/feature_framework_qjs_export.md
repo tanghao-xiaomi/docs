@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework_qjs_export.md) | 简体中文 \]
+
 # Feature QJS Export API
 
 Feature 框架与 QuickJS 运行时之间的互操作接口。提供 `ft_value_t` 与 `JSValue` 相互转换的能力，仅在 QuickJS 前端场景下可用。

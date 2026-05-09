@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_call.md) | 简体中文 \]
+
 # 通话管理 API
 
 语音通话控制，包括拨号、接听、挂断、保持等。
@@ -271,7 +273,7 @@ int tapi_call_separate_call(tapi_context context, int slot_id, int event_id, cha
 int tapi_call_hangup_multiparty(tapi_context context, int slot_id);
 ```
 
-从多方通话中分离指定通话。
+挂断多方通话会议。
 
 **参数**：
 
@@ -292,7 +294,7 @@ int tapi_call_hangup_multiparty(tapi_context context, int slot_id);
 int tapi_call_send_tones(void* context, int slot_id, char* tones);
 ```
 
-从多方通话中分离指定通话。
+发送 DTMF 按键音播放请求。
 
 **参数**：
 
@@ -314,7 +316,7 @@ int tapi_call_send_tones(void* context, int slot_id, char* tones);
 int tapi_call_get_all_calls(tapi_context context, int slot_id, int event_id, tapi_async_function p_handle);
 ```
 
-从多方通话中分离指定通话。
+获取当前所有通话。
 
 **参数**：
 
@@ -335,7 +337,7 @@ int tapi_call_get_all_calls(tapi_context context, int slot_id, int event_id, tap
 int tapi_call_get_call_by_state(tapi_context context, int slot_id, int state, tapi_call_info* call_list, int size, tapi_call_info* out_list);
 ```
 
-获取指定通话的信息。
+按通话状态筛选通话。
 
 **参数**：
 
@@ -380,7 +382,7 @@ int tapi_call_get_ecc_list(tapi_context context, int slot_id, ecc_info* out);
 int tapi_call_is_emergency_number(tapi_context context, char* number);
 ```
 
-从多方通话中分离指定通话。
+检查指定号码是否是紧急号码。
 
 **参数**：
 
@@ -401,7 +403,7 @@ int tapi_call_is_emergency_number(tapi_context context, char* number);
 int tapi_call_register_emergency_list_change(tapi_context context, int slot_id, void* user_obj, tapi_async_function p_handle);
 ```
 
-从多方通话中分离指定通话。
+注册紧急号码列表变更回调。
 
 **参数**：
 
@@ -422,7 +424,7 @@ int tapi_call_register_emergency_list_change(tapi_context context, int slot_id, 
 int tapi_call_register_ringback_tone_change(tapi_context context, int slot_id, void* user_obj, tapi_async_function p_handle);
 ```
 
-从多方通话中分离指定通话。
+注册回铃音变更回调。
 
 **参数**：
 
@@ -443,7 +445,7 @@ int tapi_call_register_ringback_tone_change(tapi_context context, int slot_id, v
 int tapi_call_register_default_voicecall_slot_change(tapi_context context, void* user_obj, tapi_async_function p_handle);
 ```
 
-从多方通话中分离指定通话。
+注册默认语音通话卡槽变更回调。
 
 **参数**：
 
@@ -465,7 +467,7 @@ int tapi_call_register_default_voicecall_slot_change(tapi_context context, void*
 int tapi_call_dial_conferece(tapi_context context, int slot_id, char* participants[], int size);
 ```
 
-发起语音通话。
+发起 IMS 会议通话。
 
 **参数**：
 
@@ -486,7 +488,7 @@ int tapi_call_dial_conferece(tapi_context context, int slot_id, char* participan
 int tapi_call_invite_participants(tapi_context context, int slot_id, char* participants[], int size);
 ```
 
-从多方通话中分离指定通话。
+请求会议服务器邀请额外参与者加入会议。
 
 **参数**：
 
@@ -507,7 +509,7 @@ int tapi_call_invite_participants(tapi_context context, int slot_id, char* parti
 int tapi_call_register_call_state_change(tapi_context context, int slot_id, void* user_obj, tapi_async_function p_handle);
 ```
 
-从多方通话中分离指定通话。
+注册通话状态变更回调。
 
 **参数**：
 
@@ -530,7 +532,7 @@ int tapi_call_register_call_state_change(tapi_context context, int slot_id, void
 int tapi_call_answer_by_id(tapi_context context, int slot_id, char* call_id);
 ```
 
-从多方通话中分离指定通话。
+按 ID 接听通话。
 
 **参数**：
 
@@ -550,7 +552,7 @@ int tapi_call_answer_by_id(tapi_context context, int slot_id, char* call_id);
 int tapi_call_answer_by_id_async(tapi_context context, int slot_id, char* call_id, void* user_obj, tapi_async_function p_handle);
 ```
 
-从多方通话中分离指定通话。
+按 ID 接听通话（异步版本，结果通过回调返回）。
 
 **参数**：
 
@@ -572,7 +574,7 @@ int tapi_call_answer_by_id_async(tapi_context context, int slot_id, char* call_i
 int tapi_call_hangup_by_id(tapi_context context, int slot_id, char* call_id);
 ```
 
-从多方通话中分离指定通话。
+按 ID 挂断通话。
 
 **参数**：
 
@@ -660,7 +662,7 @@ int tapi_call_stop_dtmf(tapi_context context, int slot_id, int event_id, tapi_as
 int tapi_call_set_default_slot(tapi_context context, int slot_id);
 ```
 
-从多方通话中分离指定通话。
+设置默认语音通话卡槽。
 
 **参数**：
 
@@ -679,7 +681,7 @@ int tapi_call_set_default_slot(tapi_context context, int slot_id);
 int tapi_call_get_default_slot(tapi_context context, int* out);
 ```
 
-从多方通话中分离指定通话。
+获取默认语音通话卡槽。
 
 **参数**：
 

@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/kernel/signal.md) | 简体中文 \]
+
 # 信号 API
 
 openvela 提供完整的 POSIX 信号机制，用于进程和线程间的异步通信和事件通知。

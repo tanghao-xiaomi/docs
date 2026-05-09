@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework_context.md) | 简体中文 \]
+
 # Feature Context API
 
 Feature 框架提供的统一数据类型与上下文操作接口。通过 `ft_value_t` 封装前端（QuickJS、WAMR 等）的原生对象，开发者无需感知具体前端差异即可完成类型转换、数组对象操作与内存管理。

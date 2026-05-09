@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework.md) | 简体中文 \]
+
 # Feature 框架概述
 
 ## 一、Feature 框架简介

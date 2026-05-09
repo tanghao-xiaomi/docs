@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_a2dp.md) | 简体中文 \]
+
 # 蓝牙 A2DP API
 
 openvela 蓝牙 A2DP（高级音频分发）接口，支持音频流的发送（Source）和接收（Sink）。

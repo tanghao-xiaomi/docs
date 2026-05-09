@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/feature/feature_framework_export.md) | 简体中文 \]
+
 # Feature Export API
 
 Feature 框架为 Feature 开发者提供的核心运行时接口，涵盖内存与数组管理、引用访问、回调、Promise、事件、异步 Worker、JSON 对象与注册表等能力。

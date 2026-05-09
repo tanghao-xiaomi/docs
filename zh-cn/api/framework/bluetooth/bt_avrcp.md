@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_avrcp.md) | 简体中文 \]
+
 # 蓝牙 AVRCP API
 
 openvela 蓝牙 AVRCP（音视频远程控制）接口，支持播放控制、曲目信息查询等。

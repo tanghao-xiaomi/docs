@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_pan.md) | 简体中文 \]
+
 # 蓝牙 PAN API
 
 openvela 蓝牙 PAN（个人局域网）接口，支持通过蓝牙实现网络共享。

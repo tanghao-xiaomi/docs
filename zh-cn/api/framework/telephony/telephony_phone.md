@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_phone.md) | 简体中文 \]
+
 # Telephony Phone Service API
 
 简化版电话服务接口，面向轻量客户端使用。相较于 `tapi_call`，该模块封装更紧凑的通话控制能力，并整合音频类型控制、无线电开关和 WTP（Wireless Telephony Profile）配套接口。

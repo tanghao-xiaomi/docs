@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/telephony/telephony_data.md) | 简体中文 \]
+
 # 数据连接 API
 
 蜂窝数据连接管理。

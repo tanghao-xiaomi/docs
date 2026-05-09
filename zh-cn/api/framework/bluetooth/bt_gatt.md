@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_gatt.md) | 简体中文 \]
+
 # 蓝牙 GATT API
 
 openvela 蓝牙 GATT（通用属性规范）接口，支持 BLE 数据属性的读写与通知。

@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/network/wapi.md) | 简体中文 \]
+
 # 无线网络接口（WAPI）API
 
 `wapi_*` 系列接口基于 Linux Wireless Extensions（WEXT）封装，提供无线网络配置、扫描、关联、功率管理、区域代码和 PMKSA 缓存等能力。
@@ -308,7 +310,7 @@ int wapi_make_broad_ether(struct ether_addr *sa);
 
 **返回值**：
 
-Returns the result of the underlying wapi_make_ether() call,
+返回底层 `wapi_make_ether()` 调用的结果。
 
 ### wapi_make_null_ether
 
@@ -322,7 +324,7 @@ int wapi_make_null_ether(struct ether_addr *sa);
 
 **返回值**：
 
-Returns the result of the underlying wapi_make_ether() call,
+返回底层 `wapi_make_ether()` 调用的结果。
 
 ### wapi_get_ap
 

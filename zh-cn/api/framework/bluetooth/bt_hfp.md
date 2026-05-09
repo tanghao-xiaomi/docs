@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_hfp.md) | 简体中文 \]
+
 # 蓝牙 HFP API
 
 openvela 蓝牙 HFP（免提规范）接口，支持蓝牙通话功能。

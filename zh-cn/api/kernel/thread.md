@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/kernel/thread.md) | 简体中文 \]
+
 # 线程 API
 
 openvela 提供 POSIX 兼容的线程（pthread）接口，支持线程创建、同步、属性管理等功能。

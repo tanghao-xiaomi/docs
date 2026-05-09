@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/framework/security.md) | 简体中文 \]
+
 # 安全框架 API（Security Framework API）
 
 openvela 安全框架基于 MiTEE（可信执行环境）提供安全存储、密钥管理和安全支付等能力，遵循 GlobalPlatform（GP）TEE 标准。

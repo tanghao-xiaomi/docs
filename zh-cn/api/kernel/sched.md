@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/kernel/sched.md) | 简体中文 \]
+
 # 调度管理 API
 
 openvela 提供符合 POSIX 标准的任务调度接口，支持多种调度策略和任务管理功能。

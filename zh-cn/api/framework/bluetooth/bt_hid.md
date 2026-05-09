@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/bluetooth/bt_hid.md) | 简体中文 \]
+
 # 蓝牙 HID API
 
 openvela 蓝牙 HID（人机接口设备）接口，支持键盘、鼠标、游戏手柄等输入设备。

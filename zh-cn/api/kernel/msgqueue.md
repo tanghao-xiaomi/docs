@@ -1,3 +1,5 @@
+\[ [English](../../../en/api/kernel/msgqueue.md) | 简体中文 \]
+
 # 消息队列 API
 
 openvela 提供符合 POSIX 标准的消息队列接口，用于任务间的异步消息传递。消息队列支持优先级排序，高优先级消息优先被接收。

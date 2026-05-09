@@ -1,3 +1,5 @@
+\[ [English](../../../../en/api/framework/media/media_recorder.md) | 简体中文 \]
+
 # 多媒体录制器 API
 
 音视频录制功能，支持文件录制和缓冲模式。
