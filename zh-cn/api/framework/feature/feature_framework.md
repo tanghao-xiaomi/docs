@@ -6,7 +6,12 @@
 
 在快应用（Quick App）开发中，需要为快应用增加一些新的能力，这些能力通过 C/C++ 语言编写。Feature 框架是一个帮助系统开发者为快应用扩展功能的框架、SDK 以及工具集。
 
-<img src="./figures/feature_framework.png" alt="Feature 框架整体架构图" style="zoom: 80%;" />
+整体架构从上到下分为以下几层：
+
+- **JS 层** —— 快应用（用户编写的 JS 代码）
+- **框架层** —— 快应用框架（及快应用引擎）、Feature 框架
+- **Native 层** —— Feature 的 C/C++ 实现
+- **操作系统层** —— openvela
 
 ## 二、Feature 框架能力
 
@@ -41,13 +46,24 @@ Feature 有 3 层概念：
 
 #### 运行时概念模型
 
-每个 Feature 都可以关联 Native 数据，所关联的内容有所区别。运行时概念模型如下：
+每个 Feature 都可以关联 Native 数据，所关联的内容有所区别：
 
-<img src="./figures/feature_running.png" alt="Feature 运行时概念模型" style="zoom: 67%;" />
+- **Module** 完全位于 Native 侧，不暴露给 JS 环境。
+- **Prototype** 在 JS 中以 `JSObject` 形式呈现，但不能直接在 JS 中使用。在 Native 侧持有 `prototype Native 数据`，生命周期与 APP 一致。
+- **Instance** 在 JS 中也以 `JSObject` 形式呈现，在 Native 侧持有 `instance Native 数据`，生命周期与 Instance 本身一致。
 
 #### Feature 的生命周期
 
-<img src="./figures/feature_life.png" alt="Feature 生命周期示意图" style="zoom:80%;" />
+Feature 的生命周期包含 6 个事件，按发生顺序依次如下：
+
+| 事件                                | 触发时机                                                     | 注意事项                                               |
+| ----------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| **`onRegister`**（Module 注册）     | 系统启动时调用，或者调用 `FeatureManagerRegister` 函数时触发 | 注册时不可执行长复杂任务，否则会导致系统启动变慢       |
+| **`onCreate`**（Prototype 创建）    | APP 第一次使用 Feature 时调用                                | 不可期望该函数在 APP 启动时调用                        |
+| **`onRequire`**（Instance 创建）    | APP Require 该 Feature 时调用                                | 可在此做 Feature 实例初始化                            |
+| **`onDettach`**（Instance 销毁）    | Feature 实例被销毁时（Page 退出、APP 退出等）                | Feature 退出有一定不确定性，临时数据不能拖延到此刻回收 |
+| **`onDestroy`**（Prototype 销毁）   | APP 退出时调用                                               | 此处 APP 全局数据回收                                  |
+| **`onUnregister`**（Module 被注销） | Feature 注销时调用                                           | 不可依赖此回调，该回调可能不会被调用                   |
 
 ### 2、Feature 框架提供的接口能力
 
@@ -85,9 +101,11 @@ Feature 框架帮助开发者创建 Feature 的 Prototype 和 Instance。
 - 指针对象自带引用计数，可以通过 `FeatureDupValue` 和 `FeatureFreeValue` 来释放。
 - 通过参数传递的指针，不需要额外释放。
 
-下图展示了对 Callback 和 Promise 的管理机制：
+Feature 框架内部对 Callback 和 Promise 做了统一管理，隐藏实现细节：
 
-<img src="./figures/callback_promise_manager.png" alt="Callback 和 Promise 管理机制" style="zoom: 50%;" />
+- Feature 开发者拿到的是不透明的整数 ID（`FtCallbackId` / `FtPromiseId`），而不是 JS Function 或 Promise 对象本身。
+- 真正的 JS Function 和 Promise 对象由 Feature 框架内部（开发者不可见）持有，并带有引用计数。
+- ID 作为索引指向内部表，资源的回收由框架负责。
 
 Feature 框架通过隐藏细节，达到两个目的：
 

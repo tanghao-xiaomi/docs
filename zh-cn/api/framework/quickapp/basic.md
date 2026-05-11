@@ -15,10 +15,6 @@ openvela 快应用（QuickApp）框架（以下简称"应用框架"），是 ope
 - [小米 openvela 快应用开发手册](https://iot.mi.com/vela/quickapp/zh/content/intro.html) — 面向应用开发者的完整开发指南
 - [Feature 框架 API](../feature/index.md) — 快应用的 Native 扩展 API（JS 与 C/C++ 互调）
 
-## 整体架构
-
-![快应用框架整体架构图](figures/basic_structure.png)
-
 ## 编译配置
 
 应用框架本身的配置项不多，但依赖项较多。依赖项中渲染器的依赖较多，具体配置请参考图形组提供的文档。

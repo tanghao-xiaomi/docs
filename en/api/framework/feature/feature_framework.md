@@ -6,7 +6,12 @@
 
 In QuickApp development, new capabilities need to be added to QuickApps, and these capabilities are written in C/C++. The Feature framework is a framework, SDK, and toolset that helps system developers extend functionality for QuickApps.
 
-<img src="./figures/feature_framework.png" alt="Feature Framework Architecture Diagram" style="zoom: 80%;" />
+The overall architecture is organized into the following layers, from top to bottom:
+
+- **JS Layer** — QuickApp (user JS code)
+- **Framework Layer** — QuickApp Framework (together with the QuickApp Engine) and Feature Framework
+- **Native Layer** — Feature implementations written in C/C++
+- **OS Layer** — openvela
 
 ## Feature Framework Capabilities
 
@@ -41,13 +46,24 @@ From a system perspective, the Feature concepts:
 
 #### Runtime Concept Model
 
-Each Feature can associate Native data, with different associated content. The runtime concept model is as follows:
+Each Feature can associate Native data, with different associated content:
 
-<img src="./figures/feature_running.png" alt="Feature Runtime Concept Model" style="zoom: 67%;" />
+- **Module** is purely internal to the Native side and is never exposed to the JS environment.
+- **Prototype** appears in JS as a `JSObject`, but cannot be used directly from JS. On the Native side, it holds `prototype Native data` whose lifetime matches the app.
+- **Instance** also appears in JS as a `JSObject`, and on the Native side holds `instance Native data` whose lifetime matches the instance itself.
 
 #### Feature Lifecycle
 
-<img src="./figures/feature_life.png" alt="Feature Lifecycle Diagram" style="zoom:80%;" />
+The Feature lifecycle consists of six events, listed below in the order they occur:
+
+| Event                                    | Triggered When                                                        | Notes                                                                                            |
+| ---------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| **`onRegister`** (Module Registration)   | When the system starts up, or when `FeatureManagerRegister` is called | Do not perform long / complex tasks during registration, otherwise system startup will slow down |
+| **`onCreate`** (Prototype Creation)      | The first time the app uses the Feature                               | Do not expect this function to be called at app startup                                          |
+| **`onRequire`** (Instance Creation)      | When the app calls `require` for this Feature                         | Feature instance initialization can be done here                                                 |
+| **`onDettach`** (Instance Destruction)   | When a Feature instance is destroyed (page exit, app exit, etc.)      | Feature teardown is non-deterministic; do not defer recycling of temporary data to this point    |
+| **`onDestroy`** (Prototype Destruction)  | When the app exits                                                    | App-wide global data is recycled here                                                            |
+| **`onUnregister`** (Module Unregistered) | When the Feature is unregistered                                      | Do not rely on this callback; it may never be called                                             |
 
 ### Feature Framework Interface Capabilities
 
@@ -71,23 +87,25 @@ The Feature framework helps developers create Feature Prototypes and Instances.
 
 From JS to Native, the Feature framework provides parameter conversion capabilities, converting JS parameters to plain parameters. The following table shows the basic conversion capabilities:
 
-| JS Type             | C Type                   | Description                                                                                                                          |
-| ------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| number/boolean      | int, float, double, bool | JS number types exist as floating point. Based on JIDL description, they can be converted to compatible types like int, float. Converting to int/bool causes loss of decimal part |
-| string              | FtString                 | `const char*` typedef                                                                                                                |
-| object              | struct pointer / FtAny pointer | If a struct is defined in JIDL, converts to the corresponding C struct pointer; if defined as object/any type in JIDL, defined as FtAny pointer |
-| array               | FtArray pointer          | Converts to a C structure FtArray                                                                                                    |
-| function            | FtCallbackId             | Converts to an integer representing CallbackId                                                                                       |
-| promise             | FtPromiseId              | Converts to an integer representing PromiseId                                                                                        |
+| JS Type        | C Type                         | Description                                                                                                                                                                       |
+| -------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| number/boolean | int, float, double, bool       | JS number types exist as floating point. Based on JIDL description, they can be converted to compatible types like int, float. Converting to int/bool causes loss of decimal part |
+| string         | FtString                       | `const char*` typedef                                                                                                                                                             |
+| object         | struct pointer / FtAny pointer | If a struct is defined in JIDL, converts to the corresponding C struct pointer; if defined as object/any type in JIDL, defined as FtAny pointer                                   |
+| array          | FtArray pointer                | Converts to a C structure FtArray                                                                                                                                                 |
+| function       | FtCallbackId                   | Converts to an integer representing CallbackId                                                                                                                                    |
+| promise        | FtPromiseId                    | Converts to an integer representing PromiseId                                                                                                                                     |
 
 ---
 
 - Pointer objects have built-in reference counting and can be released via `FeatureDupValue` and `FeatureFreeValue`.
 - Pointers passed through parameters do not need additional release.
 
-The following diagram shows the management mechanism for Callbacks and Promises:
+The Feature framework internally manages Callback and Promise objects, hiding the implementation details:
 
-<img src="./figures/callback_promise_manager.png" alt="Callback and Promise Management Mechanism" style="zoom: 50%;" />
+- Feature developers receive opaque IDs (`FtCallbackId` / `FtPromiseId`) instead of direct references to JS Function or Promise objects.
+- The real JS Function and Promise instances are held inside the Feature framework (not visible to developers), together with reference counting.
+- IDs act as indices into the internal tables, and the framework is responsible for reclaiming them.
 
 The Feature framework achieves two goals by hiding details:
 
