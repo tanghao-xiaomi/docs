@@ -15,10 +15,6 @@ This document introduces the overall design, implementation approach, and techni
 - [Xiaomi openvela QuickApp Development Manual](https://iot.mi.com/vela/quickapp/zh/content/intro.html) — Complete development guide for application developers
 - [Feature Framework API](../feature/index.md) — Native extension APIs for QuickApp (JS and C/C++ interop)
 
-## Overall Architecture
-
-![QuickApp Framework Architecture](figures/basic_structure.png)
-
 ## Build Configuration
 
 The application framework itself has few configuration items, but has many dependencies. Among the dependencies, the renderer has the most requirements. For specific configuration, please refer to the documentation provided by the graphics team.
