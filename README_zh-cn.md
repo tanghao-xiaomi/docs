@@ -156,6 +156,7 @@ openvela 采用双分支模型来平衡系统的创新性与稳定性。请根�
 ## 开发者文档
 
 - [文档中心](https://doc.openvela.com/document)
+- [API 参考文档](./zh-cn/api/index.md) — 内核接口、网络接口、应用框架 API 完整说明
 
 ## 应用示例中心
 

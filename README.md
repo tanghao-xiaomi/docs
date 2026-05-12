@@ -155,6 +155,7 @@ If you want to experience openvela, we provide a fully functional emulator that 
 ## Developer Documentation
 
 - [Documentation Center](https://doc.openvela.com/document)
+- [API Reference](./en/api/index.md) — Complete API specification for kernel, network, and application framework interfaces
 
 ## Application Example Center
 
