@@ -6,6 +6,8 @@ openvela 由一支活跃的软件工程师和研究人员团队开发。欢迎�
 
 openvela 主要遵循 Apache License 2.0 许可证，具体请参看 LICENSE 文件。
 
+> **关于 `docs` 仓库的特别说明**：自 2026 年 5 月 13 日起，`docs` 仓库采用双许可方案。文档正文采用 CC BY-NC-ND 4.0 许可证，代码示例、配置文件和脚本继续采用 Apache License 2.0 许可证。提交 Pull Request 即表示您同意按上述条款授权您的贡献。详情参阅 [LICENSING_zh-cn.md](./LICENSING_zh-cn.md)。
+
 ## 签署贡献者许可协议 (CLA)
 
 为了参与社区贡献，首次提交代码时，需要签署相应的**贡献者许可协议（Contributor License Agreement, CLA）**。以下是针对不同平台的具体步骤：
