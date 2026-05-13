@@ -198,7 +198,7 @@ The openvela project consists of multiple independent repositories. Its licensin
 2. Documentation Repository (docs)
 
     Effective May 13, 2026, the docs repository adopts a dual-licensing scheme:
-    - **Documentation text** (Markdown files, images, diagrams) is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+    - **Documentation text** (Markdown files, images, diagrams) is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
     - **Code samples, configuration files, and scripts** remain licensed under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
     See [LICENSING.md](./LICENSING.md) for details.

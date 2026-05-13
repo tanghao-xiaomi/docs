@@ -6,7 +6,7 @@ openvela is developed by an active team of software engineers and researchers.Yo
 
 openvela is mainly subject to Apache License 2.0. See the LICENSE file for details.
 
-> **Note for the `docs` repository**: Effective May 13, 2026, the `docs` repository adopts a dual-license scheme. Documentation text is licensed under CC BY-NC-ND 4.0, while code samples, configuration files, and scripts remain under Apache License 2.0. By submitting a pull request, you agree to license your contribution under the applicable terms. See [LICENSING.md](./LICENSING.md) for details.
+> **Note for the `docs` repository**: Effective May 13, 2026, the `docs` repository adopts a dual-license scheme. Documentation text is licensed under CC BY-NC 4.0, while code samples, configuration files, and scripts remain under Apache License 2.0. By submitting a pull request, you agree to license your contribution under the applicable terms. See [LICENSING.md](./LICENSING.md) for details.
 
 ## Signing the Contributor License Agreement (CLA)
 

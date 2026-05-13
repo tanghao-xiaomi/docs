@@ -199,7 +199,7 @@ openvela 项目由多个独立的仓库组成，其许可证策略如下：
 2. 文档仓库（docs）
 
     自 2026 年 5 月 13 日起，docs 仓库采用双许可方案：
-    - **文档正文**（Markdown 文件、图片、图表）采用 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans)
+    - **文档正文**（Markdown 文件、图片、图表）采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)
     - **代码示例、配置文件、脚本**继续采用 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
     详细说明请参阅 [LICENSING_zh-cn.md](./LICENSING_zh-cn.md)。

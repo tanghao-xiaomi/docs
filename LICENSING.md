@@ -14,17 +14,17 @@ Content added or modified on or after this date is subject to the terms below. C
 
 ### Documentation Text
 
-All prose documentation — including Markdown files, images, diagrams, and illustrations — is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+All prose documentation — including Markdown files, images, diagrams, and illustrations — is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
 
 In summary, you are free to:
 
 - **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material
 
 Under the following terms:
 
 - **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
 - **NonCommercial** — You may not use the material for commercial purposes.
-- **NoDerivatives** — If you remix, transform, or build upon the material, you may not distribute the modified material.
 
 The full license text is available in the [LICENSE](LICENSE) file.
 
@@ -44,7 +44,7 @@ The Apache 2.0 license grants broader permissions including commercial use and m
 
 By submitting a pull request, you agree that your contribution will be licensed under the terms above:
 
-- Documentation text contributions → CC BY-NC-ND 4.0
+- Documentation text contributions → CC BY-NC 4.0
 - Code contributions → Apache 2.0
 
 If you need different licensing terms for a contribution, please discuss with the maintainers before submitting.
