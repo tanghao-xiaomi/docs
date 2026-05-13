@@ -195,11 +195,19 @@ The openvela project consists of multiple independent repositories. Its licensin
 
     The openvela project generally adopts the **Apache 2.0** license. However, the specific license for each code repository is determined by the `LICENSE` file located in its respective root directory.
 
-2. Vendor Repositories
+2. Documentation Repository (docs)
+
+    Effective May 13, 2026, the docs repository adopts a dual-licensing scheme:
+    - **Documentation text** (Markdown files, images, diagrams) is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+    - **Code samples, configuration files, and scripts** remain licensed under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+    See [LICENSING.md](./LICENSING.md) for details.
+
+3. Vendor Repositories
 
     Repositories under the `vendor` directory are provided by third parties (such as chip manufacturers). These repositories follow their own independent licenses (e.g., MIT, BSD, etc.) and are **not** governed by the openvela project's Apache 2.0 license. Please ensure you review and comply with their respective terms before use.
 
-3. Third-Party Dependencies
+4. Third-Party Dependencies
 
     For information regarding third-party open source components referenced in the project code and their licenses, please refer to the [Third-Party Open Source Software Notice](./Third_Party_and_Open_Source_Components.md) file.
 
