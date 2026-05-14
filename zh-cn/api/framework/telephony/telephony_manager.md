@@ -9,7 +9,7 @@
 ## openvela 实现说明
 
 - **基于 D-Bus**：TAPI Manager 通过 D-Bus 与 Telephony Core Stack（oFono）通信，对外以标准 C 接口封装
-- **多卡支持**：管理器层面不直接涉及 SIM 卡槽选择，涉及特定卡槽的操作在 `tapi_sim` 等子模块中使用 `slot_id` 参数
+- **SIM 卡标识**：管理器层面不直接涉及 SIM 卡槽选择，涉及特定卡槽的操作在 `tapi_sim` 等子模块中使用 `slot_id` 参数
 - **客户端句柄**：通过 `tapi_open` 获取 `tapi_context`，所有后续调用均以该 context 作为第一个参数
 - **事件订阅**：通过 `tapi_register` 注册事件回调，`tapi_unregister` 取消订阅
 - **同步 vs 异步**：多数接口是异步的（带回调），部分提供 `*_sync` 变体用于简单场景

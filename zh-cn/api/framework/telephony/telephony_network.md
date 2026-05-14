@@ -11,7 +11,7 @@
 - **选网模式**：支持自动选网（`select_auto`）和手动选网（`select_manual`）
 - **扫描**：`tapi_network_scan` 扫描可用的网络运营商
 - **小区信息**：`get_serving_cellinfos` 获取当前服务小区，`get_neighbouring_cellinfos` 获取相邻小区
-- **多卡支持**：大部分接口带 `slot_id`，区分不同 SIM 卡槽的网络状态
+- **SIM 卡标识**：大部分接口带 `slot_id`，区分不同 SIM 卡槽的网络状态
 - **事件订阅**：`tapi_network_register` / `tapi_network_unregister` 监听注册状态/信号强度变化
 
 ## 选网与扫描

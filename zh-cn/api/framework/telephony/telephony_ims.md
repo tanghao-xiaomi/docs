@@ -12,7 +12,7 @@ IP 多媒体子系统（VoLTE/VoWiFi）管理。
 - **注册状态**：查询 IMS 是否已注册到网络，订阅注册状态变化事件
 - **业务开关**：`set_service_status` 控制具体业务（如语音、视频）的启用
 - **VoLTE 支持**：通过 `is_volte_available` 查询当前网络是否支持 VoLTE
-- **多卡支持**：所有接口带 `slot_id`
+- **SIM 卡标识**：所有接口带 `slot_id` 参数
 
 ## IMS 开关
 

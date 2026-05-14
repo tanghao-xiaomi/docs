@@ -13,7 +13,7 @@ Supplementary Services（补充业务）是 3GPP 蜂窝标准定义的增值通�
 - **CLIR/CLIP**：主叫号码显示与限制，通过 `calling_line_restriction` 和 `calling_line_presentation_info` 接口
 - **USSD**：`tapi_ss_send_ussd` 发送 `*#xxxx#` 命令，`tapi_ss_cancel_ussd` 取消会话
 - **FDN**：固定拨号开关通过 `tapi_ss_enable_fdn` / `tapi_ss_query_fdn`
-- **多卡支持**：所有接口带 `slot_id`
+- **SIM 卡标识**：所有接口带 `slot_id`
 - **异步回调**：所有操作使用 `tapi_async_function`
 
 ## 呼叫限制

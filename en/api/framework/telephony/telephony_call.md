@@ -8,7 +8,7 @@ Header: `#include <tapi_call.h>`
 
 ## openvela Implementation Notes
 
-- **Multi-SIM support**: Some interfaces do not take a `slot_id` and use the default slot; use `tapi_call_set_default_slot` to switch when a specific slot is needed
+- **SIM identification**: Some interfaces do not take a `slot_id` and use the default slot; use `tapi_call_set_default_slot` to switch when a specific slot is needed
 - **Synchronous/Asynchronous**: Time-consuming operations such as dialing and answering provide both synchronous versions and `_async` versions (callback-style)
 - **Operate by ID**: Long-lived calls are uniquely identified by the call ID (string) returned; `*_by_id` interfaces operate on the call accordingly
 - **DTMF**: Keypad tones are triggered via `tapi_call_send_tones` (batch) or `tapi_call_start_dtmf` / `tapi_call_stop_dtmf` (continuous key press)

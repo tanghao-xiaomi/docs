@@ -12,7 +12,7 @@ Header file: `#include <tapi_stk.h>`
 - **Registration levels**: Supports per-slot Agent (via `tapi_stk_agent_register`) and default Agent (system default UI).
 - **Main menu**: `tapi_stk_get_main_menu*` queries the main menu structure provided by the SIM card.
 - **Proactive Command responses**: The `tapi_stk_handle_agent_*` family of interfaces is used to send the Agent's responses to SIM card proactive commands back to the SIM.
-- **Multi-SIM support**: All interfaces include a `slot_id` parameter.
+- **SIM identification**: All interfaces include a `slot_id` parameter.
 
 ## Agent Registration
 
