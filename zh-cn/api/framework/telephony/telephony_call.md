@@ -8,7 +8,7 @@
 
 ## openvela 实现说明
 
-- **多卡支持**：部分接口不带 `slot_id`，使用默认卡；需要指定卡时通过 `tapi_call_set_default_slot` 切换
+- **SIM 卡标识**：部分接口不带 `slot_id`，使用默认卡；需要指定卡时通过 `tapi_call_set_default_slot` 切换
 - **同步/异步**：拨号、应答等耗时操作同时提供同步版本和 `_async` 版本（回调风格）
 - **按 ID 操作**：长生命周期通话通过返回的 call ID（字符串）唯一标识，`*_by_id` 接口据此执行操作
 - **DTMF**：拨号盘按键通过 `tapi_call_send_tones`（批量）或 `tapi_call_start_dtmf` / `tapi_call_stop_dtmf`（持续按键）触发

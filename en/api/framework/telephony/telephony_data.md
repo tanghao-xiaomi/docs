@@ -11,7 +11,7 @@ Header file: `#include <tapi_data.h>`
 - **APN context**: Manage APN configurations (add/remove/edit/query) via the `tapi_data_*_apn_context` series of interfaces
 - **On-demand connection**: `tapi_data_request_network` / `tapi_data_release_network` controls data network establishment and release
 - **Roaming control**: Explicitly toggle data roaming via `tapi_data_enable_roaming`
-- **Multi-SIM support**: Operations involving a specific SIM use the `slot_id` parameter; the default data SIM is set via `tapi_data_set_default_slot`
+- **SIM identification**: Operations involving a specific SIM use the `slot_id` parameter; the default data SIM is set via `tapi_data_set_default_slot`
 - **State subscription**: `tapi_data_register` / `tapi_data_unregister` for registering/unregistering state change events
 
 ## APN Configuration Management

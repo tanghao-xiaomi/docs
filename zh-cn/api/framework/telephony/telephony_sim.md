@@ -8,7 +8,7 @@ SIM 卡状态查询和管理。
 
 ## openvela 实现说明
 
-- **多卡支持**：所有接口均带 `slot_id`，支持多 SIM 卡设备
+- **SIM 卡管理**：所有接口均带 `slot_id` 参数，用于标识 SIM 卡
 - **PIN 管理**：提供 `enter_pin` / `change_pin` / `reset_pin` / `lock_pin` / `unlock_pin` 完整 PIN/PUK 流程
 - **APDU 通道**：通过 `open_logical_channel` / `close_logical_channel` / `transmit_apdu_*` 直接向 SIM 卡发送 APDU 命令
 - **UICC 开关**：通过 `get_uicc_enablement` / `set_uicc_enablement` 控制 SIM 卡的启用状态
