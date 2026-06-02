@@ -9,7 +9,7 @@ Header files: `#include <netutils/dhcpc.h>`, `#include <netutils/dhcp6c.h>`, `#i
 ## openvela Implementation Notes
 
 - **IPv4 client**: The `dhcpc_*` series encapsulates the complete DHCP client state machine (DISCOVER/OFFER/REQUEST/ACK)
-- **IPv6 client**: The `dhcp6c_*` series handles the IPv6 SLAAC / DHCPv6 process
+- **IPv6 client**: The `dhcp6c_*` series implements the DHCPv6 client protocol
 - **Server**: The `dhcpd_*` series provides simple DHCP server capabilities for IP allocation in hotspot/AP mode
 - **Asynchronous calls**: The `*_request_async` interfaces provide callback-based invocation to avoid blocking the current thread
 - **Configuration dependency**: Requires enabling `CONFIG_NETUTILS_DHCPC` / `CONFIG_NETUTILS_DHCP6C` / `CONFIG_NETUTILS_DHCPD`

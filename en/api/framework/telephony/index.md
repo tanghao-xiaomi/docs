@@ -9,7 +9,7 @@ TAPI is independent of the openvela telephony core stack. Its internal logic use
 ## openvela Implementation Notes
 
 - **Architecture**: TAPI encapsulates the Telephony Core Stack (oFono) via D-Bus, exposing standard C interfaces externally
-- **Multi-SIM support**: Different SIM slots are distinguished via the `slot_id` parameter
+- **SIM identification**: Different SIM slots are distinguished via the `slot_id` parameter
 - **Asynchronous model**: Most operations return results asynchronously through callback functions
 
 ## Module Overview

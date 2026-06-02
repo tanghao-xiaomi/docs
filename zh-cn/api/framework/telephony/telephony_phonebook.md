@@ -11,7 +11,7 @@ SIM 卡电话簿管理接口，支持 ADN（普通电话簿）和 FDN（固定�
 - **ADN**：普通电话簿（Abbreviated Dialling Numbers），存储在 SIM 卡上的常规号码
 - **FDN**：固定拨号号码（Fixed Dialling Numbers），启用后手机只能拨打 FDN 中的号码，受 PIN2 保护
 - **FDN 操作需要 PIN2**：`insert_fdn_entry` / `delete_fdn_entry` / `update_fdn_entry` 调用时需要传入 PIN2
-- **多卡支持**：所有接口带 `slot_id`
+- **SIM 卡标识**：所有接口带 `slot_id`
 - **异步回调**：所有操作使用 `tapi_async_function` 异步返回结果
 
 ## ADN 电话簿
