@@ -9,7 +9,7 @@
 ## openvela 实现说明
 
 - **基于 D-Bus**：TAPI Manager 通过 D-Bus 与 Telephony Core Stack（oFono）通信，对外以标准 C 接口封装
-- **多卡支持**：管理器层面不直接涉及 SIM 卡槽选择，涉及特定卡槽的操作在 `tapi_sim` 等子模块中使用 `slot_id` 参数
+- **SIM 卡标识**：管理器层面不直接涉及 SIM 卡槽选择，涉及特定卡槽的操作在 `tapi_sim` 等子模块中使用 `slot_id` 参数
 - **客户端句柄**：通过 `tapi_open` 获取 `tapi_context`，所有后续调用均以该 context 作为第一个参数
 - **事件订阅**：通过 `tapi_register` 注册事件回调，`tapi_unregister` 取消订阅
 - **同步 vs 异步**：多数接口是异步的（带回调），部分提供 `*_sync` 变体用于简单场景
@@ -32,7 +32,7 @@ tapi_context tapi_open(const char* client_name, tapi_client_ready_function callb
 
 **返回值**：
 
-成功时返回 0，失败时返回负的错误码。
+成功时返回有效的 `tapi_context` 句柄，失败时返回 `NULL`。
 
 
 
@@ -42,7 +42,7 @@ tapi_context tapi_open(const char* client_name, tapi_client_ready_function callb
 tapi_context tapi_open_service(const char* client_name, tapi_client_ready_function callback, void* user_data, unsigned int tapi_service);
 ```
 
-打开 Telephony 连接。
+打开 Telephony 连接，指定服务类型。
 
 **参数**：
 
@@ -53,7 +53,7 @@ tapi_context tapi_open_service(const char* client_name, tapi_client_ready_functi
 
 **返回值**：
 
-成功时返回 0，失败时返回负的错误码。
+成功时返回有效的 `tapi_context` 句柄，失败时返回 `NULL`。
 
 
 
@@ -87,11 +87,11 @@ bool tapi_is_feature_supported(tapi_feature_type feature);
 
 **参数**：
 
-- `feature` 功能名称。
+- `feature` 功能类型枚举值。
 
 **返回值**：
 
-成功时返回 0，失败时返回负的错误码。
+支持时返回 `true`，不支持时返回 `false`。
 
 
 

@@ -12,7 +12,7 @@ SIM Application Toolkit（STK / CAT）是运营商在 SIM 卡上预置的交互�
 - **注册层级**：支持 per-slot Agent（通过 `tapi_stk_agent_register`）与 default Agent（系统默认 UI）
 - **主菜单**：`tapi_stk_get_main_menu*` 查询 SIM 卡提供的主菜单结构
 - **Proactive Command 响应**：`tapi_stk_handle_agent_*` 系列接口用于将 Agent 对 SIM 卡主动命令的响应回传给 SIM
-- **多卡支持**：所有接口带 `slot_id`
+- **SIM 卡标识**：所有接口带 `slot_id`
 
 ## Agent 注册
 

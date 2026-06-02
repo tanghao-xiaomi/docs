@@ -11,7 +11,7 @@
 - **APN 上下文**：通过 `tapi_data_*_apn_context` 系列接口管理 APN 配置（增删改查）
 - **按需连接**：`tapi_data_request_network` / `tapi_data_release_network` 控制数据网络的建立与释放
 - **漫游控制**：通过 `tapi_data_enable_roaming` 显式开关数据漫游
-- **多卡支持**：涉及特定卡的操作使用 `slot_id` 参数；数据默认卡通过 `tapi_data_set_default_slot` 设置
+- **SIM 卡标识**：涉及特定卡的操作使用 `slot_id` 参数；数据默认卡通过 `tapi_data_set_default_slot` 设置
 - **状态订阅**：`tapi_data_register` / `tapi_data_unregister` 用于注册/取消状态变化事件
 
 ## APN 配置管理

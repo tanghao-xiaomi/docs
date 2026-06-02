@@ -11,7 +11,7 @@ Header: `#include <tapi_network.h>`
 - **Network selection mode**: Supports automatic selection (`select_auto`) and manual selection (`select_manual`)
 - **Scanning**: `tapi_network_scan` scans for available network operators
 - **Cell information**: `get_serving_cellinfos` retrieves the current serving cell, `get_neighbouring_cellinfos` retrieves neighboring cells
-- **Multi-SIM support**: Most interfaces include a `slot_id` parameter to distinguish network state across different SIM slots
+- **SIM identification**: Most interfaces include a `slot_id` parameter to distinguish network state across different SIM slots
 - **Event subscription**: `tapi_network_register` / `tapi_network_unregister` monitor registration state and signal strength changes
 
 ## Network Selection and Scanning

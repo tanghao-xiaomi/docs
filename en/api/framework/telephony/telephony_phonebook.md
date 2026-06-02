@@ -11,7 +11,7 @@ Header: `#include <tapi_phonebook.h>`
 - **ADN**: Abbreviated Dialling Numbers, regular numbers stored on the SIM card
 - **FDN**: Fixed Dialling Numbers; when enabled, the phone can only dial numbers in the FDN list, protected by PIN2
 - **FDN operations require PIN2**: `insert_fdn_entry` / `delete_fdn_entry` / `update_fdn_entry` calls require PIN2
-- **Multi-SIM support**: All interfaces include a `slot_id` parameter
+- **SIM identification**: All interfaces include a `slot_id` parameter
 - **Asynchronous callbacks**: All operations return results asynchronously via `tapi_async_function`
 
 ## ADN Phonebook

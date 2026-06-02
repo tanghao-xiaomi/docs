@@ -9,7 +9,7 @@ DHCP（Dynamic Host Configuration Protocol）客户端与服务器接口，覆�
 ## openvela 实现说明
 
 - **IPv4 客户端**：`dhcpc_*` 系列封装完整的 DHCP 客户端状态机（DISCOVER/OFFER/REQUEST/ACK）
-- **IPv6 客户端**：`dhcp6c_*` 系列处理 IPv6 的 SLAAC / DHCPv6 流程
+- **IPv6 客户端**：`dhcp6c_*` 系列实现 DHCPv6 客户端协议流程
 - **服务器**：`dhcpd_*` 系列提供简单的 DHCP 服务器能力，可在热点/AP 模式下分配 IP
 - **异步调用**：`*_request_async` 接口提供回调式调用，避免阻塞当前线程
 - **配置依赖**：需启用 `CONFIG_NETUTILS_DHCPC` / `CONFIG_NETUTILS_DHCP6C` / `CONFIG_NETUTILS_DHCPD`
