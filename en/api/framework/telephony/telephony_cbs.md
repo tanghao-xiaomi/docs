@@ -11,7 +11,7 @@ Header: `#include <tapi_cbs.h>`
 - **Power control**: Enable/disable cell broadcast reception via `set_cell_broadcast_power_on`
 - **Topic subscription**: Configure broadcast topic ranges (by channel ID) via `set_cell_broadcast_topics`
 - **Event callback**: Register event callbacks via `tapi_cbs_register` to receive broadcast messages
-- **Multi-SIM support**: All interfaces include a `slot_id` parameter for multi-SIM devices
+- **SIM identification**: All interfaces include a `slot_id` parameter for multi-SIM devices
 - **Related protocol**: Corresponds to the Cell Broadcast procedure defined in 3GPP TS 23.041
 
 ## Power Control

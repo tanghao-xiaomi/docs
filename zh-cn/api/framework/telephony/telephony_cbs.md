@@ -11,7 +11,7 @@ Cell Broadcast Service（CBS）是蜂窝网络的小区广播能力，常用于�
 - **开关控制**：通过 `set_cell_broadcast_power_on` 启用/禁用小区广播接收
 - **主题订阅**：通过 `set_cell_broadcast_topics` 配置要接收的广播主题范围（按频道 ID）
 - **事件回调**：通过 `tapi_cbs_register` 注册事件回调，接收到的广播消息
-- **多卡支持**：所有接口带 `slot_id`，支持多 SIM 卡设备
+- **SIM 卡标识**：所有接口带 `slot_id`，支持多 SIM 卡设备
 - **相关协议**：底层对应 3GPP TS 23.041 定义的 Cell Broadcast 流程
 
 ## 开关控制

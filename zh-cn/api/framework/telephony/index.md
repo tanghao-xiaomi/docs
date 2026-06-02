@@ -9,7 +9,7 @@ TAPI 独立于 openvela telephony core stack，内部逻辑基于 DBUS LIB 对 C
 ## openvela 实现说明
 
 - **架构**：TAPI 基于 D-Bus 对 Telephony Core Stack（oFono）进行封装，以标准 C 接口对外提供
-- **多卡支持**：通过 `slot_id` 参数区分不同 SIM 卡槽
+- **SIM 卡标识**：通过 `slot_id` 参数区分不同 SIM 卡槽
 - **异步模型**：大部分操作通过回调函数异步返回结果
 
 ## 模块代码介绍

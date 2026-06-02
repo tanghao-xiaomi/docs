@@ -13,7 +13,7 @@ Header file: `#include <tapi_ss.h>`
 - **CLIR/CLIP**: Calling line identification display and restriction via `calling_line_restriction` and `calling_line_presentation_info` interfaces
 - **USSD**: `tapi_ss_send_ussd` sends `*#xxxx#` commands, `tapi_ss_cancel_ussd` cancels the session
 - **FDN**: Fixed Dialing Number switch via `tapi_ss_enable_fdn` / `tapi_ss_query_fdn`
-- **Multi-SIM support**: All interfaces include `slot_id`
+- **SIM identification**: All interfaces include `slot_id`
 - **Asynchronous callback**: All operations use `tapi_async_function`
 
 ## Call Barring

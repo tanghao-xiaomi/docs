@@ -8,7 +8,7 @@ Header file: `#include <tapi_sim.h>`
 
 ## openvela Implementation Notes
 
-- **Multi-SIM support**: All interfaces include `slot_id` to support multi-SIM devices
+- **SIM management**: All interfaces include `slot_id` parameter for SIM card identification
 - **PIN management**: Provides `enter_pin` / `change_pin` / `reset_pin` / `lock_pin` / `unlock_pin` for complete PIN/PUK workflows
 - **APDU channel**: Use `open_logical_channel` / `close_logical_channel` / `transmit_apdu_*` to send APDU commands directly to the SIM card
 - **UICC switch**: Control SIM card enablement state via `get_uicc_enablement` / `set_uicc_enablement`

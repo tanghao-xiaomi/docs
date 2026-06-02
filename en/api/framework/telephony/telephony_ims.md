@@ -12,7 +12,7 @@ Header: `#include <tapi_ims.h>`
 - **Registration Status**: Queries whether IMS is registered to the network, subscribes to registration state change events
 - **Service Switch**: `set_service_status` controls enabling of specific services (e.g. voice, video)
 - **VoLTE Support**: Queries whether the current network supports VoLTE via `is_volte_available`
-- **Multi-SIM Support**: All interfaces include a `slot_id` parameter
+- **SIM identification**: All interfaces include a `slot_id` parameter
 
 ## IMS Switch
 
