@@ -42,117 +42,42 @@ The data flow between layers is: application layer (or upper-layer driver) → f
 
 ### 2. Access Interfaces
 
-openvela defines the following interfaces for SPI master control and data transfer:
+openvela defines the following access interfaces (macros) for SPI master bus control and data transfer. The table below summarizes each interface's purpose and usage notes; the full macro definitions and parameter comments are in the header `include/nuttx/spi/spi.h`.
 
-#### 1. SPI_LOCK
+| Interface | Purpose | Usage notes |
+| :--- | :--- | :--- |
+| `SPI_LOCK(d,l)` | Lock/unlock the SPI bus | When multiple slaves share a bus, `lock` before access and `unlock` after, to ensure exclusive use |
+| `SPI_SELECT(d,id,s)` | Select/deselect a slave | `id` is built by `SPIDEV_ID(type,index)`; see the device ID note below |
+| `SPI_SETFREQUENCY(d,f)` | Set the SCLK frequency | Must be called before a transfer; returns the actual effective frequency |
+| `SPI_SETDELAY(d,a,b,c,i)` | Configure CS/CLK/inter-frame delays | Requires `CONFIG_SPI_DELAY_CONTROL`; available when the hardware supports it |
+| `SPI_SETMODE(d,m)` | Set the mode (CPOL/CPHA) | Values in `spi_mode_e` below; must match the peer slave |
+| `SPI_SETBITS(d,b)` | Set the bit width of one word | Determines the unit size of subsequent transfers |
+| `SPI_HWFEATURES(d,f)` | Enable hardware-specific features | Requires `CONFIG_SPI_HWFEATURES`; flags listed below |
+| `SPI_STATUS(d,id)` | Query slave (MMC/SD) status | Targets the slave, not the controller; status bits below |
+| `SPI_CMDDATA(d,id,cmd)` | Switch CMD/DATA state | Targets the slave; requires `CONFIG_SPI_CMDDATA`, common for 9-bit displays |
+| `SPI_SEND(d,wd)` | Transfer one word | Word length set by `SPI_SETBITS`; bits beyond the width are ignored |
+| `SPI_EXCHANGE(d,t,r,l)` | Bidirectional transfer of a block | Requires `CONFIG_SPI_EXCHANGE`; common for 4-wire full duplex |
+| `SPI_SNDBLOCK(d,b,l)` | Send a block of data | Backed by exchange when `CONFIG_SPI_EXCHANGE` is on, otherwise implement sndblock |
+| `SPI_RECVBLOCK(d,b,l)` | Receive a block of data | Same as above; 3-wire half-duplex needs separate sndblock/recvblock |
+| `SPI_REGISTERCALLBACK(d,c,a)` | Register a media-change callback | Mainly for media devices; callback type `spi_mediachange_t` |
+| `SPI_TRIGGER(d)` | Trigger a configured DMA transfer | Requires `CONFIG_SPI_TRIGGER` and the deferred-trigger hardware feature |
 
-```c
-#define SPI_LOCK(d,l) (d)->ops->lock(d,l)
+> For the data-transfer interfaces, the length unit is the word; the word width is set by `SPI_SETBITS`. If nbits ≤ 8 the data is packed into `uint8_t`; if nbits > 8 it is packed into `uint16_t`.
 
-/* Parameters
- * d : spi device
- * l : true: Lock spi bus, false: unlock SPI bus
- */
-```
+The constants referenced by some interfaces are described below.
 
-This interface locks/unlocks the SPI bus. When multiple SPI slaves are attached to one SPI bus, before accessing one of the slaves you should first call `SPI_LOCK` to gain exclusive access to the bus, and release it after the access is finished.
-
-#### 2. SPI_SELECT
-
-```c
-#define SPI_SELECT(d,id,s) ((d)->ops->select(d,id,s))
-
-/* Parameters
- * d  : spi device
- * id : Identifies the device to select
- * s  : true: slave selected, false: slave de-selected
- */
-```
-
-This interface selects/deselects an SPI slave. `id` is a `uint32_t` value whose high 16 bits are the SPI device type and whose low 16 bits are the index of that slave within this type of SPI device:
+**SPI device ID (the `id` parameter of `SPI_SELECT`)**: the high 16 bits are the device type, the low 16 bits are the index of a device of the same type.
 
 ```c
 #define SPIDEV_ID(type,index) ((((uint32_t)(type)  & 0xffff) << 16) | \
                                 ((uint32_t)(index) & 0xffff))
-
 #define SPIDEVID_TYPE(devid)   (((uint32_t)(devid) >> 16) & 0xffff)
 #define SPIDEVID_INDEX(devid)  ((uint32_t)(devid)        & 0xffff)
 ```
 
-The SPI device types defined in openvela include:
+Device types are defined by a set of `SPIDEV_xxx(n)` macros (such as `SPIDEV_FLASH(n)`, `SPIDEV_DISPLAY(n)`, `SPIDEV_MMCSD(n)`, etc.); see `enum spi_devtype_e` in `include/nuttx/spi/spi.h` for the full list.
 
-```c
-#define SPIDEV_NONE(n)          SPIDEV_ID(SPIDEVTYPE_NONE,          (n))
-#define SPIDEV_MMCSD(n)         SPIDEV_ID(SPIDEVTYPE_MMCSD,         (n))
-#define SPIDEV_FLASH(n)         SPIDEV_ID(SPIDEVTYPE_FLASH,         (n))
-#define SPIDEV_ETHERNET(n)      SPIDEV_ID(SPIDEVTYPE_ETHERNET,      (n))
-#define SPIDEV_DISPLAY(n)       SPIDEV_ID(SPIDEVTYPE_DISPLAY,       (n))
-#define SPIDEV_CAMERA(n)        SPIDEV_ID(SPIDEVTYPE_CAMERA,        (n))
-#define SPIDEV_WIRELESS(n)      SPIDEV_ID(SPIDEVTYPE_WIRELESS,      (n))
-#define SPIDEV_TOUCHSCREEN(n)   SPIDEV_ID(SPIDEVTYPE_TOUCHSCREEN,   (n))
-#define SPIDEV_EXPANDER(n)      SPIDEV_ID(SPIDEVTYPE_EXPANDER,      (n))
-#define SPIDEV_MUX(n)           SPIDEV_ID(SPIDEVTYPE_MUX,           (n))
-#define SPIDEV_AUDIO_DATA(n)    SPIDEV_ID(SPIDEVTYPE_AUDIO_DATA,    (n))
-#define SPIDEV_AUDIO_CTRL(n)    SPIDEV_ID(SPIDEVTYPE_AUDIO_CTRL,    (n))
-#define SPIDEV_EEPROM(n)        SPIDEV_ID(SPIDEVTYPE_EEPROM,        (n))
-#define SPIDEV_ACCELEROMETER(n) SPIDEV_ID(SPIDEVTYPE_ACCELEROMETER, (n))
-#define SPIDEV_BAROMETER(n)     SPIDEV_ID(SPIDEVTYPE_BAROMETER,     (n))
-#define SPIDEV_TEMPERATURE(n)   SPIDEV_ID(SPIDEVTYPE_TEMPERATURE,   (n))
-#define SPIDEV_IEEE802154(n)    SPIDEV_ID(SPIDEVTYPE_IEEE802154,    (n))
-#define SPIDEV_CONTACTLESS(n)   SPIDEV_ID(SPIDEVTYPE_CONTACTLESS,   (n))
-#define SPIDEV_CANBUS(n)        SPIDEV_ID(SPIDEVTYPE_CANBUS,        (n))
-#define SPIDEV_USBHOST(n)       SPIDEV_ID(SPIDEVTYPE_USBHOST,       (n))
-#define SPIDEV_LPWAN(n)         SPIDEV_ID(SPIDEVTYPE_LPWAN,         (n))
-#define SPIDEV_ADC(n)           SPIDEV_ID(SPIDEVTYPE_ADC,           (n))
-#define SPIDEV_MOTOR(n)         SPIDEV_ID(SPIDEVTYPE_MOTOR,         (n))
-#define SPIDEV_IMU(n)           SPIDEV_ID(SPIDEVTYPE_IMU,           (n))
-#define SPIDEV_USER(n)          SPIDEV_ID(SPIDEVTYPE_USER,          (n))
-```
-
-#### 3. SPI_SETFREQUENCY
-
-```c
-#define SPI_SETFREQUENCY(d,f) ((d)->ops->setfrequency(d,f))
-
-/* Parameters
- * d : spi device
- * f : The SPI frequency requested
- */
-```
-
-This interface sets the clock frequency for SPI transfers. It must be called before an SPI transfer begins.
-
-#### 4. SPI_SETDELAY
-
-```c
-#ifdef CONFIG_SPI_DELAY_CONTROL
-#  define SPI_SETDELAY(d,a,b,c,i) ((d)->ops->setdelay(d,a,b,c,i))
-#endif
-
-/* Parameters
- * d : spi device
- * a : The delay between CS active and first CLK
- * b : The delay between last CLK and CS inactive
- * c : The delay between CS inactive and CS active again
- * i : The delay between frames
- */
-```
-
-This interface configures the parameters of the SPI clock signal. When the specified SPI controller supports configuring the clock signal produced by the SPI master, this interface can be used to configure it. `CONFIG_SPI_DELAY_CONTROL` must be enabled before use.
-
-#### 5. SPI_SETMODE
-
-```c
-#define SPI_SETMODE(d,m) \
-  do { if ((d)->ops->setmode) (d)->ops->setmode(d,m); } while (0)
-
-/* Parameters
- * d : spi device
- * m : The SPI mode requested
- */
-```
-
-This interface sets the working mode of the SPI master. SPI has four working modes, which openvela defines as follows:
+**Working mode (the `m` parameter of `SPI_SETMODE`)**:
 
 ```c
 enum spi_mode_e
@@ -165,39 +90,7 @@ enum spi_mode_e
 };
 ```
 
-The working mode of the SPI master must match that of the SPI slave.
-
-#### 6. SPI_SETBITS
-
-```c
-#define SPI_SETBITS(d,b) \
-  do { if ((d)->ops->setbits) (d)->ops->setbits(d,b); } while (0)
-
-/* Parameters
- * d : spi device
- * b : The number of bits in an SPI word.
- */
-```
-
-This interface configures the number of bits contained in one transfer word of the SPI master. The SPI master transfers data in units of words, and this interface defines the size of one SPI master transfer.
-
-#### 7. SPI_HWFEATURES
-
-```c
-#ifdef CONFIG_SPI_HWFEATURES
-#  define SPI_HWFEATURES(d,f) \
-  (((d)->ops->hwfeatures) ? (d)->ops->hwfeatures(d,f) : ((f) == 0 ? OK : -ENOSYS))
-#else
-#  define SPI_HWFEATURES(d,f) (((f) == 0) ? OK : -ENOSYS)
-#endif
-
-/* Parameters
- * d : spi device
- * f : H/W feature flags
- */
-```
-
-This interface enables specific hardware features of the SPI master. The parameter `f` is a set of hardware feature flags. openvela currently defines the following hardware feature flags:
+**Hardware feature flags (the `f` parameter of `SPI_HWFEATURES`)**:
 
 ```c
 Bit 0: HWFEAT_CRCGENERATION                    // Hardware CRC generation (must be disabled by default)
@@ -207,167 +100,15 @@ Bit 3: HWFEAT_ESCAPE_LASTXFER                  // Currently a hardware capabilit
 Bit 4: HWFEAT_AUTO_CS_CONTROL                  // CS is automatically controlled by the hardware controller with programmable timings
 Bit 5: HWFEAT_INVERT_CS_LEVEL                  // Invert the CS level (active high)
 Bit 6: HWFEAT_LSBFIRST                         // Transfer LSB first (default is MSB first)
-Bit 7: Turn deferred trigger mode on or off.   // Deferred trigger, primarily used for DMA transmission; the DMA only starts once spi_trigger is called
-
-#  ifdef CONFIG_SPI_CRCGENERATION
-#    define HWFEAT_CRCGENERATION                     (1 << 0)
-#  endif
-
-#  ifdef CONFIG_SPI_CS_CONTROL
-#    define HWFEAT_FORCE_CS_CONTROL_MASK             (31 << 1)
-#    define HWFEAT_FORCE_CS_INACTIVE_AFTER_TRANSFER  (1 << 1)
-#    define HWFEAT_FORCE_CS_ACTIVE_AFTER_TRANSFER    (1 << 2)
-#    define HWFEAT_ESCAPE_LASTXFER                   (1 << 3)
-#    define HWFEAT_AUTO_CS_CONTROL                   (1 << 4)
-#    define HWFEAT_INVERT_CS_LEVEL                   (1 << 5)
-#  endif
-
-#  ifdef CONFIG_SPI_BITORDER
-#    define HWFEAT_MSBFIRST                          (0 << 6)
-#    define HWFEAT_LSBFIRST                          (1 << 6)
-#  endif
-
-#  ifdef CONFIG_SPI_TRIGGER
-#    define HWFEAT_TRIGGER                           (1 << 7)
-#  endif
+Bit 7: Deferred trigger mode on/off            // Mainly for DMA; once set, the transfer must be fired by SPI_TRIGGER
 ```
 
-When the SPI master hardware has unique hardware capabilities that need to be enabled, you can use `SPI_HWFEATURES` to configure them, and enable the corresponding control macro at the same time.
-
-#### 8. SPI_STATUS
-
-```c
-#define SPI_STATUS(d,id) \
-  ((d)->ops->status ? (d)->ops->status(d, id) : SPI_STATUS_PRESENT)
-
-/* Parameters
- * d  : spi device
- * id : Identifies the device to report status on
- */
-```
-
-This interface targets the slave device, not the SPI master hardware itself, and is used to obtain the current status of an SPI MMC/SD. The currently supported statuses are:
+**Status bits (the return value of `SPI_STATUS`)**:
 
 ```c
 #define SPI_STATUS_PRESENT     0x01 /* Bit 0=1: MMC/SD card present */
 #define SPI_STATUS_WRPROTECTED 0x02 /* Bit 1=1: MMC/SD card write protected */
 ```
-
-#### 9. SPI_CMDDATA
-
-```c
-#ifdef CONFIG_SPI_CMDDATA
-#  define SPI_CMDDATA(d,id,cmd) ((d)->ops->cmddata(d,id,cmd))
-#endif
-
-/* Parameters
- * d  : spi device
- * id : Identifies the device
- * cmd: TRUE: The following word is a command; FALSE: the following words are data
- */
-```
-
-This interface targets the slave device, not the SPI master hardware itself, and tells the slave whether the upcoming data transfer is CMD data or DATA data. It is mainly used in scenarios where the slave has an explicit state switch between CMD and DATA data. `CONFIG_SPI_CMDDATA` must be enabled before use.
-
-#### 10. SPI_SEND
-
-```c
-#define SPI_SEND(d,wd) ((d)->ops->send(d,wd))
-
-/* Parameters
- * d  : spi device
- * wd : The word to send.
- */
-```
-
-This interface sends one word to the slave. The actual length of the word should match the number of bits set by `SPI_SETBITS`. For example, if `SPI_SETBITS` is set to 8, then `wd` should be 8-bit data; even if 16-bit data is passed in, the SPI master will only send 8 bits to the slave.
-
-#### 11. SPI_EXCHANGE
-
-```c
-#ifdef CONFIG_SPI_EXCHANGE
-#  define SPI_EXCHANGE(d,t,r,l) ((d)->ops->exchange(d,t,r,l))
-#endif
-
-/* Parameters
- * d : spi device
- * t : A pointer to the buffer of data to be sent
- * r : A pointer to the buffer in which to receive data
- * l : The length of data to be exchanged in units of words
- */
-```
-
-This interface performs a bidirectional transfer with the slave. During this transfer, the SPI master sends the data in the tx buffer to the peer and simultaneously receives the peer's data into the rx buffer. The data length is in units of the nbits set by `SPI_SETBITS`. When the SPI master and SPI slave support bidirectional transfers, this interface must be implemented and `CONFIG_SPI_EXCHANGE` enabled. A 4-wire SPI usually needs to implement this interface.
-
-#### 12. SPI_SNDBLOCK
-
-```c
-#ifdef CONFIG_SPI_EXCHANGE
-#  define SPI_SNDBLOCK(d,b,l) ((d)->ops->exchange(d,b,0,l))
-#else
-#  define SPI_SNDBLOCK(d,b,l) ((d)->ops->sndblock(d,b,l))
-#endif
-
-/* Parameters
- * d : spi device
- * b : A pointer to the buffer of data to be sent
- * l : The length of data to send from the buffer in number of words.
- */
-```
-
-This interface sends a block of data to the slave, with the length in units of words. When the SPI master and SPI slave support bidirectional transfers (i.e., `CONFIG_SPI_EXCHANGE` is enabled), the `SPI_EXCHANGE` interface is called directly. Otherwise, a unidirectional transfer function must be implemented. A 3-wire SPI can usually only do half-duplex communication and additionally needs to implement `SPI_SNDBLOCK` and `SPI_RECVBLOCK`.
-
-#### 13. SPI_RECVBLOCK
-
-```c
-#ifdef CONFIG_SPI_EXCHANGE
-#  define SPI_RECVBLOCK(d,b,l) ((d)->ops->exchange(d,0,b,l))
-#else
-#  define SPI_RECVBLOCK(d,b,l) ((d)->ops->recvblock(d,b,l))
-#endif
-
-/* Parameters
- * d : spi device
- * b : A pointer to the buffer in which to receive data
- * l : The length of data that can be received in the buffer in number of words
- */
-```
-
-This interface reads a block of data from the slave, with the length in units of words. Same as `SPI_SNDBLOCK`, when the SPI master and SPI slave support bidirectional transfers (i.e., `CONFIG_SPI_EXCHANGE` is enabled), the `SPI_EXCHANGE` interface is called directly.
-
-#### 14. SPI_REGISTERCALLBACK
-
-```c
-#define SPI_REGISTERCALLBACK(d,c,a) \
-  ((d)->ops->registercallback ? (d)->ops->registercallback(d,c,a) : -ENOSYS)
-
-/* Parameters
- * d : spi device
- * c : The function to call on the media change
- * a : A caller provided value to return with the callback
- */
-```
-
-This interface registers a callback with the SPI, mainly provided for media devices to detect media device state transitions. The callback function follows this prototype:
-
-```c
-typedef CODE void (*spi_mediachange_t)(FAR void *arg);
-```
-
-Of course, if the corresponding device is not a media device, this interface can also be borrowed to implement your own callback to accomplish the desired function.
-
-#### 15. SPI_TRIGGER
-
-```c
-#  define SPI_TRIGGER(d) \
-  (((d)->ops->trigger) ? ((d)->ops->trigger(d)) : -ENOSYS)
-
-/* Parameters
- * d : spi device
- */
-```
-
-This interface actually triggers a previously configured DMA transfer. When the hardware supports the deferred DMA trigger feature, this interface must be implemented and the corresponding macro enabled.
 
 ### 3. Driver Adaptation
 
@@ -659,139 +400,33 @@ The binding is established via `SPIS_CTRLR_BIND`: when the device driver initial
 
 ### 2. Controller-Layer Interfaces
 
-#### 1. SPIS_CTRLR_BIND
+Implemented by the controller-layer driver and called by the device layer; full macro definitions are in `include/nuttx/spi/slave.h`:
 
-```c
-#define SPIS_CTRLR_BIND(c,d,m,n) ((c)->ops->bind(c,d,m,n))
+| Interface | Purpose | Usage notes |
+| :--- | :--- | :--- |
+| `SPIS_CTRLR_BIND(c,d,m,n)` | Bind device with controller and configure/enable it | Configures mode/nbits/MSB-LSB internally; `m`, `n` must match the peer master; `n>0` means MSB first, `n<0` means LSB first |
+| `SPIS_CTRLR_UNBIND(c)` | Unbind the controller | The controller should be disabled on unbind |
+| `SPIS_CTRLR_ENQUEUE(c,v,l)` | Put data to send into the transmit queue | Sent by the controller on the next master-initiated transfer |
+| `SPIS_CTRLR_QFULL(c)` | Query whether the transmit queue is full | Useful before enqueuing |
+| `SPIS_CTRLR_QFLUSH(c)` | Flush the transmit queue | Discards data not yet sent |
+| `SPIS_CTRLR_QPOLL(c)` | Drive the controller to hand received data to the device layer | See the note below |
 
-/* Parameters
- * c : SPI Slave controller interface instance
- * d : SPI Slave device interface instance
- * m : The SPI Slave mode requested
- * n : The number of bits requested.
- *     If value is greater than 0, then it implies MSB first
- *     If value is less than 0, then it implies LSB first with -nbits
- */
-```
-
-This interface binds the device and the controller. Inside it, the SPI slave's mode, nbits, and MSB/LSB hardware configuration must be completed, and the SPI slave controller enabled at the same time. The mode and nbits passed when calling this interface must match the configuration of the peer SPI master.
-
-#### 2. SPIS_CTRLR_UNBIND
-
-```c
-#define SPIS_CTRLR_UNBIND(c) ((c)->ops->unbind(c))
-
-/* Parameters
- * c : SPI Slave controller interface instance
- */
-```
-
-This interface unbinds the controller. When unbinding, the SPI controller should be disabled.
-
-#### 3. SPIS_CTRLR_ENQUEUE
-
-```c
-#define SPIS_CTRLR_ENQUEUE(c,v,l)  ((c)->ops->enqueue(c,v,l))
-
-/* Parameters
- * c : SPI Slave controller interface instance
- * v : Pointer to the command/data mode data to be shifted out.
- * l : Number of units of "nbits" wide to enqueue
- */
-```
-
-This interface sends data into the controller. The data will be sent out by the SPI slave controller the next time the SPI master initiates a transfer.
-
-#### 4. SPIS_CTRLR_QFULL
-
-```c
-#define SPIS_CTRLR_QFULL(c)  ((c)->ops->qfull(c))
-
-/* Parameters
- * c : SPI Slave controller interface instance
- */
-```
-
-This interface queries whether the controller's transmit buffer is full.
-
-#### 5. SPIS_CTRLR_QFLUSH
-
-```c
-#define SPIS_CTRLR_QFLUSH(c)  ((c)->ops->qflush(c))
-
-/* Parameters
- * c : SPI Slave controller interface instance
- */
-```
-
-This interface clears the contents of the controller's transmit buffer.
-
-#### 6. SPIS_CTRLR_QPOLL
-
-```c
-#define SPIS_CTRLR_QPOLL(c)  ((c)->ops->qpoll(c))
-
-/* Parameters
- * c : SPI Slave controller interface instance
- */
-```
-
-This interface queries the length of data in the controller's receive buffer. If the controller buffer contains data, the controller layer needs to call the device-layer interface `SPIS_DEV_RECEIVE` to read the received-buffer data into the device layer. openvela builds the process of the device reading the controller-layer receive-buffer data into `SPIS_CTRLR_QPOLL`, rather than first calling `SPIS_CTRLR_QPOLL` and then calling `SPIS_DEV_RECEIVE` to read.
+> The handling of `SPIS_CTRLR_QPOLL` is built into the controller implementation: after it is called, the controller repeatedly calls back the device layer's `SPIS_DEV_RECEIVE` to hand over the received-buffer data, until the buffer is empty or the device layer can accept no more (`receive` returns less than the offered length). There is no need to call `QPOLL` first and then `RECEIVE` separately.
 
 ### 3. Device-Layer Interfaces
 
-#### 1. SPIS_DEV_RECEIVE
+Implemented by the device-layer driver and invoked as callbacks by the controller layer; full macro definitions are in `include/nuttx/spi/slave.h`:
 
-```c
-#define SPIS_DEV_RECEIVE(d,v,n)  ((d)->ops->receive(d,v,n))
+| Interface | Purpose | Usage notes |
+| :--- | :--- | :--- |
+| `SPIS_DEV_RECEIVE(d,v,n)` | Hand controller-received data to the device layer | `v` points to the controller receive buffer, `n` is the valid length; returns the number of units actually accepted (less than `n` means the device layer can take no more); length unit is the nbits set by `BIND` |
+| `SPIS_DEV_GETDATA(d,v)` | Fetch the next data to send from the device layer | Sent out on the next master clock |
+| `SPIS_DEV_GETRECVBUF(d,b)` | Get a zero-copy (nocopy) receive buffer | When the returned buffer pointer is non-NULL, enqueued data is written directly into it; returns the number of receivable units |
+| `SPIS_DEV_NOTIFY(d,s)` | Notify that a receive/send has completed | State `s` is of type `spi_slave_state_t`, see below |
+| `SPIS_DEV_SELECT(d,s)` | Notify the device layer of a chip-select event | `s` indicates whether the chip select is active |
+| `SPIS_DEV_CMDDATA(d,i)` | Notify a CMD/DATA state switch | `i` True means Data, False means Cmd |
 
-/* Parameters
- * d : SPI Slave device interface instance
- * v : Pointer to the new data that has been shifted in
- * n : Length of the new data in units of nbits wide
- */
-```
-
-This interface receives the data in the controller-layer receive buffer into the device layer. The parameter `v` points to the controller-layer receive buffer address, the parameter `n` is the length of valid data contained in the buffer, and the return value is the actual length of data received into the device layer, in units of the nbits set by `SPIS_CTRLR_BIND`. When the device layer calls `SPIS_CTRLR_QPOLL`, the controller layer should call `SPIS_DEV_RECEIVE` multiple times inside that function to return the received data to the device layer, until the controller-layer receive buffer is empty, or until the return value of `SPIS_DEV_RECEIVE` is less than the passed-in parameter `n` (meaning the controller layer can no longer accept more data); only then does `SPIS_CTRLR_QPOLL` return.
-
-#### 2. SPIS_DEV_GETDATA
-
-```c
-#define SPIS_DEV_GETDATA(d,v)  ((d)->ops->getdata(d,v))
-
-/* Parameters
- * d : SPI Slave device interface instance
- * v : Pointer to the data buffer pointer to be shifted out
- */
-```
-
-This interface obtains the data to be sent from the device layer. This data will be sent out the next time the SPI master clock arrives.
-
-#### 3. SPIS_DEV_GETRECVBUF
-
-```c
-#define SPIS_DEV_GETRECVBUF(d,b)  ((d)->ops->getrecvbuf(d,b))
-
-/* Parameters
- * d : SPI Slave device interface instance
- * b : Pointer to the receive buffer pointer to be shifted in
- */
-```
-
-This interface supports zero-copy (nocopy) transfers. The device layer calls it when it wants to perform a zero-copy transfer; if the buffer pointer the controller obtains is non-NULL, the enqueued data is transferred directly into that buffer. The return value is the number of data units that can be received this time.
-
-#### 4. SPIS_DEV_NOTIFY
-
-```c
-#define SPIS_DEV_NOTIFY(d,s)  ((d)->ops->notify(d,s))
-
-/* Parameters
- * d : SPI Slave device interface instance
- * s : The Receive and send state, type of state is spi_slave_state_t
- */
-```
-
-This interface notifies the device layer that a send or receive process has completed. The device layer can continue to send or receive data according to the state returned by the controller:
+The state values of `SPIS_DEV_NOTIFY`:
 
 ```c
 typedef enum
@@ -801,32 +436,6 @@ typedef enum
   SPISLAVE_TRANSFER_FAILED
 } spi_slave_state_t;
 ```
-
-#### 5. SPIS_DEV_SELECT
-
-```c
-#define SPIS_DEV_SELECT(d,s) ((d)->ops->select(d,s))
-
-/* Parameters
- * d : SPI Slave device interface instance
- * s : Indicates whether the chip select is in active state
- */
-```
-
-This interface notifies the device layer of a chip-select event detected by the controller.
-
-#### 6. SPIS_DEV_CMDDATA
-
-```c
-#define SPIS_DEV_CMDDATA(d,i) ((d)->ops->cmddata(d,i))
-
-/* Parameters
- * d : SPI Slave device interface instance
- * i : True: Data is selected, False: Cmd is selected
- */
-```
-
-This interface notifies the device layer of a CMD/DATA state switch.
 
 ### 4. Driver Adaptation
 
