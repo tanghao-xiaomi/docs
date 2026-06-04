@@ -42,117 +42,42 @@ openvela 中的 SPI master 框架只是对 SPI master 的控制和传输操作�
 
 ### 2、对外接口
 
-openvela 中定义了如下接口，用于 SPI master 的控制和数据传输：
+openvela 为 SPI master 定义了如下对外接口（宏），用于总线控制和数据传输。下表汇总了各接口的作用与使用要点，宏的完整定义和参数注释可参阅头文件 `include/nuttx/spi/spi.h`。
 
-#### 1. SPI_LOCK
+| 接口 | 作用 | 使用要点 |
+| :--- | :--- | :--- |
+| `SPI_LOCK(d,l)` | 上锁/解锁 SPI 总线 | 多从设备共享总线时，访问前 `lock`、访问后 `unlock`，保证独占 |
+| `SPI_SELECT(d,id,s)` | 片选/取消某个从设备 | `id` 由 `SPIDEV_ID(type,index)` 构造，见下方设备 ID 说明 |
+| `SPI_SETFREQUENCY(d,f)` | 设置 SCLK 时钟频率 | 必须在传输开始前调用，返回实际生效频率 |
+| `SPI_SETDELAY(d,a,b,c,i)` | 配置 CS/CLK/帧间延时 | 需使能 `CONFIG_SPI_DELAY_CONTROL`；硬件支持时可用 |
+| `SPI_SETMODE(d,m)` | 设置工作模式（CPOL/CPHA） | 取值见下方 `spi_mode_e`；须与对端 slave 一致 |
+| `SPI_SETBITS(d,b)` | 设置一个 word 的位宽 | 决定后续传输以多少 bit 为单位 |
+| `SPI_HWFEATURES(d,f)` | 使能硬件特定功能 | 需使能 `CONFIG_SPI_HWFEATURES`；标志位见下方 |
+| `SPI_STATUS(d,id)` | 查询从设备状态（MMC/SD） | 针对从设备而非控制器本身；状态位见下方 |
+| `SPI_CMDDATA(d,id,cmd)` | 切换 CMD/DATA 状态 | 针对从设备；需使能 `CONFIG_SPI_CMDDATA`，多见于 9-bit 显示屏 |
+| `SPI_SEND(d,wd)` | 收发一个 word | word 长度由 `SPI_SETBITS` 决定，超出位宽部分被忽略 |
+| `SPI_EXCHANGE(d,t,r,l)` | 双向收发一组数据 | 需使能 `CONFIG_SPI_EXCHANGE`；四线全双工常用 |
+| `SPI_SNDBLOCK(d,b,l)` | 发送一组数据 | 使能 `CONFIG_SPI_EXCHANGE` 时由 exchange 实现，否则需实现 sndblock |
+| `SPI_RECVBLOCK(d,b,l)` | 接收一组数据 | 同上；三线半双工需单独实现 sndblock/recvblock |
+| `SPI_REGISTERCALLBACK(d,c,a)` | 注册媒体状态变化回调 | 主要用于 media 设备，回调类型 `spi_mediachange_t` |
+| `SPI_TRIGGER(d)` | 触发已配置的 DMA 传输 | 需使能 `CONFIG_SPI_TRIGGER` 及延迟触发硬件特性 |
 
-```c
-#define SPI_LOCK(d,l) (d)->ops->lock(d,l)
+> 数据传输相关接口的长度单位均为 word，word 的位宽由 `SPI_SETBITS` 设置；若 nbits ≤ 8 按 `uint8_t` 打包，nbits > 8 按 `uint16_t` 打包。
 
-/* 参数说明
- * d : spi device
- * l : true: Lock spi bus, false: unlock SPI bus
- */
-```
+下面对部分接口涉及的常量定义作补充说明。
 
-该接口用于 SPI 总线的上锁/解锁。当一个 SPI 总线上挂载了多个 SPI 从设备时，在访问其中的一个从设备之前应当首先执行 `SPI_LOCK` 获得总线独占权，并在访问结束之后释放总线独占权。
-
-#### 2. SPI_SELECT
-
-```c
-#define SPI_SELECT(d,id,s) ((d)->ops->select(d,id,s))
-
-/* 参数说明
- * d  : spi device
- * id : Identifies the device to select
- * s  : true: slave selected, false: slave de-selected
- */
-```
-
-该接口用于 SPI 从设备的片选/取消。其中，id 为一个 `uint32_t` 类型的数据，其高 16 位为 SPI 设备的类型，低 16 位为该从设备在此类 SPI 设备的索引：
+**SPI 设备 ID（`SPI_SELECT` 的 `id` 参数）**：高 16 位为设备类型，低 16 位为同类设备的索引。
 
 ```c
 #define SPIDEV_ID(type,index) ((((uint32_t)(type)  & 0xffff) << 16) | \
                                 ((uint32_t)(index) & 0xffff))
-
 #define SPIDEVID_TYPE(devid)   (((uint32_t)(devid) >> 16) & 0xffff)
 #define SPIDEVID_INDEX(devid)  ((uint32_t)(devid)        & 0xffff)
 ```
 
-openvela 中定义的 SPI 设备类型包括：
+设备类型由一组 `SPIDEV_xxx(n)` 宏定义（如 `SPIDEV_FLASH(n)`、`SPIDEV_DISPLAY(n)`、`SPIDEV_MMCSD(n)` 等），完整列表见 `include/nuttx/spi/spi.h` 中的 `enum spi_devtype_e`。
 
-```c
-#define SPIDEV_NONE(n)          SPIDEV_ID(SPIDEVTYPE_NONE,          (n))
-#define SPIDEV_MMCSD(n)         SPIDEV_ID(SPIDEVTYPE_MMCSD,         (n))
-#define SPIDEV_FLASH(n)         SPIDEV_ID(SPIDEVTYPE_FLASH,         (n))
-#define SPIDEV_ETHERNET(n)      SPIDEV_ID(SPIDEVTYPE_ETHERNET,      (n))
-#define SPIDEV_DISPLAY(n)       SPIDEV_ID(SPIDEVTYPE_DISPLAY,       (n))
-#define SPIDEV_CAMERA(n)        SPIDEV_ID(SPIDEVTYPE_CAMERA,        (n))
-#define SPIDEV_WIRELESS(n)      SPIDEV_ID(SPIDEVTYPE_WIRELESS,      (n))
-#define SPIDEV_TOUCHSCREEN(n)   SPIDEV_ID(SPIDEVTYPE_TOUCHSCREEN,   (n))
-#define SPIDEV_EXPANDER(n)      SPIDEV_ID(SPIDEVTYPE_EXPANDER,      (n))
-#define SPIDEV_MUX(n)           SPIDEV_ID(SPIDEVTYPE_MUX,           (n))
-#define SPIDEV_AUDIO_DATA(n)    SPIDEV_ID(SPIDEVTYPE_AUDIO_DATA,    (n))
-#define SPIDEV_AUDIO_CTRL(n)    SPIDEV_ID(SPIDEVTYPE_AUDIO_CTRL,    (n))
-#define SPIDEV_EEPROM(n)        SPIDEV_ID(SPIDEVTYPE_EEPROM,        (n))
-#define SPIDEV_ACCELEROMETER(n) SPIDEV_ID(SPIDEVTYPE_ACCELEROMETER, (n))
-#define SPIDEV_BAROMETER(n)     SPIDEV_ID(SPIDEVTYPE_BAROMETER,     (n))
-#define SPIDEV_TEMPERATURE(n)   SPIDEV_ID(SPIDEVTYPE_TEMPERATURE,   (n))
-#define SPIDEV_IEEE802154(n)    SPIDEV_ID(SPIDEVTYPE_IEEE802154,    (n))
-#define SPIDEV_CONTACTLESS(n)   SPIDEV_ID(SPIDEVTYPE_CONTACTLESS,   (n))
-#define SPIDEV_CANBUS(n)        SPIDEV_ID(SPIDEVTYPE_CANBUS,        (n))
-#define SPIDEV_USBHOST(n)       SPIDEV_ID(SPIDEVTYPE_USBHOST,       (n))
-#define SPIDEV_LPWAN(n)         SPIDEV_ID(SPIDEVTYPE_LPWAN,         (n))
-#define SPIDEV_ADC(n)           SPIDEV_ID(SPIDEVTYPE_ADC,           (n))
-#define SPIDEV_MOTOR(n)         SPIDEV_ID(SPIDEVTYPE_MOTOR,         (n))
-#define SPIDEV_IMU(n)           SPIDEV_ID(SPIDEVTYPE_IMU,           (n))
-#define SPIDEV_USER(n)          SPIDEV_ID(SPIDEVTYPE_USER,          (n))
-```
-
-#### 3. SPI_SETFREQUENCY
-
-```c
-#define SPI_SETFREQUENCY(d,f) ((d)->ops->setfrequency(d,f))
-
-/* 参数说明
- * d : spi device
- * f : The SPI frequency requested
- */
-```
-
-该接口用于设置 SPI 传输时的时钟频率。该接口必须在 SPI 传输开始之前调用。
-
-#### 4. SPI_SETDELAY
-
-```c
-#ifdef CONFIG_SPI_DELAY_CONTROL
-#  define SPI_SETDELAY(d,a,b,c,i) ((d)->ops->setdelay(d,a,b,c,i))
-#endif
-
-/* 参数说明
- * d : spi device
- * a : The delay between CS active and first CLK
- * b : The delay between last CLK and CS inactive
- * c : The delay between CS inactive and CS active again
- * i : The delay between frames
- */
-```
-
-该接口用于配置 SPI 时钟信号的参数。当指定的 SPI 控制器支持对 SPI master 产生的时钟信号进行配置时，可使用该接口对其进行配置，在使用之前需要使能 `CONFIG_SPI_DELAY_CONTROL`。
-
-#### 5. SPI_SETMODE
-
-```c
-#define SPI_SETMODE(d,m) \
-  do { if ((d)->ops->setmode) (d)->ops->setmode(d,m); } while (0)
-
-/* 参数说明
- * d : spi device
- * m : The SPI mode requested
- */
-```
-
-该接口用于设置 SPI master 的工作模式。SPI 存在四种工作模式，openvela 对其定义如下：
+**工作模式（`SPI_SETMODE` 的 `m` 参数）**：
 
 ```c
 enum spi_mode_e
@@ -165,39 +90,7 @@ enum spi_mode_e
 };
 ```
 
-SPI master 的工作模式需要与 SPI slave 的工作模式保持一致。
-
-#### 6. SPI_SETBITS
-
-```c
-#define SPI_SETBITS(d,b) \
-  do { if ((d)->ops->setbits) (d)->ops->setbits(d,b); } while (0)
-
-/* 参数说明
- * d : spi device
- * b : The number of bits in an SPI word.
- */
-```
-
-该接口用于配置 SPI master 中一个传输 word 所包含的 bit 数。SPI master 在数据传输时以 word 为单位，该接口定义了 SPI master 一次传输的大小。
-
-#### 7. SPI_HWFEATURES
-
-```c
-#ifdef CONFIG_SPI_HWFEATURES
-#  define SPI_HWFEATURES(d,f) \
-  (((d)->ops->hwfeatures) ? (d)->ops->hwfeatures(d,f) : ((f) == 0 ? OK : -ENOSYS))
-#else
-#  define SPI_HWFEATURES(d,f) (((f) == 0) ? OK : -ENOSYS)
-#endif
-
-/* 参数说明
- * d : spi device
- * f : H/W feature flags
- */
-```
-
-该接口用于使能 SPI master 硬件的特定功能。参数 f 为一系列硬件功能标志位的集合，当前 openvela 定义了如下几种类型的硬件功能标志位：
+**硬件功能标志位（`SPI_HWFEATURES` 的 `f` 参数）**：
 
 ```c
 Bit 0: HWFEAT_CRCGENERATION                    //硬件 crc 校验（默认状态需为未使能）
@@ -207,167 +100,15 @@ Bit 3: HWFEAT_ESCAPE_LASTXFER                  //目前是针对 SAMV7 使用的
 Bit 4: HWFEAT_AUTO_CS_CONTROL                  //由硬件控制器按可编程时序自动控制 CS
 Bit 5: HWFEAT_INVERT_CS_LEVEL                  //反转 CS 电平（高电平有效）
 Bit 6: HWFEAT_LSBFIRST                         //SPI 传输时低位优先（默认状态需为 MSB）
-Bit 7: Turn deferred trigger mode on or off.   //延迟触发功能，当前主要用在 DMA 发送情况下，只有在调用了 spi_trigger 的情况下，DMA 才启动发送
-
-#  ifdef CONFIG_SPI_CRCGENERATION
-#    define HWFEAT_CRCGENERATION                     (1 << 0)
-#  endif
-
-#  ifdef CONFIG_SPI_CS_CONTROL
-#    define HWFEAT_FORCE_CS_CONTROL_MASK             (31 << 1)
-#    define HWFEAT_FORCE_CS_INACTIVE_AFTER_TRANSFER  (1 << 1)
-#    define HWFEAT_FORCE_CS_ACTIVE_AFTER_TRANSFER    (1 << 2)
-#    define HWFEAT_ESCAPE_LASTXFER                   (1 << 3)
-#    define HWFEAT_AUTO_CS_CONTROL                   (1 << 4)
-#    define HWFEAT_INVERT_CS_LEVEL                   (1 << 5)
-#  endif
-
-#  ifdef CONFIG_SPI_BITORDER
-#    define HWFEAT_MSBFIRST                          (0 << 6)
-#    define HWFEAT_LSBFIRST                          (1 << 6)
-#  endif
-
-#  ifdef CONFIG_SPI_TRIGGER
-#    define HWFEAT_TRIGGER                           (1 << 7)
-#  endif
+Bit 7: 延迟触发模式开关                         //主要用于 DMA，置位后传输需由 SPI_TRIGGER 实际触发
 ```
 
-当 SPI master 硬件有独特的硬件能力需要使能时，可以借用 `SPI_HWFEATURES` 对其进行配置，并同时使能对应的控制宏。
-
-#### 8. SPI_STATUS
-
-```c
-#define SPI_STATUS(d,id) \
-  ((d)->ops->status ? (d)->ops->status(d, id) : SPI_STATUS_PRESENT)
-
-/* 参数说明
- * d  : spi device
- * id : Identifies the device to report status on
- */
-```
-
-该接口针对从设备，而非 SPI master 硬件本身，用于获取当前 SPI MMC/SD 的状态。当前支持的状态如下：
+**状态位（`SPI_STATUS` 的返回值）**：
 
 ```c
 #define SPI_STATUS_PRESENT     0x01 /* Bit 0=1: MMC/SD card present */
 #define SPI_STATUS_WRPROTECTED 0x02 /* Bit 1=1: MMC/SD card write protected */
 ```
-
-#### 9. SPI_CMDDATA
-
-```c
-#ifdef CONFIG_SPI_CMDDATA
-#  define SPI_CMDDATA(d,id,cmd) ((d)->ops->cmddata(d,id,cmd))
-#endif
-
-/* 参数说明
- * d  : spi device
- * id : Identifies the device
- * cmd: TRUE: The following word is a command; FALSE: the following words are data
- */
-```
-
-该接口针对从设备，而非 SPI master 硬件本身，用于告知从设备接下来的数据传输是 CMD 数据还是 DATA 数据。主要应用在从设备对 CMD 和 DATA 数据有明确状态切换的场景。使用前需使能 `CONFIG_SPI_CMDDATA`。
-
-#### 10. SPI_SEND
-
-```c
-#define SPI_SEND(d,wd) ((d)->ops->send(d,wd))
-
-/* 参数说明
- * d  : spi device
- * wd : The word to send.
- */
-```
-
-该接口用于向从设备发送一个 word，该 word 的实际长度应该与 `SPI_SETBITS` 中设置的 bit 数保持一致，如 `SPI_SETBITS` 设置 8，则 wd 应为一个 8 bit 的数据，即使传入的为 16 bit 的数据，SPI master 也只会发送 8 bit 给从设备。
-
-#### 11. SPI_EXCHANGE
-
-```c
-#ifdef CONFIG_SPI_EXCHANGE
-#  define SPI_EXCHANGE(d,t,r,l) ((d)->ops->exchange(d,t,r,l))
-#endif
-
-/* 参数说明
- * d : spi device
- * t : A pointer to the buffer of data to be sent
- * r : A pointer to the buffer in which to receive data
- * l : The length of data to be exchanged in units of words
- */
-```
-
-该接口用于与从设备进行双向传输，在本次传输过程中，SPI master 将 tx buffer 中的数据发送到对端，并同时接收对端的数据到 rx buffer，数据长度以 `SPI_SETBITS` 中设置的 nbits 为单位。当 SPI master 和 SPI slave 支持双向的传输时，需要实现这个接口，并使能 `CONFIG_SPI_EXCHANGE`，四线 SPI 通常需要实现这个接口。
-
-#### 12. SPI_SNDBLOCK
-
-```c
-#ifdef CONFIG_SPI_EXCHANGE
-#  define SPI_SNDBLOCK(d,b,l) ((d)->ops->exchange(d,b,0,l))
-#else
-#  define SPI_SNDBLOCK(d,b,l) ((d)->ops->sndblock(d,b,l))
-#endif
-
-/* 参数说明
- * d : spi device
- * b : A pointer to the buffer of data to be sent
- * l : The length of data to send from the buffer in number of words.
- */
-```
-
-该接口用于向从设备发送一组数据，长度以 word 为单位。当 SPI master 和 SPI slave 之间支持双向传输（即使能了 `CONFIG_SPI_EXCHANGE`）时，直接调用 `SPI_EXCHANGE` 接口即可。否则，需实现单向的传输函数。通常三线 SPI 只能够进行半双工通讯，需要额外实现 `SPI_SNDBLOCK` 和 `SPI_RECVBLOCK`。
-
-#### 13. SPI_RECVBLOCK
-
-```c
-#ifdef CONFIG_SPI_EXCHANGE
-#  define SPI_RECVBLOCK(d,b,l) ((d)->ops->exchange(d,0,b,l))
-#else
-#  define SPI_RECVBLOCK(d,b,l) ((d)->ops->recvblock(d,b,l))
-#endif
-
-/* 参数说明
- * d : spi device
- * b : A pointer to the buffer in which to receive data
- * l : The length of data that can be received in the buffer in number of words
- */
-```
-
-该接口用于从从设备读取一组数据，长度以 word 为单位。与 `SPI_SNDBLOCK` 相同，当 SPI master 和 SPI slave 之间支持双向传输（即使能了 `CONFIG_SPI_EXCHANGE`）时，直接调用 `SPI_EXCHANGE` 接口即可。
-
-#### 14. SPI_REGISTERCALLBACK
-
-```c
-#define SPI_REGISTERCALLBACK(d,c,a) \
-  ((d)->ops->registercallback ? (d)->ops->registercallback(d,c,a) : -ENOSYS)
-
-/* 参数说明
- * d : spi device
- * c : The function to call on the media change
- * a : A caller provided value to return with the callback
- */
-```
-
-该接口用于向 SPI 注册一个回调函数，主要是为 media 设备提供，用于检测 media 设备状态的转换。回调函数遵循的格式为：
-
-```c
-typedef CODE void (*spi_mediachange_t)(FAR void *arg);
-```
-
-当然，如果对应的设备非 media 设备，也可以借用该接口实现自己的回调以完成相应的功能。
-
-#### 15. SPI_TRIGGER
-
-```c
-#  define SPI_TRIGGER(d) \
-  (((d)->ops->trigger) ? ((d)->ops->trigger(d)) : -ENOSYS)
-
-/* 参数说明
- * d : spi device
- */
-```
-
-该接口用于实际触发此前配置好的 DMA 传输。当硬件支持延迟 DMA 触发的硬件特性时，需要实现并使能对应的宏。
 
 ### 3、驱动适配
 
@@ -655,139 +396,33 @@ SPI slave 的分层与 master 略有不同，它由两套相互绑定的接口�
 
 ### 2、控制器层接口
 
-#### 1. SPIS_CTRLR_BIND
+由控制器层驱动实现，供设备层调用，宏的完整定义见 `include/nuttx/spi/slave.h`：
 
-```c
-#define SPIS_CTRLR_BIND(c,d,m,n) ((c)->ops->bind(c,d,m,n))
+| 接口 | 作用 | 使用要点 |
+| :--- | :--- | :--- |
+| `SPIS_CTRLR_BIND(c,d,m,n)` | 绑定设备与控制器并配置使能 | 在内部完成模式/nbits/MSB-LSB 配置；`m`、`n` 须与对端 master 一致；`n>0` 为 MSB first，`n<0` 为 LSB first |
+| `SPIS_CTRLR_UNBIND(c)` | 解绑控制器 | 解绑时应失能控制器 |
+| `SPIS_CTRLR_ENQUEUE(c,v,l)` | 把待发送数据放入发送队列 | 下次 master 发起传输时由控制器发出 |
+| `SPIS_CTRLR_QFULL(c)` | 查询发送队列是否已满 | 入队前可用其判断空间 |
+| `SPIS_CTRLR_QFLUSH(c)` | 清空发送队列 | 丢弃尚未发出的数据 |
+| `SPIS_CTRLR_QPOLL(c)` | 驱动控制器把接收数据交给设备层 | 见下方说明 |
 
-/* 参数说明
- * c : SPI Slave controller interface instance
- * d : SPI Slave device interface instance
- * m : The SPI Slave mode requested
- * n : The number of bits requested.
- *     If value is greater than 0, then it implies MSB first
- *     If value is less than 0, then it implies LSB first with -nbits
- */
-```
-
-该接口用于绑定设备和控制器，在该接口内需要完成 SPI slave 的模式、nbits、MSB/LSB 的硬件配置，并同时使能 SPI slave 控制器。调用该接口时传入的模式、nbits 需要与对端的 SPI master 的配置保持一致。
-
-#### 2. SPIS_CTRLR_UNBIND
-
-```c
-#define SPIS_CTRLR_UNBIND(c) ((c)->ops->unbind(c))
-
-/* 参数说明
- * c : SPI Slave controller interface instance
- */
-```
-
-该接口用于控制器的解绑，解绑时应失能 SPI 控制器。
-
-#### 3. SPIS_CTRLR_ENQUEUE
-
-```c
-#define SPIS_CTRLR_ENQUEUE(c,v,l)  ((c)->ops->enqueue(c,v,l))
-
-/* 参数说明
- * c : SPI Slave controller interface instance
- * v : Pointer to the command/data mode data to be shifted out.
- * l : Number of units of "nbits" wide to enqueue
- */
-```
-
-该接口用于向控制器中发送数据，待下次 SPI master 发起传输时，该数据将会被 SPI slave 控制器发送出去。
-
-#### 4. SPIS_CTRLR_QFULL
-
-```c
-#define SPIS_CTRLR_QFULL(c)  ((c)->ops->qfull(c))
-
-/* 参数说明
- * c : SPI Slave controller interface instance
- */
-```
-
-该接口用于查询控制器中发送缓冲区是否已满。
-
-#### 5. SPIS_CTRLR_QFLUSH
-
-```c
-#define SPIS_CTRLR_QFLUSH(c)  ((c)->ops->qflush(c))
-
-/* 参数说明
- * c : SPI Slave controller interface instance
- */
-```
-
-该接口用于清空控制器发送缓冲区中的内容。
-
-#### 6. SPIS_CTRLR_QPOLL
-
-```c
-#define SPIS_CTRLR_QPOLL(c)  ((c)->ops->qpoll(c))
-
-/* 参数说明
- * c : SPI Slave controller interface instance
- */
-```
-
-该接口用于查询控制器接收缓冲区的数据长度，如果控制器缓冲区中包含数据，则控制器层需要调用设备层提供的接口 `SPIS_DEV_RECEIVE` 读取接收缓冲区的数据到设备层。openvela 将设备读取控制器层接收缓冲区数据的过程内置在了 `SPIS_CTRLR_QPOLL` 中，而不是先调用 `SPIS_CTRLR_QPOLL` 再调用 `SPIS_DEV_RECEIVE` 进行读取。
+> `SPIS_CTRLR_QPOLL` 的处理被内置在控制器实现中：调用后，控制器会在内部多次回调设备层的 `SPIS_DEV_RECEIVE` 把接收缓冲区数据交给设备层，直到缓冲区为空或设备层无法再接收（`receive` 返回值小于传入长度）才返回，无需先 `QPOLL` 再单独调用 `RECEIVE`。
 
 ### 3、设备层接口
 
-#### 1. SPIS_DEV_RECEIVE
+由设备层驱动实现，作为回调被控制器层调用，宏的完整定义见 `include/nuttx/spi/slave.h`：
 
-```c
-#define SPIS_DEV_RECEIVE(d,v,n)  ((d)->ops->receive(d,v,n))
+| 接口 | 作用 | 使用要点 |
+| :--- | :--- | :--- |
+| `SPIS_DEV_RECEIVE(d,v,n)` | 把控制器收到的数据交给设备层 | `v` 指向控制器接收缓冲区，`n` 为有效长度；返回实际接收的单元数（小于 `n` 表示设备层已无法再收）；长度单位为 `BIND` 设置的 nbits |
+| `SPIS_DEV_GETDATA(d,v)` | 向设备层取下一笔待发送数据 | 下一个 master 时钟到来时发出 |
+| `SPIS_DEV_GETRECVBUF(d,b)` | 取零拷贝（nocopy）接收缓冲区 | 返回的缓冲区指针非 NULL 时，enqueue 数据直接写入，返回可接收单元数 |
+| `SPIS_DEV_NOTIFY(d,s)` | 通知一次收/发完成 | 状态 `s` 类型为 `spi_slave_state_t`，见下方 |
+| `SPIS_DEV_SELECT(d,s)` | 通知设备层片选事件 | `s` 表示片选是否处于有效状态 |
+| `SPIS_DEV_CMDDATA(d,i)` | 通知 CMD/DATA 状态切换 | `i` 为 True 表示 Data，False 表示 Cmd |
 
-/* 参数说明
- * d : SPI Slave device interface instance
- * v : Pointer to the new data that has been shifted in
- * n : Length of the new data in units of nbits wide
- */
-```
-
-该接口用于将控制器层接收缓冲区中的数据接收到设备层。其中，参数 v 是指向控制器层的接收缓冲区地址，参数 n 为缓冲区中包含的有效数据长度，返回值为实际接收到设备层的数据长度，数据长度以 `SPIS_CTRLR_BIND` 中设置的 nbits 为单位。设备层在调用 `SPIS_CTRLR_QPOLL` 时，控制器层应该在该函数中多次调用 `SPIS_DEV_RECEIVE` 将接收到的数据返回给设备层，直到控制器层接收缓冲区为空，或者是 `SPIS_DEV_RECEIVE` 的返回值小于传入的参数 n（代表控制器层已经无法接收更多数据了），`SPIS_CTRLR_QPOLL` 才返回。
-
-#### 2. SPIS_DEV_GETDATA
-
-```c
-#define SPIS_DEV_GETDATA(d,v)  ((d)->ops->getdata(d,v))
-
-/* 参数说明
- * d : SPI Slave device interface instance
- * v : Pointer to the data buffer pointer to be shifted out
- */
-```
-
-该接口用于从设备层获取待发送数据，这段数据在下一次 SPI master clk 到来时会被发送出去。
-
-#### 3. SPIS_DEV_GETRECVBUF
-
-```c
-#define SPIS_DEV_GETRECVBUF(d,b)  ((d)->ops->getrecvbuf(d,b))
-
-/* 参数说明
- * d : SPI Slave device interface instance
- * b : Pointer to the receive buffer pointer to be shifted in
- */
-```
-
-该接口用于支持零拷贝（nocopy）传输。当设备层希望进行零拷贝传输时调用该接口，若控制器获取到的缓冲区指针非 NULL，则会将 enqueue 的数据直接传输到该缓冲区。返回值为本次可接收的数据单元数量。
-
-#### 4. SPIS_DEV_NOTIFY
-
-```c
-#define SPIS_DEV_NOTIFY(d,s)  ((d)->ops->notify(d,s))
-
-/* 参数说明
- * d : SPI Slave device interface instance
- * s : The Receive and send state, type of state is spi_slave_state_t
- */
-```
-
-该接口用于通知设备层一次发送或接收过程完成。设备层可以根据控制器返回的状态继续发送或者接收数据：
+`SPIS_DEV_NOTIFY` 的状态取值：
 
 ```c
 typedef enum
@@ -797,32 +432,6 @@ typedef enum
   SPISLAVE_TRANSFER_FAILED
 } spi_slave_state_t;
 ```
-
-#### 5. SPIS_DEV_SELECT
-
-```c
-#define SPIS_DEV_SELECT(d,s) ((d)->ops->select(d,s))
-
-/* 参数说明
- * d : SPI Slave device interface instance
- * s : Indicates whether the chip select is in active state
- */
-```
-
-该接口用于通知设备层控制器检测到的片选事件。
-
-#### 6. SPIS_DEV_CMDDATA
-
-```c
-#define SPIS_DEV_CMDDATA(d,i) ((d)->ops->cmddata(d,i))
-
-/* 参数说明
- * d : SPI Slave device interface instance
- * i : True: Data is selected, False: Cmd is selected
- */
-```
-
-该接口用于通知设备层 CMD/DATA 数据状态的切换。
 
 ### 4、驱动适配
 
