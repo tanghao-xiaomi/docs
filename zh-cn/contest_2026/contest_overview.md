@@ -1,0 +1,64 @@
+# 首届 openvela AI 硬件全球开发者大赛
+
+> 一文读懂本次大赛：赛道方向、参赛流程、开发资源，帮助你快速上手。
+
+## 大赛简介
+
+本届大赛面向全球开发者开放报名，基于 openvela（小米开源 AIoT 操作系统），**全程不设固定命题、不限创新方向**，支持选手自由发挥。
+
+赛事全程约 4 个月，设置线上初赛、线下决赛、现场颁奖盛典。无论你是独立开发者、创业团队、开源爱好者还是在校学生，均可参赛。
+
+## 参赛流程
+
+| 阶段 | 时间 |
+| ---- | ---- |
+| 报名 + 提交作品方向 | 6 月 8 日起（长期开放） |
+| 提交作品 | 7 月 1 日 – 9 月 21 日 |
+| 作品初评 | 9 月 21 日 – 9 月 30 日 |
+| 决赛名单公示 | 10 月（待定） |
+| 线下决赛答辩 | 即将公布 |
+| 线下颁奖典礼 | 即将公布 |
+
+## 三个赛道方向
+
+本次大赛提供三个参赛指引方向（**不作为独立赛道，仅为选题参考**，鼓励多方向组合开发）：
+
+| 方向 | 说明 | 详细指引 |
+| ---- | ---- | -------- |
+| **AI 硬件产品创新** | 基于 openvela + ai_agent，开发「能主动、会执行」的嵌入式 AI Agent 应用。 | [进入](./ai_hardware/ai_hardware_guide_index.md) |
+| **手表应用创新** | 基于 openvela 快应用框架，开发智能手表/手环上的腕上创新应用。 | [进入](./quickapp/quickapp_guide_index.md) |
+| **新硬件平台适配**（重点鼓励） | 将 openvela 移植到全新芯片/开发板，完成 BSP 适配与驱动开发。 | [进入](./hardware_porting/hardware_porting_guide_index.md) |
+
+## 参赛要求（通用）
+
+- 代码统一基于 openvela 大赛分支 **`dev-ai-contest-2026`** 开发与提交。
+- 参赛须使用 AI Coding 完成开发，至少完成 1 个有效 Skills 沉淀。
+- 参赛作品须为原创，遵循 Apache 2.0 开源协议。
+- 每支队伍 1–5 人，每人仅限加入一支队伍。
+
+## 赋能支持（报名审核通过即解锁）
+
+- **硬件免费**：免费申领官方开发板。
+- **AI 算力**：免费发放 Xiaomi MiMo Token 套餐。
+- **硬件制作补贴**：嘉立创免费打样券包（PCB + SMT + 3D 打印，价值 400 元）。
+- **技术培训**：系列课程、实操教学、官方直播、社群答疑。
+
+## 开发资源
+
+| 资源 | 链接 |
+| ---- | ---- |
+| openvela 代码仓库 | [GitHub](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/README_zh-cn.md) / [Gitee](https://gitee.com/open-vela/docs/tree/dev-ai-contest-2026/) |
+| 官方文档站 | https://doc.openvela.com/document |
+| 视频教程（B站） | https://www.bilibili.com/video/BV19PsAzCEuy |
+| MiMo API 配置 | https://platform.xiaomimimo.com/docs/zh-CN/integration/claudecode |
+
+## 作品提交要求
+
+- 作品以压缩包提交，命名：`2026 openvela AI硬件开发赛 - 队伍名称 - 作品名称`
+- 压缩包包含：介绍文档 + 项目代码 + Demo 演示视频（不超过 5 分钟）
+- 源码须提交至 openvela 社区大赛分支 `dev-ai-contest-2026`
+
+## 联系方式
+
+- 咨询邮箱：miot-vela@xiaomi.com
+- 技术交流群：报名审核通过后加入
