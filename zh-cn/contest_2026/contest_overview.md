@@ -23,8 +23,8 @@
 
 **具体每一步：**
 
-1. **报名 + 提交作品方向**（6 月 8 日起）→ 等待组委会审核。
-2. **审核通过**：解锁权益——申领开发板、Xiaomi MiMo Token、嘉立创打样券，并扫码进官方交流群（详见下方「赋能支持」）。
+1. **报名 + 提交作品方向**（6 月 8 日起）→ 等待组委会审核。可通过 [报名审核状态查询表](https://rcna6b54jm72.feishu.cn/share/base/query/shrcnLw0VxcviyUZjkupxM0IrRc1) 查询审核进度。
+2. **审核通过**：解锁权益——申领开发板、Xiaomi MiMo Token、嘉立创打样券，并扫码进官方交流群（详见下方「赋能支持」）。可通过 [权益发放状态查询表](https://rcna6b54jm72.feishu.cn/share/base/query/shrcnLtUdjLqXiNkTjSwV1nRaoX1) 查询开发板、MiMo 账号充值、嘉立创打样券等发放情况。
 3. **拿到专属仓**：组委会按 `contest2026_<编号>_<队伍名>` 为你创建 GitHub 专属仓库并开通 push 权限。详见 [《参赛代码提交指南》](./code_submission_guide.md)。
 4. **拉取工程**：用组委会提供的 `repo init` + `repo sync` 一键拉取「openvela 全量源码 + 你的专属仓」。详见 [《参赛代码提交指南》](./code_submission_guide.md)。
 5. **开发**：选择你的赛道指引（见下方「三个赛道方向」），鼓励使用 AI Coding；只在专属仓子目录内开发。
@@ -73,6 +73,7 @@ openvela 是小米开源的 AIoT 操作系统，专为轻量化、低功耗、AI
 | 官方文档站        | https://doc.openvela.com/document?id=1423&version=dev-ai-contest-2026&language=cn                                                                                                                                                                   |
 | 视频教程          | [B站](https://www.bilibili.com/video/BV19PsAzCEuy) / [YouTube](https://www.youtube.com/@openvela)                                                                                                                                                   |
 | MiMo API 配置     | https://platform.xiaomimimo.com/docs/zh-CN/integration/claudecode                                                                                                                                                                                   |
+| AI 辅助开发       | 遇到复杂技术问题，善用大模型「全局提问」快速找 BUG、理思路：openvela 推荐用 VS Code，快应用推荐用 AIoT IDE。大模型配置方法见 [配置大模型](./quickapp/quickapp_ai_workflow.md#步骤四配置大模型)                                                      |
 | AI 开发技能集     | [`.claude`](../../../../../.claude/blob/dev-ai-contest-2026/README_zh-cn.md)：驱动开发等 AI Skills 与 Agent，配合 Claude Code 等工具使用                                                                                                            |
 
 ## 作品提交要求
