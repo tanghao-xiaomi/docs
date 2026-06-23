@@ -144,14 +144,7 @@
 - **技术资料**：[LogicPi A1 开发板资料.zip](../attachment/LogicPi%20A1%20开发板资料.zip)
 - **上游目标仓（获奖后 PR）**：`vendor_amlogic`（仓库 / 大赛分支待创建，`boards/` 目录）
 
-### 6、RK3588 开发板 — 瑞芯微（适配中）
-
-- **芯片特点**：高性能多核 SoC（详见数据手册）
-- **状态**：适配进行中。
-- **技术资料**：[RK3588 开发板资料.zip](../attachment/RK3588%20开发板资料.zip) ｜ [百度网盘（提取码 gff2）](https://pan.baidu.com/s/1GxmBTRQScAm-h79onpWidA?pwd=gff2)
-- **上游目标仓（获奖后 PR）**：`vendor_rockchip`（`dev-ai-contest-2026` 分支，`boards/` 目录）
-
-### 7、KICKPI-K7（RK3576）— 瑞芯微
+### 6、KICKPI-K7（RK3576）— 瑞芯微
 
 - **芯片特点**：Rockchip RK3576 高性能多核 SoC（含 NPU，详见官方硬件资料）
 - **适用场景**：边缘 AI、多媒体网关、工业控制、嵌入式学习
