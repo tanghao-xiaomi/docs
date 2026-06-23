@@ -151,6 +151,14 @@
 - **技术资料**：[RK3588 开发板资料.zip](../attachment/RK3588%20开发板资料.zip) ｜ [百度网盘（提取码 gff2）](https://pan.baidu.com/s/1GxmBTRQScAm-h79onpWidA?pwd=gff2)
 - **上游目标仓（获奖后 PR）**：`vendor_rockchip`（`dev-ai-contest-2026` 分支，`boards/` 目录）
 
+### 7、KICKPI-K7（RK3576）— 瑞芯微
+
+- **芯片特点**：Rockchip RK3576 高性能多核 SoC（含 NPU，详见官方硬件资料）
+- **适用场景**：边缘 AI、多媒体网关、工业控制、嵌入式学习
+- **设备介绍**：[KICKPI-K7 上手指南](https://doc.kickpi.cn/Products/Beginner-Guide/KICKPI-K7/) ｜ [硬件资料](https://doc.kickpi.cn/Products/Introduction/KICKPI-K7/) ｜ [百度网盘（提取码 kpcd）](https://pan.baidu.com/s/1cMKQt06pWdxZcsOp1XIvQA?pwd=kpcd)
+- **适配指引**：[KICKPI-K7 README](../../../../../../vendor_rockchip/blob/dev-ai-contest-2026/boards/rk3576/kickpi-k7/README_zh-cn.md)
+- **上游目标仓（获奖后 PR）**：`vendor_rockchip`（`dev-ai-contest-2026` 分支，`boards/` 目录）
+
 ## 三、相关资源
 
 - [新硬件适配赛道详细指引](./hardware_porting_track_guide.md)
