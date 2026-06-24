@@ -8,6 +8,20 @@ This guide will walk you through setting up the development environment, downloa
 >
 > This guide is only for **Ubuntu 22.04**. Compiling in Windows Subsystem for Linux (WSL) or Docker container environments is not supported.
 
+> **AI-Assisted Setup (Optional)**
+>
+> If you use an AI coding assistant (e.g., [Claude Code](https://docs.anthropic.com/en/docs/claude-code)), you can automate the entire setup process using openvela AI Skills:
+>
+> ```bash
+> git clone https://github.com/open-vela/.claude.git .claude
+> ```
+>
+> Then tell your AI assistant: "Help me set up the openvela development environment".
+>
+> The AI will automatically handle environment detection, dependency installation, source selection, code download, compilation, and emulator launch, providing targeted solutions if any issues arise.
+>
+> To set up manually, continue with the steps below.
+
 ## Step 1: Preparations
 
 Before you begin, please ensure your development environment meets the following requirements.
@@ -25,11 +39,11 @@ Before you begin, please ensure your development environment meets the following
 
 Before you start, you need to install the necessary packages for compiling openvela.
 
-Open a terminal and run the following commands to update the package list and install Git, CMake, Python 3, and the build-essential toolchain.
+Open a terminal and run the following commands to update the package list and install  Git, curl, CMake, Python 3, libc++abi-dev, and the build-essential toolchain.
 
 ```Bash
 sudo apt update
-sudo apt install git cmake python3 build-essential
+sudo apt install git curl cmake python3 libc++abi-dev build-essential
 ```
 
 ### 4. Install Git LFS
