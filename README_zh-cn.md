@@ -48,7 +48,7 @@ Vela 的命名源自拉丁语中船帆的含义，也是南方星空中船帆星
 
 - **标准兼容和高可移植性**
 
-    openvela 内核基于 Apache NuttX ，这个被称为 “Tiny Linux” 的系统为 openvela 提供了高标准的 POSIX 兼容性。通过持续提升其 POSIX 兼容性，openvela 当前已达到 88% 的兼容水平。这种高标准的兼容性意味着在其他标准操作系统（例如 Linux）上开发的软件可以轻松迁移到 openvela，几乎不需要额外的工作。
+    openvela 内核基于 Apache NuttX ，这个被称为 "Tiny Linux" 的系统为 openvela 提供了高标准的 POSIX 兼容性。通过持续提升其 POSIX 兼容性，openvela 当前已达到 89% 的兼容水平。这种高标准的兼容性意味着在其他标准操作系统（例如 Linux）上开发的软件可以轻松迁移到 openvela，几乎不需要额外的工作。
 
 - **全面的连接套件**
 
@@ -64,6 +64,14 @@ Vela 的命名源自拉丁语中船帆的含义，也是南方星空中船帆星
 - 关于**开发板**的适配案例，请参见[案例文档](./zh-cn/dev_board/Development_Board.md)。
 
 ## 最新动态
+
+- 端侧 AI Agent 能力升级：openvela 提供 **[ai_agent](../../../../open-vela/packages_ai_agent/blob/dev/README.md)** AI Agent 框架，支持多 LLM 后端、35+ 内置工具、Skills 技能系统、主动任务与多渠道接入，仅需约 256KB RAM 即可在手表、眼镜、音箱等小型设备上运行端侧智能应用。
+
+- AI 辅助开发体验升级：openvela 推出官方 AI 开发技能集 **[.claude](https://github.com/open-vela/.claude)**，配合 Claude Code 等 AI 编程工具，用自然语言即可完成环境搭建、编译构建、驱动适配与调试，显著降低开发门槛。
+
+- openvela 官方网站正式上线：openvela 现已拥有独立的官方网站，为开发者提供更加便捷的信息获取渠道，包括项目介绍、文档中心、社区动态等。欢迎访问 [openvela 官网](https://openvela.com)。
+
+- openvela 生态迎来重要里程碑：润芯微智能科技股份有限公司自主研发的 **[Gemini-S1](https://rivotek.feishu.cn/wiki/Onndw4lmniFBnEk0Rb7cDbwOnTc)** 开发板成为首款通过 openvela 官方兼容性认证的开发板，标志着 openvela 生态建设迈出了坚实的一步。
 
 - 硬件生态大幅扩展：新增对 **英飞凌 AURIX™ TC4**、**旗芯微 (Flagchip) MCU** 以及 **QEMU-R52 SIL** 平台的适配支持。（查看 [TC4 指南](./zh-cn/quickstart/development_board/tc4d9_evb_guide.md) / [旗芯微指南](./zh-cn/quickstart/development_board/fc7300f8m_evb_guide.md)）
 
@@ -95,6 +103,7 @@ Vela 的命名源自拉丁语中船帆的含义，也是南方星空中船帆星
 
 - **推荐基准**：建议**优先基于 openvela 最新发布版本**（即 `trunk` 上的 Release Tag）进行硬件适配开发。
 - **风险提示**：当前 **`dev` 分支** 处于快速迭代期，代码更新较为频繁，可能存在底层接口变动或临时性问题，**不推荐**作为硬件适配的基准代码。
+- **自测验证**：完成移植后，可参考社区提供的 [xTS 认证测试用例精简集](./zh-cn/test_dev_guide/openvela_xts_test_cases.md) 进行自测，涵盖系统内核、驱动 BSP、文件系统、WiFi、蓝牙、音视频等基础能力，命令可直接拷贝至 nsh 执行，无需从零编写。
 - **获取支持**：如有适配需求或在过程中遇到技术疑问，欢迎**提交 Issue** 或者通过**微信社区**与我们取得联系，openvela 团队将提供必要的开发支持。
 
 ### 版本维护策略
@@ -131,9 +140,23 @@ openvela 采用双分支模型来平衡系统的创新性与稳定性。请根�
 
 [快速入门（Ubuntu）](./zh-cn/quickstart/openvela_ubuntu_quick_start.md)
 
+> **AI 辅助搭建**：如果您使用 AI 编程助手，可借助 openvela 官方 AI 技能集快速搭建开发环境，详见下方 [AI 辅助开发](#ai-辅助开发openvela-ai-skills) 一节。
+
 ### 快应用开发
 
 [快应用快速入门](https://iot.mi.com/vela/quickapp/zh/guide/start/use-ide.html)
+
+## AI 辅助开发（openvela AI Skills）
+
+[.claude](https://github.com/open-vela/.claude) 是 openvela 官方维护的 AI 开发技能集（Skills），为 AI 编程助手提供 openvela 环境搭建、编译构建、驱动适配、调试优化等专业领域知识，是基于 AI Coding 工作流开发 openvela 的推荐入口。
+
+配合 Claude Code 等 AI 编程工具使用：
+
+```bash
+git clone https://github.com/open-vela/.claude.git .claude
+```
+
+克隆后，向 AI 描述你的需求（例如"帮我搭建 openvela 开发环境"），AI 即可借助这些 Skills 自动完成环境搭建、编译、调试等任务。
 
 ## 子仓库列表
 
@@ -146,10 +169,16 @@ openvela 采用双分支模型来平衡系统的创新性与稳定性。请根�
 | [external](../../../../open-vela/external)     | openvela 引入的三方库。                                                                                                                                                                                                                                                         |
 | [tests](../../../../open-vela/tests)           | 该仓库包含接口测试，具体包括多媒体、文件系统、内存管理和 socket 通信等核心 API 的测试。                                                                                                                                                                                         |
 | [docs](../../../../open-vela/docs)             | openvela 对应的开发者文档。                                                                                                                                                                                                                                                     |
+| [packages](../../../../open-vela/packages)     | openvela 应用与示例包集合，包含 AI Agent 框架（ai_agent）、原生应用与游戏示例（demos）、快应用示例（fe_examples）及快应用框架等。大赛相关的示例与框架主要位于此仓库。                                                                                                           |
+| [build](../../../../open-vela/build)           | openvela 编译构建系统，提供 `build.sh`、CMake/Kconfig 构建脚本与编译配置。                                                                                                                                                                                                      |
+| [.claude](../../../../open-vela/.claude)       | openvela 官方 AI 开发技能集（Skills），配合 AI 编程工具辅助环境搭建、编译、驱动适配与调试，详见 [AI 辅助开发](#ai-辅助开发openvela-ai-skills) 一节。                                                                                                                            |
+
+> 说明：`repo sync` 后还会在工作区生成 `prebuilts/` 目录，存放编译工具链、QEMU、模拟器等平台预编译二进制。该目录由 `repo` 按平台自动拉取，无需手动维护或单独建仓。
 
 ## 开发者文档
 
 - [文档中心](https://doc.openvela.com/document)
+- [API 参考文档](./zh-cn/api/index.md) — 内核接口、网络接口、应用框架 API 完整说明
 
 ## 应用示例中心
 
@@ -167,6 +196,12 @@ openvela 采用双分支模型来平衡系统的创新性与稳定性。请根�
 - [打地鼠](../../../../open-vela/packages_demos/blob/trunk/Whackmole/README_zh-cn.md)：演示游戏循环、随机数生成和动画效果。
 
 查看完整的原生应用列表，请访问[原生应用示例仓库](../../../packages_demos/blob/trunk/README_zh-cn.md)。
+
+### AI Agent 应用
+
+运行在 openvela 上的端侧 AI Agent 框架，支持多 LLM 后端、35+ 内置工具、Skills 技能系统、主动任务与多渠道接入，可在约 256KB RAM 的小型设备上运行。
+
+- [ai_agent](../../../../open-vela/packages_ai_agent/blob/dev/README.md)：AI Agent 框架，提供对话、工具调用、Skills、主动任务、MCP 协议、多设备协作等能力，是 AI 硬件应用开发的核心基座。
 
 ### 快应用（Quick Apps）
 

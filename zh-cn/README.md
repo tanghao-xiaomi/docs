@@ -6,6 +6,6 @@
 - [快速入门](./quickstart/README.md)
 - [设备开发指南](./device_dev_guide/README.md)
 - [demo 示例](./demo/README.md)
-- [API 参考](./api/README.md)
-- [版本说明](./release-notes/README.md)
+- [API 参考](./api/index.md)
+- [版本说明](./release_notes/README.md)
 - [FAQ](./faq/README.md)
