@@ -24,7 +24,7 @@
 **具体每一步：**
 
 1. **报名 + 提交作品方向**（6 月 8 日起）→ 等待组委会审核。可通过 [报名审核状态查询表](https://rcna6b54jm72.feishu.cn/share/base/query/shrcnLw0VxcviyUZjkupxM0IrRc) 查询审核进度。
-2. **审核通过**：解锁权益——申领开发板、Xiaomi MiMo Token、嘉立创打样券，并扫码进官方交流群（详见下方「赋能支持」）。可通过 [权益发放状态查询表](https://rcna6b54jm72.feishu.cn/share/base/query/shrcnLtUdjLqXiNkTjSwV1nRaoX) 查询开发板、MiMo 账号充值、嘉立创打样券等发放情况。
+2. **审核通过**：你会收到报名成功邮件。请先填写邮件中的《物资发放信息登记表》，工作人员将与你核对物资发放账号与收货邮寄地址；核对无误后即可解锁权益——申领开发板、Xiaomi MiMo Token、嘉立创打样券，并扫码进官方交流群（详见下方「赋能支持」）。可通过 [权益发放状态查询表](https://rcna6b54jm72.feishu.cn/share/base/query/shrcnLtUdjLqXiNkTjSwV1nRaoX) 查询开发板、MiMo 账号充值、嘉立创打样券等发放情况。
 3. **拿到专属仓**：组委会按 `contest2026_<编号>_<队伍名>` 为你创建 GitHub 专属仓库并开通 push 权限。仓库创建后请**及时登录 GitHub 接受协作邀请**（邀请默认 7 天内有效，过期需重新申请）。详见 [《参赛代码提交指南》](./code_submission_guide.md)。
 4. **拉取工程**：用组委会提供的 `repo init` + `repo sync` 一键拉取「openvela 全量源码 + 你的专属仓」。详见 [《参赛代码提交指南》](./code_submission_guide.md)。
 5. **开发**：选择你的赛道指引（见下方「三个赛道方向」），鼓励使用 AI Coding；只在专属仓子目录内开发。
