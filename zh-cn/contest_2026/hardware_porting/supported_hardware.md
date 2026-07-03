@@ -93,6 +93,15 @@
 - **设备介绍**：[匠芯创D12x开发板资料.zip](../attachment/匠芯创D12x开发板资料.zip)
 - **开发指南**：[D12X-Demo68-nor README](../../../../../../vendor_artinchip/blob/dev-ai-contest-2026/README.md)
 
+### 11、D13x 系列 EVM 评估板 — 匠芯创
+
+<img src="../images/aic_d13x.jpg" alt="匠芯创 D13x 系列 EVM 评估板" width="360" />
+
+- **芯片特点**：RISC-V 架构、国产自主、显控一体 MCU
+- **适用场景**：工业 HMI、网关、串口屏等泛工业领域及智慧家居
+- **设备介绍**：[匠芯创开发板资料.zip](../attachment/匠芯创开发板资料.zip)
+- **开发指南**：待补充（等待开发人员提供 D13x 专属 README 链接）
+
 ## 二、待适配开发板
 
 > 以下平台 openvela 尚未完成适配，主办方提供芯片手册、硬件设计文档、参考代码等技术资料，适合「新硬件平台适配」赛道挑战（重点加分方向）。
@@ -117,16 +126,7 @@
 - **设备介绍**：面向端侧 AI 的全功能评估/量产参考平台，BK7258 Wi-Fi 6 AI-SoC（480MHz ARMv8-M），板载双 QSPI 屏、DVP 摄像头、麦克风阵列、陀螺仪、NFC、震动马达、Nand Flash 等；支持端侧语音唤醒（KWS）、AEC、NS、G711/G722 编码及 H.264/MJPEG 硬件编解码，可对接 OpenAI、豆包、DeepSeek 等大模型。[官方文档](https://docs.bekencorp.com/arminodoc/bk_ai_smp/bk7258/zh_CN/v3.1.1/intro/index.html)
 - **上游目标仓（获奖后 PR）**：`vendor_beken`（`dev-ai-contest-2026` 分支，`boards/` 目录）
 
-### 3、D13x 系列 EVM 评估板 — 匠芯创
-
-<img src="../images/aic_d13x.jpg" alt="匠芯创 D13x 系列 EVM 评估板" width="360" />
-
-- **芯片特点**：RISC-V 架构、国产自主、显控一体 MCU
-- **适用场景**：工业 HMI、网关、串口屏等泛工业领域及智慧家居
-- **技术资料**：[匠芯创开发板资料.zip](../attachment/匠芯创开发板资料.zip)
-- **上游目标仓（获奖后 PR）**：`vendor_artinchip`（`dev-ai-contest-2026` 分支创建中，`boards/` 目录）
-
-### 4、STM32N647 开发板 — 意法半导体
+### 3、STM32N647 开发板 — 意法半导体
 
 <img src="../images/stm32n647.jpg" alt="STM32N647 开发板" width="360" />
 
@@ -135,7 +135,7 @@
 - **设备介绍**：[STM32N6 系列](https://www.st.com.cn/zh/microcontrollers-microprocessors/stm32n6-series.html) ｜ [正点原子 DNN647 资料](https://wiki.alientek.com/docs/Boards/STM32/DNN647/TOC/)
 - **上游目标仓（获奖后 PR）**：`vendor_st`（`dev-ai-contest-2026` 分支，`boards/` 目录）
 
-### 5、逻极派 LogicPi A1 边缘 AI 开发板 — Amlogic
+### 4、逻极派 LogicPi A1 边缘 AI 开发板 — Amlogic
 
 <img src="../images/logicpi_a1.png" alt="逻极派 LogicPi A1 边缘 AI 开发板" width="360" />
 
@@ -144,7 +144,7 @@
 - **技术资料**：[LogicPi A1 开发板资料.zip](../attachment/LogicPi%20A1%20开发板资料.zip)
 - **上游目标仓（获奖后 PR）**：`vendor_amlogic`（仓库 / 大赛分支待创建，`boards/` 目录）
 
-### 6、KICKPI-K7（RK3576）— 瑞芯微
+### 5、KICKPI-K7（RK3576）— 瑞芯微
 
 - **芯片特点**：Rockchip RK3576 高性能多核 SoC（含 NPU，详见官方硬件资料）
 - **适用场景**：边缘 AI、多媒体网关、工业控制、嵌入式学习
