@@ -175,6 +175,8 @@ vapp hap://app/com.application.lyra.demo
 
 ## 六、在快应用中调用 velaclaw
 
+> 接口规格以 [Xiaomi Vela 官方文档 — system.velaclaw](https://iot.mi.com/vela/quickapp/zh/features/other/velaclaw.html) 为准，本节给出大赛环境下的常用调用方式。
+
 上面运行的是示例应用。如果你要在自己的快应用中使用 velaclaw，核心调用方式如下（该调用代码属于应用源码，需在编译打包前写入你的快应用工程）：
 
 ```javascript
