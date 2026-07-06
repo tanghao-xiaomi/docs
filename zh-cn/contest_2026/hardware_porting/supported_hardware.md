@@ -58,12 +58,12 @@
 - **技术资料**：[BES2800BP.zip](../attachment/BES2800BP.zip)
 - **开发指南**：[BEST1700 AOS EVB README](../../../../../../vendor_bes/blob/dev-ai-contest-2026/boards/best1700_ep/aos_evb/README_zh-cn.md)（BES2800BP 芯片，板/SDK 代号 best1700_ep）
 
-### 7、STM32H750VBT6 — 意法半导体
+### 7、STM32H750B-DK — 意法半导体
 
-<img src="../images/stm32h750vbt6.jpeg" alt="STM32H750VBT6 开发板" width="360" />
+<img src="../images/stm32h750vbt6.jpeg" alt="STM32H750B-DK 开发板" width="360" />
 
-- **芯片特点**：Cortex-M7 480MHz + QSPI Flash
-- **适用场景**：AI 硬件、高性能 MCU 通用开发
+- **芯片特点**：主控 STM32H750XBH6（Cortex-M7 480MHz），板载 4.3" RGB 触摸屏 + SDRAM + QSPI Flash
+- **适用场景**：AI 硬件、高性能 MCU 通用开发、图形 HMI
 - **开发指南**：[STM32H750B-DK README](../../../../../../nuttx/blob/dev-ai-contest-2026/boards/arm/stm32h7/stm32h750b-dk/README_zh-cn.md)
 
 ### 8、STM32H7A3 — 意法半导体
