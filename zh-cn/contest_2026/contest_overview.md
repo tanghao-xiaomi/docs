@@ -137,6 +137,10 @@ openvela 是小米开源的 AIoT 操作系统，专为轻量化、低功耗、AI
 
 不可以。开发板数量有限，每支队伍仅限申领一块，额外缴纳押金也无法增发。
 
+**如何获取小米 ID？**
+
+登录 [Xiaomi MiMo 控制台](https://platform.xiaomimimo.com/console/profile)，进入「个人中心」，查看**《小米ID》**字段即可。
+
 **为什么我的 MiMo 账号无法充值 Token？**
 
 最常见原因是**账号未实名**：请先确认 Xiaomi MiMo 账号（小米 ID）已完成**实名认证**，未实名的账号无法接收 Token Plan 充值。其次，Token Plan 只能注入到**当前没有 Token Plan 的账号**（见下一条）。
