@@ -153,6 +153,16 @@
 - **适配指引**：[KICKPI-K7 README](../../../../../../vendor_rockchip/blob/dev-ai-contest-2026/boards/rk3576/kickpi-k7/README_zh-cn.md)
 - **上游目标仓（获奖后 PR）**：`vendor_rockchip`（`dev-ai-contest-2026` 分支，`boards/` 目录）
 
+### 6、对话式 AI 开发套件 — 声网 & 博通集成
+
+<img src="../images/agora_beken_convai.png" alt="声网 & 博通集成 对话式 AI 开发套件" width="360" />
+
+- **芯片特点**：贴近真人的极致 AI 对话体验、支持视觉理解、主流 AI 与芯片支持、灵活的单/双屏设计、极速产品原型送样、一站式出海支持
+- **适用场景**：AI 玩具、AI 教育硬件、AI 陪伴设备、家居语音助手、穿戴设备（个人助手）
+- **设备介绍**：声网（Agora）与博通集成联合推出的对话式 AI 开发套件，将声网的实时对话式 AI 能力与博通集成的端侧 AI 芯片结合，面向 AI 玩具、教育硬件、陪伴设备等场景，支持单/双屏灵活设计与快速原型送样。
+- **技术资料**：[声网开发套件使用说明.pdf](../attachment/声网开发套件使用说明.pdf)
+- **上游目标仓（获奖后 PR）**：`vendor_beken`（`dev-ai-contest-2026` 分支，`boards/` 目录；以仓库实际为准）
+
 ## 三、相关资源
 
 - [新硬件适配赛道详细指引](./hardware_porting_track_guide.md)
