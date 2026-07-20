@@ -163,6 +163,16 @@
 - **技术资料**：[声网开发套件使用说明.pdf](../attachment/声网开发套件使用说明.pdf)
 - **上游目标仓（获奖后 PR）**：`vendor_beken`（`dev-ai-contest-2026` 分支，`boards/` 目录；以仓库实际为准）
 
+### 7、K1 MUSE Pi Pro — 进迭时空
+
+<img src="../images/spacemit_k1_musepi_pro.png" alt="进迭时空 K1 MUSE Pi Pro 开发板" width="360" />
+
+- **芯片特点**：SpacemiT K1（M1 模组）八核 RISC-V X60 + 2.0 TOPS AI 算力 + 8GB DDR；板载 WiFi6 & Bluetooth 5.2、40Pin 标准 GPIO 扩展接口，支持 MIPI/HDMI 显示；软硬件资料全开源
+- **适用场景**：边缘智能硬件、多模态感知、大语言模型应用、机器人、工业自动化、AI 教育科研、物联网
+- **设备介绍**：基于进迭时空 SpacemiT K1 的紧凑型单板计算机，八核 RISC-V X60 处理器搭配 2.0 TOPS AI 融合算力，板载 WiFi6/BT5.2 与 40Pin GPIO 扩展，支持 MIPI/HDMI 显示，软硬件资料全开源，适合边缘 AI、大模型应用与机器人等方向的适配挑战。
+- **适配指引**：[K1 MUSE Pi Pro README](../../../../../../vendor_SpacemiT/blob/dev-ai-contest-2026/boards/k1/muse_pi_pro/README_zh-cn.md)
+- **上游目标仓（获奖后 PR）**：`vendor_SpacemiT`（`dev-ai-contest-2026` 分支，`boards/` 目录）
+
 ## 三、相关资源
 
 - [新硬件适配赛道详细指引](./hardware_porting_track_guide.md)
