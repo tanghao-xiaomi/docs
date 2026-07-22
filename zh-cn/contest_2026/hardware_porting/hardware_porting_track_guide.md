@@ -56,7 +56,7 @@ AI Coding 对话会自动记录到本机 staging（不会自动上传），需�
 | [NuttX 已支持平台列表](https://nuttx.apache.org/docs/latest/platforms/index.html)                | 选择目标硬件的参考                                                                                   |
 | [支持的硬件平台](./supported_hardware.md)                                                        | 大赛提供的开发板清单（已支持 + 待适配）                                                              |
 | [openvela 已适配硬件清单](../../dev_board/Development_Board.md)                                  | 避免重复适配（已适配的不计入本赛道）                                                                 |
-| [openvela 驱动开发指南](../../device_dev_guide/driver/driver_development.md)                     | 板级适配与驱动开发参考                                                                               |
+| [openvela 驱动开发指南](../../device_dev_guide/driver/driver_development.md)                     | UART/SPI/I2C 等各类驱动的适配与开发参考                                                              |
 | [openvela 芯片移植指南](../../chip_porting/porting_guide.md)                                     | 完整的芯片移植流程                                                                                   |
 | [openvela AI 驱动开发技能集](../../../../../../.claude/blob/dev-ai-contest-2026/README_zh-cn.md) | AI 辅助驱动开发：`nuttx-driver-development` / `driver-code-reviewer` skill + `driver-workflow` agent |
 
