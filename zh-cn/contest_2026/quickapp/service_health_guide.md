@@ -17,7 +17,19 @@
 
 ## 二、跑通最小示例
 
-**获取与使用**：`service.health` 与调试用模拟数据均已内置在 AIoT IDE 的模拟器中，在 IDE 中启动对应的模拟器即可直接使用，无需手动安装。
+**获取与使用**：出库包后续将集成到 IDE——开发者在 IDE 中启动对应的模拟器即可直接使用，`service.health` 与调试用模拟数据均已内置在模拟器中，无需手动安装。
+
+**IDE 插件版本要求**：使用 `service.health` 前，请先在 IDE 中将 `aiot-core` 与 `aiot-emulator` 两个插件更新至 **1.7.22 及以上**版本。版本过低会导致 `service.health` 模块无法加载，或模拟器内置的健康数据回放不可用。
+
+- **更新方式**：打开 IDE 扩展面板，搜索 `aiot-core` 与 `aiot-emulator`，分别点击「更新」至 1.7.22+。
+
+![IDE 插件版本更新](./figures/service_health_ide_plugin_version.png)
+
+**模拟器镜像版本要求**：在 IDE 中创建模拟器时，镜像版本必须选择 **`vela-miwear-watch-5.0(开发者大赛)`**。只有该镜像内置了 `service.health` 模块及调试用的健康数据回放数据，选择其他镜像会导致 `service.health` 无法加载或无数据回放。
+
+- **创建方式**：打开 IDE 模拟器管理面板 → 新建 → 在「镜像版本」下拉列表中选择 `vela-miwear-watch-5.0(开发者大赛)` → 完成创建后启动即可。
+
+![模拟器镜像版本选择](./figures/service_health_emulator_image_version.jpg)
 
 **前置 checklist：**
 
@@ -287,3 +299,7 @@ health.unsubscribeSample({ dataType: health.DATA_TYPES.HEART_RATE });
 - 支持后台订阅：应用切到后台后 `subscribeSample` 仍持续回调。
 - 统一错误码：`200` 通用 / `202` 参数错误 / `203` 功能不支持。
 - 提供配套最小示例快应用（心率 / 血氧 / 压力三张卡片）。
+
+## 十一、FAQ
+
+暂未沉淀常见问题。参赛者提问后将逐步补充。
