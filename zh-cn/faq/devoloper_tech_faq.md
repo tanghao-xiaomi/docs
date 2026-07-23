@@ -167,7 +167,7 @@ openvela 遵循 Apache 协议，您可以自由选择是否开源。
 
 **有**。
 
-openvela 社区提供了一份现成的 [xTS 测试用例精简集](/document?id=XXX&version=trunk&language=cn)，涵盖系统内核、驱动 BSP、文件系统、WiFi、蓝牙、音视频等基础能力的标准测试用例，可直接拷贝命令到 nsh 中执行，无需从零编写。
+openvela 社区提供了一份现成的 [xTS 测试用例精简集](../test_dev_guide/openvela_xts_test_cases.md)，涵盖系统内核、驱动 BSP、文件系统、WiFi、蓝牙、音视频等基础能力的标准测试用例，可直接拷贝命令到 nsh 中执行，无需从零编写。
 
 测试用例分为两类：
 
