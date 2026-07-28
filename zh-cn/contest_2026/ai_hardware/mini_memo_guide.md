@@ -8,7 +8,7 @@
 
 ### 1、这份文档能帮到你什么
 
-mini_memo 是基于 **ai_agent 框架**（VelaClaw）构建的 AI 记忆助手示例应用。如果你正在参加 AI 应用开发大赛，这份文档将帮助你：
+mini_memo 是基于 **ai_agent 框架**（openvelaClaw）构建的 AI 记忆助手示例应用。如果你正在参加 AI 应用开发大赛，这份文档将帮助你：
 
 - **理解 ai_agent 框架的核心能力**：主动任务、意图路由、NL→结构化输出、Shell/Tool 调用
 - **学会在自己的应用中集成这些能力**：通过 mini_memo 的真实代码，看懂每个 API 怎么调、怎么接
@@ -24,14 +24,14 @@ mini_memo 重点展示了 ai_agent 框架区别于普通聊天机器人的 4 大
 | -------------- | --------------------------------------------------------------- | ------------------------------------------ |
 | **意图路由**   | LLM 分类 + 本地 fallback 双模式，确保离线可用                   | 任何需要理解用户意图并分发处理的场景       |
 | **NL→结构化**  | 语音输入 → LLM 解析 → JSON 结构化数据（type/content/remind_at） | 需要将自然语言转为可执行数据的场景         |
-| **Shell/Tool** | VelaClaw Client 连接远程 LLM + voice_channel 真实 PTT + ASR     | 需要调用远程 AI 服务或集成语音交互的场景   |
+| **Shell/Tool** | openvelaClaw Client 连接远程 LLM + voice_channel 真实 PTT + ASR | 需要调用远程 AI 服务或集成语音交互的场景   |
 | **主动任务**   | 当前用 LVGL Timer 轮询（🏆待优化：改用框架 cron_service）        | 健康提醒、运动检测、定时推送等主动服务场景 |
 
 ### 3、mini_memo 应用简介
 
 mini_memo 是一个 AI 记忆助手，用户通过 PTT 语音输入，应用自动分类（备忘/待办/日程）并存储，到期主动提醒。核心特性：
 
-- **VelaClaw LLM 意图分类**：PTT 语音录入 → LLM 自动分类 + 提取结构化数据
+- **openvelaClaw LLM 意图分类**：PTT 语音录入 → LLM 自动分类 + 提取结构化数据
 - **本地 Fallback**：LLM 不可用时自动降级到本地关键词分类
 - **持久化存储**：cJSON + 文件系统，记忆持久化到 `memos.json`
 - **主动定时提醒**：LVGL Timer 轮询
@@ -47,7 +47,7 @@ mini_memo 是一个 AI 记忆助手，用户通过 PTT 语音输入，应用自�
 文件结构：
 mini_memo/
 ├── mini_memo_core.h    # 核心 API 定义（数据结构、分类接口、Agent 接口）
-├── mini_memo_core.c    # 核心实现（持久化、分类、VelaClaw 集成、voice_channel）
+├── mini_memo_core.c    # 核心实现（持久化、分类、openvelaClaw 集成、voice_channel）
 ├── mini_memo_ui.h      # UI 接口定义
 ├── mini_memo_ui.c      # LVGL UI 实现（tileview、PTT、提醒、通知）
 ├── mini_memo_main.c    # 入口（LVGL 初始化、双循环、--ptt-selftest）
@@ -62,14 +62,14 @@ mini_memo/
 
 > **这是本文档的核心章节。** 以下每个小节对应 ai_agent 框架的一项核心能力，用 mini_memo 的真实代码展示「怎么用」，并给出你可以直接借鉴的要点。
 
-### 1、VelaClaw Client：连接远程 LLM
+### 1、openvelaClaw Client：连接远程 LLM
 
-**做什么**：`velaclaw_client_open()` 连接 VelaClaw Daemon，获得远程 LLM 调用能力。
+**做什么**：`velaclaw_client_open()` 连接 openvelaClaw Daemon，获得远程 LLM 调用能力。
 
 **mini_memo 怎么做的**：
 
 ```c
-// mini_memo_core.c - VelaClaw Client 初始化
+// mini_memo_core.c - openvelaClaw Client 初始化
 int memo_agent_init(void)
 {
     int voice_ret;
@@ -81,7 +81,7 @@ int memo_agent_init(void)
             MEMO_TAG, voice_ret);
     }
 
-    // 打开 VelaClaw Client（远程 LLM，可选）
+    // 打开 openvelaClaw Client（远程 LLM，可选）
     g_client = velaclaw_client_open("mini_memo");
     if (!g_client) {
         syslog(LOG_WARNING, "%s: velaclaw_client_open failed\n", MEMO_TAG);
@@ -99,7 +99,7 @@ int memo_agent_init(void)
 1. **velaclaw_client_open("你的应用名")** 是入口，传入你的应用标识
 2. **LLM 是可选的**：即使 `velaclaw_client_open` 失败，应用仍可运行（降级到本地逻辑）
 3. **用 g_agent_connected 标记连接状态**，后续所有 LLM 调用都先检查此标志
-4. **voice_channel 和 VelaClaw Client 独立初始化**，voice 是本地能力，LLM 是远程能力
+4. **voice_channel 和 openvelaClaw Client 独立初始化**，voice 是本地能力，LLM 是远程能力
 
 ### 2、意图路由：LLM 分类 + 本地 Fallback
 
@@ -196,7 +196,7 @@ static const char* g_classify_prompt_fmt =
     "- content: concise version of input\n"
     "- remind_at: extract time if mentioned, else 0";
 
-// VelaClaw 调用
+// openvelaClaw 调用
 static void classify_response_cb(int status, const char* response_json,
     void* cookie)
 {
@@ -325,7 +325,7 @@ int memo_voice_stop(char* text_out, size_t text_cap)
 1. **voice_channel_start() / voice_channel_stop_with_text()** 是核心 API，start 录音、stop 返回 ASR 文本
 2. **PTT 按钮事件**：在 LVGL 按钮的 `LV_EVENT_PRESSED` / `LV_EVENT_RELEASED` 中分别调用 start/stop
 3. **--ptt-selftest 参数**：调试时用 `mini_memo --ptt-selftest` 自动触发 PTT 流程测试
-4. **voice_channel 和 VelaClaw Client 是独立的**：voice 是本地能力，LLM 是远程能力，可以只启用其中一个
+4. **voice_channel 和 openvelaClaw Client 是独立的**：voice 是本地能力，LLM 是远程能力，可以只启用其中一个
 
 ### 6、数据持久化：cJSON + 文件系统
 
@@ -383,12 +383,12 @@ mini_memo
 ├── mini_memo_core（数据层，mini_memo_core.c/h）
 │   ├── memo_store：cJSON + 文件系统持久化
 │   ├── memo_classify_local：本地关键词分类
-│   └── memo_agent：VelaClaw LLM 集成
+│   └── memo_agent：openvelaClaw LLM 集成
 ├── mini_memo_ui（表现层，mini_memo_ui.c/h）
 │   ├── lv_tileview：4页面水平滑动
 │   ├── LVGL Timer：flush(5s) + remind(60s)
 │   └── PTT 按钮：voice_channel 集成
-└── VelaClaw Client（远程服务）
+└── openvelaClaw Client（远程服务）
     ├── velaclaw_ask：LLM 分类
     └── voice_channel：PTT + ASR
 ```
@@ -416,7 +416,7 @@ int main(int argc, FAR char* argv[])
     // 3. 初始化数据存储
     memo_store_init(CONFIG_MINI_MEMO_DATA_DIR);
 
-    // 4. 初始化 VelaClaw Agent（LLM + voice）
+    // 4. 初始化 openvelaClaw Agent（LLM + voice）
     memo_agent_init();
 
     // 5. 初始化 UI（含 timer）
@@ -475,7 +475,7 @@ config LVX_USE_DEMO_MINI_MEMO
     ---help---
         AI-powered memory assistant with voice input,
         intent classification, and proactive reminders.
-        Requires VelaClaw framework for LLM and tools.
+        Requires openvelaClaw framework for LLM and tools.
 
 if LVX_USE_DEMO_MINI_MEMO
 
@@ -554,7 +554,7 @@ nsh> mini_memo --ptt-selftest
 
 ### Q1：LLM 分类失败时如何处理？
 
-**原因**：VelaClaw Daemon 未连接或网络异常。
+**原因**：openvelaClaw Daemon 未连接或网络异常。
 
 **解决**：mini_memo 内置自动降级机制：
 
@@ -639,13 +639,13 @@ syslog(LOG_INFO, "%s: save: %d items to %s\n",
 
 #### 意图分类 API
 
-| API                                     | 说明                                   |
-| --------------------------------------- | -------------------------------------- |
-| `memo_agent_init()`                     | 初始化 VelaClaw Client + voice_channel |
-| `memo_agent_is_connected()`             | 检查 LLM 连接状态                      |
-| `memo_classify_async(text, cb, cookie)` | 异步分类（LLM优先）                    |
-| `memo_classify_sync(text, result)`      | 同步分类（阻塞）                       |
-| `memo_classify_local(text)`             | 本地关键词分类（始终可用）             |
+| API                                     | 说明                                       |
+| --------------------------------------- | ------------------------------------------ |
+| `memo_agent_init()`                     | 初始化 openvelaClaw Client + voice_channel |
+| `memo_agent_is_connected()`             | 检查 LLM 连接状态                          |
+| `memo_classify_async(text, cb, cookie)` | 异步分类（LLM优先）                        |
+| `memo_classify_sync(text, result)`      | 同步分类（阻塞）                           |
+| `memo_classify_local(text)`             | 本地关键词分类（始终可用）                 |
 
 #### 语音 API
 
@@ -671,7 +671,7 @@ syslog(LOG_INFO, "%s: save: %d items to %s\n",
 | ------------------------- | ---------- |
 | LVGL UI（4页面 tileview） | ~50KB      |
 | 记忆存储（100条，cJSON）  | ~40KB      |
-| VelaClaw Client           | ~20KB      |
+| openvelaClaw Client       | ~20KB      |
 | 字体缓存                  | ~20KB      |
 | LVGL Timer × 2            | ~5KB       |
 | **总计**                  | **~135KB** |
