@@ -454,7 +454,7 @@ velaclaw.ask({
 **注意事项：**
 
 - `router_set`、`ask` 等是 `vela>` 提示符下的命令，不是 NSH 命令。前台运行 `ai_agent` 进入 vela CLI，或提前推送 config 文件。
-- 该模拟器与快应用调用 velaclaw 的完整流程，另见 [快应用调用 velaclaw 教程](../quickapp/quickapp_velaclaw.md)。
+- 该模拟器与快应用调用 `@system.velaclaw` 的完整流程，另见 [快应用调用端侧 AI Agent 教程](../quickapp/quickapp_velaclaw.md)。
 
 ### 4、添加新开发板
 
